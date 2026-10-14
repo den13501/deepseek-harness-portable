@@ -74,6 +74,7 @@ export class Entry {
 
   /** True when this entry or any owning parent entry is disabled. */
   get disabled() {
+    if (this.context.waterfall('loader/entry-disabled', this, () => false)) return true
     // group is always enabled
     if (this.options.group) return false
     let entry: Entry | undefined = this
@@ -208,6 +209,7 @@ export class Entry {
 
   /** Import and start the configured plugin if it is not already running. */
   async init() {
+    if (this.disabled) return
     try {
       await (this._initTask ??= this._init())
     } finally {

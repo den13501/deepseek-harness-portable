@@ -60,3 +60,29 @@ export const en = {
   'error.unavailable': 'Read failed: {message}',
   retry: 'Retry',
 } satisfies Record<SidebarDocumentPreviewKey, string>
+
+/** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
+export const zhTW = {
+  'loading': '文件渲染中...',
+  'loadMore': '載入更多',
+  'changed': '檔案已更新，目前顯示為舊內容',
+  'reloadNow': '重新載入',
+  'reload': '重新讀取檔案',
+  'autoRefresh': '自動重新整理',
+  'autoRefresh.enable': '開啟自動重新整理',
+  'autoRefresh.disable': '關閉自動重新整理',
+  'wrap.enable': '自動換行',
+  'wrap.disable': '取消換行',
+  'wrap.aria': '自動換行',
+  'openWith': '開啟方式',
+  'viewer.text': '純文本',
+  'resourceUnavailable': '檔案資源服務不可用',
+  'rendererUnavailable': '預覽器 {name} 不可用',
+  'unsupportedFile': '該格式檔案暫時無法預覽',
+  'error.notFound': '檔案不存在，可能已被移動或刪除',
+  'error.tooLarge': '單頁內容超過 {limit} 上限，無法讀取',
+  'error.notText': '該格式檔案暫時無法預覽',
+  'error.notRegularFile': '該路徑不是普通檔案，沒有可顯示的內容',
+  'error.unavailable': '讀取失敗：{message}',
+  'retry': '重試',
+} satisfies Record<keyof typeof zh, string>

@@ -20,3 +20,12 @@ export const zh: Record<PluginsSettingsLocaleKey, string> = {
   tabs: '插件视图',
   empty: '本部署没有开放任何插件视图。',
 }
+
+/** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
+export const zhTW = {
+  'nav': '內建外掛',
+  'title': '內建外掛',
+  'intro': '檢視內建部署的外掛列表',
+  'tabs': '外掛視圖',
+  'empty': '本部署沒有開放任何外掛視圖。',
+} satisfies Record<keyof typeof zh, string>

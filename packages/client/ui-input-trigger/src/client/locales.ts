@@ -32,3 +32,16 @@ export const en = {
   'crumbs.aria': 'Folder navigation',
   'suggestions.aria': 'Trigger suggestions',
 } satisfies Record<MenuKey, string>
+
+/** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
+export const zhTW = {
+  'command': '指令',
+  'skill': '技能',
+  'subagent': '子代理',
+  'loading': '正在載入…',
+  'drill.aria': '進入目錄',
+  'drill.hint': '進入目錄',
+  'drill.key': 'Tab',
+  'crumbs.aria': '目錄導航',
+  'suggestions.aria': '觸發候選建議',
+} satisfies Record<keyof typeof zh, string>

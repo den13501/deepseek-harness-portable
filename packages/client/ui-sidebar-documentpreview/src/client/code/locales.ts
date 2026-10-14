@@ -21,3 +21,10 @@ export const en = {
   copy: 'Copy',
   copied: 'Copied',
 } satisfies Record<keyof typeof zh, string>
+
+/** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
+export const zhTW = {
+  'title': '程式碼',
+  'copy': '複製',
+  'copied': '已複製',
+} satisfies Record<keyof typeof zh, string>

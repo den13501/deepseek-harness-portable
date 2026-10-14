@@ -22,3 +22,12 @@ declare module '@deepseek-ai/dsh-client-ui-slots' {
     inspectorPanel: keyof typeof zh
   }
 }
+
+/** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
+export const zhTW = {
+  'title': 'NodeJS 診斷',
+  'toggle': '展開或收起 NodeJS 診斷',
+  'close': '收起',
+  'resize': '調整 NodeJS 診斷面板高度',
+  'frameTitle': 'NodeJS 診斷',
+} satisfies Record<keyof typeof zh, string>

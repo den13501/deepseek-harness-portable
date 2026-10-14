@@ -63,3 +63,32 @@ export const en = {
   'status.in_progress': 'In progress',
   'status.completed': 'Completed',
 } satisfies Record<TeamKey, string>
+
+/** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
+export const zhTW = {
+  'trigger': '代理團隊',
+  'loading': '正在載入團隊…',
+  'unavailable': 'Team 暫不可用',
+  'failure': '團隊持久記錄無效：{message}',
+  'empty': '暫無共享任務，可以透過對話建立',
+  'roster': '成員',
+  'tasks': '共享任務',
+  'model': '模型',
+  'open': '開啟成員對話',
+  'current': '目前對話',
+  'owner': 'Owner',
+  'unowned': '未分配',
+  'blockedBy': '依賴',
+  'writeScopes': '寫入范圍',
+  'ready': '可開始',
+  'blocked': '被依賴阻塞',
+  'task.expand': '展開',
+  'task.collapse': '收起',
+  'memberStatus.running': '執行中',
+  'memberStatus.inactive': '未執行',
+  'memberStatus.provisioning': '準備中',
+  'memberStatus.failed': '失敗',
+  'status.pending': '待處理',
+  'status.in_progress': '進行中',
+  'status.completed': '已完成',
+} satisfies Record<keyof typeof zh, string>

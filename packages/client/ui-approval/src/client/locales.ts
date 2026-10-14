@@ -20,3 +20,12 @@ export const en = {
   reject: 'Reject',
   allowOnce: 'Allow once',
 } satisfies Record<ApprovalKey, string>
+
+/** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
+export const zhTW = {
+  'waiting': '等待審批',
+  'detail.aria': '審批詳情',
+  'escalation': '工具 {toolName} 請求越權執行',
+  'reject': '拒絕',
+  'allowOnce': '允許一次',
+} satisfies Record<keyof typeof zh, string>

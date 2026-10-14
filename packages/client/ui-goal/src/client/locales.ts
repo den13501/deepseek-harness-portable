@@ -34,3 +34,19 @@ export const en = {
   'action.edit': 'Edit goal',
   'action.clear': 'Clear goal',
 } satisfies Record<GoalKey, string>
+
+/** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
+export const zhTW = {
+  'phase.active': '進行中的目標',
+  'phase.active.disarmed': '已暫停的目標',
+  'phase.paused': '已暫停的目標',
+  'phase.blocked': '受阻的目標',
+  'objective.aria': '目標內容',
+  'commandInput.aria': '指令輸入',
+  'action.save': '儲存目標',
+  'action.cancel': '取消編輯',
+  'action.pause': '暫停目標',
+  'action.resume': '恢復目標',
+  'action.edit': '編輯目標',
+  'action.clear': '清除目標',
+} satisfies Record<keyof typeof zh, string>

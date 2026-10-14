@@ -62,3 +62,24 @@ export const en = {
   'error.notDirectory': 'That is not a directory.',
   'error.unavailable': 'Read failed: {message}',
 } satisfies Record<SidebarFilesKey, string>
+
+/** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
+export const zhTW = {
+  'shortcut.noSession': '請先選擇對話',
+  'type.label': '檔案',
+  'guide.title': '工作區檔案',
+  'guide.description': '瀏覽對話工作區的檔案',
+  'loading': '正在讀取…',
+  'empty': '空目錄',
+  'truncated': '條目太多，只顯示了一部分。',
+  'noWorkspace': '這個對話沒有工作區目錄。',
+  'reload': '重新讀取',
+  'autoRefresh': '自動重新整理',
+  'autoRefresh.enable': '開啟自動重新整理',
+  'autoRefresh.disable': '關閉自動重新整理',
+  'entry.other': '這不是檔案或目錄，沒法開啟。',
+  'error.notFound': '這個目錄不在了。可能已被移動或刪除。',
+  'error.outsideWorkspace': '這個目錄在工作區之外，側欄不會讀取它。',
+  'error.notDirectory': '這不是一個目錄。',
+  'error.unavailable': '讀取失敗：{message}',
+} satisfies Record<keyof typeof zh, string>

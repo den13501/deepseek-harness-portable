@@ -24,6 +24,7 @@ import { resolveDesktopBuildCommit } from './desktop-build-commit.mjs'
 import { resolveDesktopBuildVersion } from './desktop-build-version.mjs'
 import { resolveDesktopPolicyEnvironment } from './desktop-policy-environment.mjs'
 import { desktopTargetBuildPaths, resolveDesktopBuildTarget } from './desktop-build-paths.mjs'
+import { isDesktopOfflineBuild } from './desktop-offline-build.mjs'
 import { installWindowsDirectoryInstaller } from './windows-directory-installer.mjs'
 import { preserveWindowsRuntimeSignature, signWindowsCode } from './windows-runtime-signature.mjs'
 import { prepareWindowsAsarUnpack, verifyWindowsAsarUnpack } from './windows-asar-unpack.mjs'
@@ -58,9 +59,10 @@ export function createElectronBuilderConfig(
     throw new Error('desktop package: DSH_DESKTOP_UNSIGNED must be 0 or 1')
   }
   const unsigned = env.DSH_DESKTOP_UNSIGNED === '1'
+  const offline = isDesktopOfflineBuild(env)
   const packagesMacOS = targetPlatform === 'darwin' || (targetPlatform === undefined && hostPlatform === 'darwin')
   const packagesWindows = resolvedPlatform === 'win32'
-  const policy = packagesMacOS && unsigned ? undefined : resolveDesktopPolicyEnvironment(env)
+  const policy = offline || packagesMacOS && unsigned ? undefined : resolveDesktopPolicyEnvironment(env)
   if (resolvedPlatform === 'win32') installWindowsDirectoryInstaller()
   const macOSSigning = packagesMacOS && !unsigned ? resolveMacOSSigningEnvironment(env) : undefined
   if (packagesMacOS && !unsigned) resolveMacOSNotarizationEnvironment(env)
@@ -89,7 +91,7 @@ export function createElectronBuilderConfig(
   if (windowsSigner !== undefined) {
     installWindowsNsisBootstrapSigner({ sign: windowsSigner })
   }
-  const update = unsigned ? undefined : resolveDesktopAutoUpdateConfig(env, resolvedPlatform, resolvedArch)
+  const update = unsigned || offline ? undefined : resolveDesktopAutoUpdateConfig(env, resolvedPlatform, resolvedArch)
   if (preparedRuntime !== undefined) buildPaths.dsh = preparedRuntime
   // electron-builder merges extraMetadata into the packaged manifest, so a build version here reaches
   // the artifact names, the update feed, and the installed app.getVersion() the updater compares against.
@@ -101,6 +103,7 @@ export function createElectronBuilderConfig(
     protocols: [{ name: 'DeepSeek Harness', schemes: ['dsh'] }],
     extraMetadata: {
       dshDesktopAppId: appId,
+      ...(offline ? { dshOfflineMode: true } : {}),
       ...(policy === undefined ? {} : { dshMandatoryUpdatePolicy: policy }),
       ...buildVersion === productVersion ? {} : { version: buildVersion },
       ...packaged === undefined ? {} : { dshBuildCommit: packaged.commit, dshBuildDirty: packaged.dirty },
@@ -150,7 +153,7 @@ export function createElectronBuilderConfig(
       icon: fileURLToPath(new URL('../resources/icon-macos.png', import.meta.url)),
       category: 'public.app-category.developer-tools',
       // macOS matches the application locale against this bundle, not Electron Framework resources.
-      extendInfo: { CFBundleLocalizations: ['en', 'zh_CN'] },
+      extendInfo: { CFBundleLocalizations: ['en', 'zh_CN', 'zh_TW'] },
       // Ad-hoc signing keeps the modified Electron executable runnable without a Developer ID.
       identity: unsigned ? '-' : macOSSigning?.signingIdentity,
       forceCodeSigning: !unsigned,

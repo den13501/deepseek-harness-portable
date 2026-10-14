@@ -1,4 +1,4 @@
-/** Typed English and Chinese copy owned by the Electron shell. */
+/** Typed English, Simplified Chinese, and Taiwan Traditional Chinese shell copy. */
 
 export const en = {
   cliCommandMenu: 'Manage dsh Command…',
@@ -341,12 +341,15 @@ export const zh = {
 
 /** Locale payload exposed to the Desktop-owned renderer. */
 export interface DesktopLocale {
-  readonly id: 'en' | 'zh-CN'
+  readonly id: 'en' | 'zh-CN' | 'zh-TW'
   readonly messages: DesktopMessages
 }
 
 /** Resolve Electron's locale to one shipped Desktop dictionary. */
 export function resolveDesktopLocale(locale: string): DesktopLocale {
+  if (/^zh-(?:hant(?:-|$)|(?:tw|hk|mo)$)/u.test(locale.toLowerCase())) {
+    return { id: 'zh-TW', messages: zhTW }
+  }
   return locale.toLowerCase().startsWith('zh')
     ? { id: 'zh-CN', messages: zh }
     : { id: 'en', messages: en }
@@ -360,10 +363,10 @@ export function resolveDesktopLocale(locale: string): DesktopLocale {
  */
 export function resolveDesktopStartupLocale(preference: string | null, languages: readonly string[]): DesktopLocale {
   const selected = preference?.toLowerCase()
-  if (selected === 'zh' || selected === 'en') return resolveDesktopLocale(selected)
+  if (selected !== undefined && /^(?:zh|en)(?:-|$)/u.test(selected)) return resolveDesktopLocale(selected)
   for (const language of languages) {
     const primary = language.toLowerCase().split('-')[0]
-    if (primary === 'zh' || primary === 'en') return resolveDesktopLocale(primary)
+    if (primary === 'zh' || primary === 'en') return resolveDesktopLocale(language)
   }
   return resolveDesktopLocale('en')
 }
@@ -393,3 +396,172 @@ export function desktopUpdateReadyConfirmation(
     detail: platform === 'win32' ? messages.updateDownloadedDetailWindows : messages.updateDownloadedDetail,
   }
 }
+
+/** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
+export const zhTW = {
+  'cliCommandMenu': '管理 dsh 命令…',
+  'cliCommandTitle': '管理 dsh 命令',
+  'cliCommandLocation': 'Desktop 命令：{path}',
+  'cliCommandSelected': '目前 dsh 命令：{path}',
+  'cliCommandTarget': '目前啟動器目標：{path}',
+  'cliCommandShadowed': '另一個 dsh 的優先級更高。請移除或調整該安裝的順序，以預設使用 Desktop 命令；也可以透過完整路徑執行 Desktop 命令。',
+  'cliCommandSelectionUnknown': '無法確認 shell 中的命令。別名或另一個 dsh 安裝可能具有更高優先級。',
+  'cliCommandInstalled': 'Desktop 命令已安裝。',
+  'cliCommandNotInstalled': '將 Desktop 命令新增到終端。',
+  'cliCommandBroken': 'Desktop 命令需要修復。',
+  'cliCommandInstall': '安裝',
+  'cliCommandRepair': '修復',
+  'cliCommandRemove': '移除',
+  'cliCommandClose': '關閉',
+  'cliCommandSwitch': '繼續使用 Desktop 命令？',
+  'cliCommandPreserve': '現有命令會被保留，不會修改其他安裝或 shell 啟動檔案。',
+  'cliCommandContinue': '繼續',
+  'cliCommandInstallApp': '請先將 Desktop 安裝到“應用程式”資料夾，再管理 dsh 命令。',
+  'cliCommandUpdating': '正在安裝更新。請在安裝完成後管理命令。',
+  'cliCommandNewTerminal': '開啟新終端并執行 dsh --version。',
+  'cliCommandRemoved': '已移除 Desktop 命令注冊。',
+  'cliCommandPreviousRestored': '已恢復之前的啟動器。',
+  'cliCommandOtherKept': '其他命令安裝保持不變。',
+  'cliCommandBackupKept': '之前的啟動器保留在：{path}',
+  'cliCommandChanged': '對話框開啟期間命令或 PATH 已改變。請重新開啟“管理 dsh 命令”檢查目前狀態。',
+  'cliCommandOwnershipError': '命令注冊或備份已改變，未移除無關命令。',
+  'cliCommandFailed': '無法更新命令。請檢查應用程式是否已安裝、目標位置是否可寫，然後重試。',
+  'application': '應用程式',
+  'fileMenu': '檔案',
+  'closePage': '關閉頁面或視窗',
+  'aboutMenu': '關于 DeepSeek Harness',
+  'aboutProduct': 'DeepSeek Harness',
+  'aboutVersion': '版本 V{version}',
+  'hideApplication': '隱藏 DeepSeek Harness',
+  'hideOtherApplications': '隱藏其他',
+  'showAllApplications': '顯示全部',
+  'quitApplication': '結束 DeepSeek Harness',
+  'openApplication': '開啟 DeepSeek Harness',
+  'quit': '結束',
+  'cancel': '取消',
+  'quitTitle': '結束 DeepSeek Harness？',
+  'quitActiveTasks': '目前正在執行的任務將會中斷',
+  'quitScheduledTasks': '應用程式關閉期間，定時任務不會執行',
+  'quitActiveAndScheduledTasks': '目前正在執行的任務將會中斷，且應用程式關閉期間，定時任務不會執行',
+  'backgroundNoticeBody': '正在執行的任務不會中斷，可在系統匣中重新開啟視窗',
+  'backgroundNoticeConfirm': '確認',
+  'edit': '編輯',
+  'menuBar': '應用程式選單',
+  'delete': '刪除',
+  'undo': '復原',
+  'redo': '重做',
+  'cut': '剪下',
+  'copy': '複製',
+  'paste': '貼上',
+  'selectAll': '全部選取',
+  'startupFailed': 'DeepSeek Harness 無法使用',
+  'fatalSummary': '應用程式無法啟動或已意外停止。',
+  'startupAddressInUse': '有其他正在執行的 DSH（如其他 dsh web、桌面端），無法同時啟動，請結束其他正在執行的 DSH 後重新啟動。',
+  'diagnosticTruncated': '… 錯誤詳情已截短。',
+  'reportWrittenTo': '診斷報告：{path}',
+  'startupReinstallAdvice': '如果應用程式檔案缺失或損壞，請關閉應用程式并重新安裝。任務資料儲存在獨立位置。',
+  'exitApplication': '結束',
+  'restartApplication': '重新啟動',
+  'recoveryOperationFailed': '恢復操作失敗',
+  'disableThirdPartyPlugins': '停用第三方外掛、備份 profile patch 并重新啟動',
+  'welcomeTitle': 'DeepSeek Harness',
+  'welcomeBrand': 'DeepSeek Harness',
+  'welcomeTaglineBefore': '歡迎使用 ',
+  'welcomeTaglineBrand': 'DeepSeek Harness',
+  'welcomeTaglineAfter': '',
+  'welcomeDescription': '組裝無限可能，共探智慧上限',
+  'welcomeAuthStarting': '正在開啟登入…',
+  'welcomeAuthWaiting': '沒有自動開啟瀏覽器？',
+  'welcomeAuthWaitingDescription': '複製登入連結，用瀏覽器手動開啟完成登入',
+  'welcomeAuthExchanging': '正在完成登入…',
+  'welcomeAuthExpired': '登入已超時',
+  'welcomeAuthExpiredDescription': '請重新登入後繼續操作',
+  'welcomeAuthFailed': '登入未完成，請重試。',
+  'welcomeAuthCopyLink': '複製登入連結',
+  'welcomeAuthCopied': '已複製',
+  'welcomeAuthCopyFailed': '複製失敗，請重試',
+  'welcomeAuthCancel': '取消',
+  'welcomeAuthRetry': '重新登入',
+  'welcomeSignIn': '登入',
+  'welcomeApiKey': '新增 API Key',
+  'welcomeKeyTitle': '新增一個 API Key 開始使用',
+  'welcomeKeyDescription': '設定 DeepSeek 官方模型，即可開始使用',
+  'welcomeKeyPlaceholder': '輸入 API 金鑰',
+  'welcomeKeySave': '儲存并繼續',
+  'welcomeKeyLater': '稍後設定',
+  'welcomeKeyBack': '返回登入',
+  'welcomeSessionExpired': '登入資訊已失效，請重新登入',
+  'welcomeKeyBlank': '請輸入 API 金鑰。',
+  'welcomeKeyInvalid': '請僅輸入 API 金鑰，不要包含引號、空格或環境變量賦值。',
+  'welcomeKeyFailed': '無法儲存 API 金鑰，請重試。',
+  'welcomeContinueFailed': '無法開啟工作區，請重試。',
+  'checkUpdatesMenu': '檢查更新…',
+  'reloadPageMenu': '重新整理頁面',
+  'restartAppHostMenu': '重新啟動應用程式與 Host',
+  'updateCheckFailedTitle': '更新檢查失敗',
+  'updateCheckFailed': '檢查更新失敗，請稍後重試。',
+  'updateDownloadFailed': '下載更新失敗，請重試。',
+  'updateInstallFailed': '安裝更新失敗，請稍後重試。',
+  'updateCheckNetworkFailed': '檢查更新失敗，請檢查網路連接後重試。',
+  'updateDownloadNetworkFailed': '下載更新失敗，請檢查網路連接後重試。',
+  'updateInstallNetworkFailed': '安裝更新失敗，請檢查網路連接後重試。',
+  'unknownError': '未知錯誤',
+  'updateCheckTitle': '檢查更新',
+  'updateCurrentDetail': '目前版本：{version}',
+  'updateCurrent': '已是最新版本',
+  'updateChecking': '正在檢查更新…',
+  'updateDownload': '下載更新',
+  'updateDownloadedTitle': '新版本 {version} 已準備就緒',
+  'updateDownloadedDetail': '更新期間應用程式將暫時關閉，完成後會自動開啟。',
+  'updateDownloadedDetailWindows': '更新期間應用程式將暫時關閉，完成後會自動開啟。\n\n更新可能需要一些時間，請耐心等待，期間請勿重復啟動應用程式。',
+  'updateClose': '關閉',
+  'updateAcknowledge': '確定',
+  'updateLater': '稍後更新',
+  'updateDownloading': '正在下載 {percent}%…',
+  'updateVerifying': '正在校驗更新檔案…',
+  'updateInstalling': '正在準備重新啟動…',
+  'updateRetry': '重試更新',
+  'updateActiveTasks': '仍有進行中的任務',
+  'updateActiveTasksDetail': '更新將停止進行中的任務并重新啟動應用程式，是否繼續？',
+  'updateStopTasks': '停止任務并更新',
+  'updateTasksChanged': '有新任務開始執行，請重新確認是否停止任務并更新。',
+  'updateTasksUnavailable': '無法確認任務狀態，請在工作區就緒後重試更新。',
+  'updateStopFailed': '未能安全停止任務，更新尚未安裝，請稍後重試。',
+  'updateTechnicalDetails': '檢視技術詳情',
+  'updateTitle': 'DeepSeek Harness 更新',
+  'updateAvailable': '發現新版本 {version}',
+  'updateDetail': '下載完成後，可安裝并重新啟動應用程式。',
+  'installAndRestart': '安裝并重新啟動',
+  'later': '稍後',
+  'updateFailedTitle': '更新失敗',
+  'mandatoryTitle': '請更新後繼續使用',
+  'mandatoryDetail': '目前版本已停止支援，請更新後繼續使用。確認安裝并重新啟動前，進行中的任務會繼續執行。',
+  'mandatoryUnavailable': '暫時無法檢查更新要求，請稍後重試。',
+  'policyLoginTitle': '登入測試環境',
+  'policyLoginRequired': '此測試版需要先透過飛書登入，才能檢查更新要求。登入不會下載或安裝更新。',
+  'policyLogin': '透過飛書登入',
+  'policyLoginFailed': '飛書登入未完成，請重試。',
+  'policyLoginLoading': '正在載入登入頁面…',
+  'mandatoryNoRelease': '暫未找到適用的更新，請重新檢查或聯系支援人員。',
+  'mandatoryRefresh': '重新檢查',
+  'mandatoryPage': '前往官網下載',
+  'mandatoryCopy': '複製下載連結',
+  'mandatoryPageFailed': '無法開啟官網下載頁面，請複製連結後在瀏覽器中開啟。',
+  'mandatoryActionFailed': '操作失敗，請重試。完成更新後才能繼續使用應用程式。',
+  'mandatoryReady': '更新已準備就緒',
+  'mandatoryVersion': '新版本：{version}',
+  'mandatoryReadyDetail': '更新期間應用程式將暫時關閉，完成後會自動開啟。',
+  'mandatoryDeferred': '進行中的任務會繼續執行。請完成更新後再操作應用程式。',
+  'mandatoryContinue': '繼續更新',
+  'mandatoryInspecting': '正在檢查任務狀態…',
+  'mandatoryStopping': '正在停止任務…',
+  'mandatoryRestarting': '應用程式即將重新啟動，請稍候。',
+  'mandatoryDownloadFailed': '更新檔案下載或準備失敗，請重試。',
+  'mandatoryInstallFailed': '更新尚未安裝，請重新檢查任務後重試。',
+  'mandatoryOpenHelp': '頁面未開啟？',
+  'mandatoryReopen': '重新前往官網下載',
+  'mandatoryCopied': '連結已複製',
+  'mandatoryCopyFailed': '複製失敗，請手動選擇并複製下方連結。',
+  'mandatoryAddress': '下載連結',
+  'mandatoryNotification': '返回應用程式確認安裝并重新啟動。',
+} satisfies Record<keyof typeof zh, string>

@@ -62,3 +62,25 @@ export const zh: Record<WebSearchSettingsLocaleKey, string> = {
 export function formLabels(t: (key: WebSearchSettingsLocaleKey) => string): SettingsFormLabels {
   return { unavailable: t('unavailable'), readOnly: t('readOnly'), saveFailed: t('saveFailed'), save: t('save'), saving: t('saving') }
 }
+
+/** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
+export const zhTW = {
+  'title': '網頁搜尋',
+  'description': '設定 DeepSeek 的搜尋提供方。',
+  'apiKey': 'API Key',
+  'apiKeyHint': '不寫入設定檔案。留空表示保持目前金鑰。',
+  'apiKeySet': '已設定金鑰。',
+  'apiKeyUnset': '未設定金鑰；僅使用 DeepSeek 帳號模型的對話可以透過預設介面位址搜尋。',
+  'baseUrl': '介面位址',
+  'baseUrlHint': '留空則使用提供方預設位址。',
+  'maxUses': '單次請求最多搜尋次數',
+  'maxUsesHint': '一次請求在必須作答前最多可以搜尋多少次。',
+  'overridden': '已覆蓋',
+  'reset': '恢復預設',
+  'readOnly': '本部署的設定為唯讀。',
+  'unavailable': '該外掛目前未載入，暫時無法設定。',
+  'save': '儲存',
+  'saving': '儲存中…',
+  'saveFailed': '本部署沒有接受這些值，已保留供你修改。',
+  'invalidNumber': '請填數字；留空表示使用預設值。',
+} satisfies Record<keyof typeof zh, string>

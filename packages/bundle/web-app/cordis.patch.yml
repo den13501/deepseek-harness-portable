@@ -44,7 +44,7 @@
 - insert:
     - id: desktop-product-telemetry
       name: '@deepseek-ai/dsh-host-product-telemetry-otel'
-      disabled: !!js "ctx.get('profileContext')?.name !== 'desktop'"
+      disabled: !!js "ctx.get('profileContext')?.name !== 'desktop' || process.env.DSH_OFFLINE_MODE === '1'"
       config:
         scheduledDelayMillis: 30000
         timeoutMillis: 15000
@@ -56,9 +56,9 @@
 
     - id: product-analytics
       name: '@deepseek-ai/dsh-client-product-analytics'
-      disabled: !!js "ctx.get('profileContext')?.name !== 'desktop'"
+      disabled: !!js "ctx.get('profileContext')?.name !== 'desktop' || process.env.DSH_OFFLINE_MODE === '1'"
       config:
-        enabled: true
+        enabled: !!js "process.env.DSH_OFFLINE_MODE !== '1'"
         appVersion: !!js process.env.DSH_CLIENT_VERSION
 
     # Host-owned opt-in sampled when a new Web session receives its preset

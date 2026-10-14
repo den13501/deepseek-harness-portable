@@ -64,3 +64,30 @@ export const en = {
   'empty.models': 'No models available.',
   'empty.efforts': 'This model provides no reasoning effort levels.',
 } satisfies Record<ModelKey, string>
+
+/** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
+export const zhTW = {
+  'provider.account': 'DeepSeek 帳號',
+  'command.label': '模型',
+  'command.description': '選擇本對話使用的模型',
+  'option.loadError': '目錄載入失敗：{message}',
+  'trigger.fallback': '請選擇模型',
+  'trigger.loading': '正在載入模型…',
+  'trigger.selectAria': '請選擇模型',
+  'trigger.aria': '選擇模型，目前 {model}',
+  'trigger.ariaEffort': '選擇模型，目前 {model}，推理等級 {effort}',
+  'menu.aria': '模型與推理等級',
+  'menu.model': '模型',
+  'menu.effort': '推理等級',
+  'effort.providerDefault': 'Default',
+  'status.loading': '正在重新整理模型列表…',
+  'error.action': '模型操作失敗：{message}',
+  'error.sessionInUse': '目前對話已被占用，可能是其他正在執行的 DSH 導致的（如其他 dsh web、桌面端），請結束其他正在執行的 DSH 後重試。',
+  'action.reload': '重新載入',
+  'warning.groupLoad': '{name} 載入失敗：{message}',
+  'search.placeholder': '搜尋模型…',
+  'search.clear': '清除搜尋',
+  'search.empty': '沒有匹配的模型。',
+  'empty.models': '暫無可用模型',
+  'empty.efforts': '目前模型未提供推理等級。',
+} satisfies Record<keyof typeof zh, string>

@@ -23,3 +23,11 @@ declare module '@deepseek-ai/dsh-client-ui-slots' {
     documentHtml: HtmlPreviewKey
   }
 }
+
+/** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
+export const zhTW = {
+  'title': 'HTML',
+  'frame': 'HTML 文件預覽',
+  'loading': '文件渲染中...',
+  'failed': '無法預覽這份 HTML 文件',
+} satisfies Record<keyof typeof zh, string>

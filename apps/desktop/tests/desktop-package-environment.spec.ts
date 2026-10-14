@@ -158,6 +158,30 @@ describe('Desktop local packaging configuration', () => {
     }).not.toThrow()
   })
 
+  it('allows an explicit offline Windows build without update policy or feed settings', () => {
+    expect(() => {
+      validateDesktopPackageEnvironment({ DSH_DESKTOP_APP_ID: RELEASE.DSH_DESKTOP_APP_ID, DSH_DESKTOP_OFFLINE_BUILD: '1' }, WINDOWS, { unsigned: true })
+    }).not.toThrow()
+  })
+
+  it('loads the explicit offline build switch only from the platform dotenv file', async () => {
+    await withDirectory(async (directory) => {
+      await writeFile(join(directory, '.env.windows'), 'DSH_DESKTOP_APP_ID=com.example.offline\nDSH_DESKTOP_OFFLINE_BUILD=1\n')
+      expect(loadDesktopPackageEnvironment('win32', { DSH_DESKTOP_OFFLINE_BUILD: 'true' }, directory)).toMatchObject({
+        DSH_DESKTOP_APP_ID: 'com.example.offline', DSH_DESKTOP_OFFLINE_BUILD: '1',
+      })
+    })
+  })
+
+  it.each(['0', 'true', 'yes', ' 1'])('rejects ambiguous offline build value %s', (value) => {
+    expect(() => {
+      validateDesktopPackageEnvironment({
+        DSH_DESKTOP_APP_ID: RELEASE.DSH_DESKTOP_APP_ID,
+        DSH_DESKTOP_OFFLINE_BUILD: value,
+      }, WINDOWS, { unsigned: true })
+    }).toThrow('DSH_DESKTOP_OFFLINE_BUILD')
+  })
+
   it('accepts unsigned macOS configuration without Apple or update policy settings while keeping release validation', () => {
     const local = localMacOSPackageEnvironment({})
     expect(() => { validateDesktopPackageEnvironment(local, MACOS, { unsigned: true }) }).not.toThrow()

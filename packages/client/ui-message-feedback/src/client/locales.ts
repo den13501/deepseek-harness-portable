@@ -57,3 +57,27 @@ export const en = {
   'error.generic': 'Could not save feedback',
   'error.noteTooLarge': 'The description is too long; shorten it and submit again',
 } satisfies Record<MessageFeedbackKey, string>
+
+/** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
+export const zhTW = {
+  'action.like': '好的回答',
+  'action.likeActive': '取消標記',
+  'action.dislike': '有問題的回答',
+  'action.dislikeActive': '取消標記',
+  'dialog.title': '提交回饋',
+  'dialog.categories': '回饋分類',
+  'dialog.detail': '回饋詳情',
+  'dialog.hint': '填寫詳情以幫助我們改進體驗，提交內容會包括目前對話的日誌',
+  'category.task-result': '任務結果',
+  'category.instruction-following': '指令理解與遵循',
+  'category.product-interaction': '產品功能與交互',
+  'category.service-stability': '穩定性和速度',
+  'category.resource-cost': '資源使用與費用',
+  'category.security-privacy-permission': '安全隱私與權限',
+  'category.other': '其他',
+  'toast.recorded': '感謝你的回饋',
+  'error.conflict': '這條回饋已在別處改動，已顯示最新狀態',
+  'error.load': '回饋狀態載入失敗',
+  'error.generic': '回饋儲存失敗',
+  'error.noteTooLarge': '描述太長，請縮短後再提交',
+} satisfies Record<keyof typeof zh, string>

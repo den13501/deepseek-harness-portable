@@ -13,3 +13,11 @@ export const zh: Record<keyof typeof en, string> = {
   saved: '设置已保存',
   failed: '无法保存设置',
 }
+
+/** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
+export const zhTW = {
+  'title': '在使用官方模型 API 時上傳 Session Log',
+  'description': '幫助改進 DeepSeek 模型與產品',
+  'saved': '設定已儲存',
+  'failed': '無法儲存設定',
+} satisfies Record<keyof typeof zh, string>

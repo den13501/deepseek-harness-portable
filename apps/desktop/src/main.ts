@@ -60,6 +60,7 @@ import { DesktopUpdateOverlays } from './update-overlay.ts'
 import { DesktopQuitConfirmation } from './quit-confirmation.ts'
 import { DesktopTray } from './tray.ts'
 import { DesktopBackgroundNotice } from './background-notice.ts'
+import { isDesktopOfflineMode } from './offline-mode.ts'
 
 let focusPrimaryWindow = (): void => {}
 let stopForRecovery = async (): Promise<void> => {}
@@ -337,7 +338,13 @@ async function main(): Promise<void> {
     return result.environment
   })
   let hostEnvironment: NodeJS.ProcessEnv = process.env
-  const prepareHostEnvironment = async (): Promise<void> => { hostEnvironment = await loginShell }
+  let offlineMode = false
+  const prepareHostEnvironment = async (): Promise<void> => {
+    hostEnvironment = await loginShell
+    if (offlineMode) {
+      hostEnvironment = { ...hostEnvironment, DSH_OFFLINE_MODE: '1', DSH_TELEMETRY_MODE: 'DISABLED' }
+    }
+  }
   let quitting = false
   let startup: Promise<void> | undefined
   let workspaceRecovery: Promise<void> | undefined
@@ -916,6 +923,7 @@ async function main(): Promise<void> {
   }
 
   const automaticCheck = (): void => {
+    if (offlineMode) return
     if (!quitting) void mandatoryPolicy?.check('foreground-or-resume').catch((error: unknown) => { console.error(error) })
     if (!quitting) void updateSchedule.check().catch((error: unknown) => { console.error(error) })
   }
@@ -1287,8 +1295,9 @@ async function main(): Promise<void> {
   mainWindow = createMainWindow()
   const manifest: unknown = JSON.parse(await readFile(join(app.getAppPath(), 'package.json'), 'utf8'))
   if (typeof manifest !== 'object' || manifest === null) throw new Error('desktop policy: invalid application manifest')
+  offlineMode = isDesktopOfflineMode(manifest)
   const developmentPolicy = app.isPackaged ? undefined : process.env.DSH_DESKTOP_MANDATORY_UPDATE_CONFIG
-  const policyInput: unknown = app.isPackaged
+  const policyInput: unknown = offlineMode ? undefined : app.isPackaged
     ? ('dshMandatoryUpdatePolicy' in manifest ? manifest.dshMandatoryUpdatePolicy : undefined)
     : developmentPolicy === undefined ? undefined : JSON.parse(developmentPolicy) as unknown
   const policyConfig = resolveDesktopPolicyConfig(policyInput, !app.isPackaged)

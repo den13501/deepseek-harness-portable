@@ -1,5 +1,5 @@
 ---
-description: "Localization for the web GUI: the zh/en preference, browser-derived fallback, typed namespace dictionaries, and the framework translation seat, for users and plugin authors."
+description: "Localization for the web GUI: Simplified Chinese, Taiwan Traditional Chinese, English, typed namespace dictionaries, and the framework translation seat."
 kind: "package-reference"
 ---
 
@@ -35,7 +35,7 @@ Native shells may provide `__DSH_LOCALE__` with an asynchronous `read()` and an 
 
 ### Registering a dictionary
 
-Call `ctx.locale.register(ns, { zh, en })` with a namespace merged into `LocaleNamespaceMap`; the compiler checks every key against the namespace's typed key union and requires both shipped locales. Consumers translate through `ctx.locale.bind(ns)` or the framework-injected `t` seat. A dictionary registered after the UI is already mounted is picked up without a remount.
+Call `ctx.locale.register(ns, { zh, en, 'zh-TW': zhTW })` with a namespace merged into `LocaleNamespaceMap`; the compiler checks every key against the namespace's typed key union and requires all three shipped locales. Consumers translate through `ctx.locale.bind(ns)` or the framework-injected `t` seat. A dictionary registered after the UI is already mounted is picked up without a remount.
 
 ### Resolving package text
 
@@ -91,7 +91,7 @@ The provisional locale comes from the browser (`navigator.languages` matched by 
 
 Document language synchronization writes `<html lang>` only when its value changes; dictionary-only revisions leave the attribute untouched.
 
-The typed object form requires complete dictionaries for both built-in locales. The per-locale form lets language packs register each namespace independently. For each key, lookup walks the active language's declared fallback chain in the requested namespace, repeats that chain in `common`, then displays the key itself. Bound translate functions retain stable identity per namespace so they can ride inject surfaces without breaking memoization.
+The typed object form requires complete dictionaries for all built-in locales. The per-locale form lets language packs register each namespace independently. For each key, lookup walks the active language's declared fallback chain in the requested namespace, repeats that chain in `common`, then displays the key itself. Bound translate functions retain stable identity per namespace so they can ride inject surfaces without breaking memoization.
 
 ### Source map
 
@@ -100,7 +100,7 @@ The typed object form requires complete dictionaries for both built-in locales. 
 | [`src/client/index.ts`](src/client/index.ts) | `LocaleRuntime`, dictionary registry, Language row registration, `locale/change` event |
 | [`src/index.ts`](src/index.ts) | Node half: registers the `locale` settings namespace |
 | [`src/locale-settings.ts`](src/locale-settings.ts) | The durable schema for `locale.preference` |
-| [`src/locales/`](src/locales/) | The shipped `zh`/`en` dictionaries |
+| [`src/locales/`](src/locales/) | The shipped `zh`/`en`/`zh-TW` dictionaries |
 
 </details>
 

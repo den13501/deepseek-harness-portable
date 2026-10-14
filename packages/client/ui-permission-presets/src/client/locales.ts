@@ -82,3 +82,40 @@ export const accessEn = {
   'auto.confirm.acknowledge': 'I understand these risks and want to continue',
   'auto.confirm.enable': 'Enable Auto review',
 } satisfies Record<PermissionAccessKey, string>
+
+/** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
+export const zhTW = {
+  'title': '權限',
+  'description': '選擇新對話的預設權限模式',
+  'loading': '載入中',
+  'unavailable': '不可用',
+  'preset.readOnly': '僅可檢視',
+  'preset.workspaceWrite': '工作區內修改',
+  'preset.fullAccess': '完全權限',
+  'confirm.title': '確認啟用完全權限？',
+  'confirm.description': '啟用完全權限後，新對話將減少確認步驟，并且可以直接執行更多操作，包括敏感操作、檔案修改或外部命令。僅建議在你信任後續任務時使用。',
+  'confirm.acknowledge': '我已了解風險，并愿意繼續',
+  'confirm.cancel': '取消',
+  'confirm.enable': '啟用完全權限',
+} satisfies Record<keyof typeof zh, string>
+
+/** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
+export const accessZhTW = {
+  'mode': '訪問模式，目前：{name}',
+  'close': '關閉',
+  'preset.readOnly': '僅可檢視',
+  'preset.workspaceWrite': '工作區內修改',
+  'preset.fullAccess': '完全權限',
+  'confirm.title': '確認啟用完全權限？',
+  'confirm.description': '啟用完全權限後，代理將減少確認步驟，并且可以直接執行更多操作，包括敏感操作、檔案修改或外部命令。僅建議在你信任目前任務時使用。',
+  'confirm.acknowledge': '我已了解風險，并愿意繼續',
+  'confirm.cancel': '取消',
+  'confirm.enable': '啟用完全權限',
+  'auto.label': '自動審查',
+  'auto.badge': 'EXP',
+  'auto.description': '無沙箱執行；每次原生工具呼叫和 PTC 內層呼叫前由同一模型進行實驗性審查。',
+  'auto.confirm.title': '確認啟用自動審查（實驗）？',
+  'auto.confirm.description': '自動審查不使用沙箱。每次原生工具呼叫和 PTC 內層呼叫前，都會由與目前 agent 相同的模型進行審查；審查拒絕的呼叫由你批準或拒絕。此功能仍屬實驗性，可能誤放行或誤拒絕，并會消耗額外 token。',
+  'auto.confirm.acknowledge': '我已了解這些風險，并愿意繼續',
+  'auto.confirm.enable': '啟用自動審查',
+} satisfies Record<keyof typeof accessZh, string>

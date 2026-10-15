@@ -14,12 +14,13 @@ const tests = [
   'apps/desktop/tests/desktop-package-environment.spec.ts',
   'apps/desktop/tests/offline-mode.spec.ts',
   'apps/desktop/tests/locale.spec.ts',
+  'packages/client/locale/tests/traditional-chinese.client.spec.ts',
+  'packages/client/ui-secret-mask/tests/browser-plugin.client.spec.ts',
 ]
 const commands = [
   ['node_modules/tsx/dist/cli.mjs', 'scripts/verify-client-ui-i18n.ts'],
   ['node_modules/vitest/vitest.mjs', 'run', ...tests, '--maxWorkers=1', '--testTimeout=30000'],
-  ['--max-old-space-size=4096', 'node_modules/typescript/bin/tsc', '-b', 'tsconfig.host.json', '--pretty', 'false'],
-  ['node_modules/typescript/bin/tsc', '-b', 'tsconfig.client.json', '--pretty', 'false'],
+  ['node_modules/tsx/dist/cli.mjs', 'scripts/build.ts', '--scope', 'typecheck'],
 ]
 for (const args of commands) {
   const result = spawnSync(process.execPath, args, { cwd, stdio: 'inherit', env: { ...process.env, DSH_TELEMETRY_DISABLED: '1', DSH_TELEMETRY_MODE: 'DISABLED' } })

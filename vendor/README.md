@@ -60,6 +60,8 @@ Keep this log exhaustive — every divergence from upstream must be listed.
 
 24. **Portable policy hook in `loader/src/index.ts` and `loader/src/config/entry.ts`**: declares the `loader/entry-disabled` waterfall and consults it for effective disablement and before direct entry initialization. Shared boot installs the fixed collection policy before mounting configuration. Covered by `packages/boot/app-boot/tests/company-privacy-policy.spec.ts`; policy boundaries are documented in `deployment/COMPANY-PRIVACY.zh-TW.md`.
 
+25. **`timer/locale/{en,zh}.json` display metadata**: local English and Chinese titles and descriptions for the Settings plugin inventory. `timer/package.json` exports and publishes these locale resources.
+
 ## Sync procedure
 
 To update a vendored package from upstream:

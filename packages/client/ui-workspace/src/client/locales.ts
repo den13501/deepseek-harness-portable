@@ -63,6 +63,9 @@ export const zh = {
   'menu.unarchiveSession': '取消归档',
   'menu.pinSession': '置顶会话',
   'menu.unpinSession': '取消置顶',
+  'menu.sessionId': '复制 Session ID',
+  'toast.sessionIdCopied': 'Session ID 已复制',
+  'toast.sessionIdCopyFailed': '复制失败，请重试',
   'row.archived': '已归档',
   'row.pinned': '已置顶',
   'toast.archivedNotOpenable': '已归档对话暂时无法查看，请取消归档后查看',
@@ -186,6 +189,9 @@ export const en = {
   'menu.unarchiveSession': 'Unarchive session',
   'menu.pinSession': 'Pin session',
   'menu.unpinSession': 'Unpin session',
+  'menu.sessionId': 'Copy Session ID',
+  'toast.sessionIdCopied': 'Session ID copied',
+  'toast.sessionIdCopyFailed': 'Copy failed. Try again.',
   'row.archived': 'Archived',
   'row.pinned': 'Pinned',
   'toast.archivedNotOpenable': 'Archived sessions cannot be opened. Unarchive it to view.',
@@ -249,6 +255,9 @@ export const en = {
 
 /** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
 export const zhTW = {
+  'menu.sessionId': '複製 Session ID',
+  'toast.sessionIdCopied': '已複製 Session ID',
+  'toast.sessionIdCopyFailed': '複製失敗，請重試',
   'defaultWorkspace.failed': '無法建立預設工作區，請透過“選擇工作區”選擇資料夾',
   'draft.workspaceRequired': '請先選擇工作區',
   'draft.initializationFailed': '暫時無法填入草稿，請稍後重試',

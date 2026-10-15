@@ -42,7 +42,7 @@ export const guideEn = {
   guideMinimalIntro: 'Choose Minimal mode for a new task. For a comparison, hold the model, permissions, input, and starting workspace state constant across runs.',
   guideMinimalExplanation: [
     '### What is included',
-    'One persistent shell tool and a fixed system prompt. The built-in preset does not load Skills, planning, context compaction, or the standard runtime context.',
+    'One persistent shell tool, read_image, and a fixed system prompt. Image reading requires an image-capable model. Older history is compacted automatically under context pressure; use /compact while the agent is idle to compact it manually. The built-in preset does not load Skills, planning, or the standard runtime context.',
     '### When to choose it',
     'Use it as a baseline for experiments and comparisons. It can still read files and execute scripts through shell commands, but offers fewer built-in ways to manage a long task. Fewer tools does not necessarily make it easier for a beginner.',
   ].join('\n\n'),
@@ -120,7 +120,7 @@ export const guideZh: Record<PresetGuideKey, string> = {
   guideMinimalIntro: '新建任务时选择「极简模式」。做对照测试时，保持模型、权限、任务输入和工作区起始状态一致。',
   guideMinimalExplanation: [
     '### 保留哪些能力',
-    '仅提供一个持久 Shell 工具，并使用固定系统提示词。内置预设不加载 Skills、计划、上下文压缩，也不注入标准运行时上下文。',
+    '提供持久 Shell 和 read_image 工具，并使用固定系统提示词。读取图片需要支持图片输入的模型。上下文压力达到阈值时自动压缩较早历史；Agent 空闲时可输入 /compact 手动压缩。内置预设不加载 Skills、计划，也不注入标准运行时上下文。',
     '### 什么时候选',
     '适合作为实验和对照测试的基线。Agent 仍能通过终端命令读写文件、运行脚本，但缺少管理长任务的内置辅助能力。工具少，不代表对新手更容易。',
   ].join('\n\n'),
@@ -167,7 +167,7 @@ export const guideZhTW = {
   'guidePtcExplanation': '### 怎樣呼叫工具\n\nPTC 是 Programmatic Tool Calling，即透過程序呼叫工具。目前內建預設讓 Agent 透過 run_code 編寫 TypeScript 程序，使用生成的工具 SDK 發起呼叫。程序可以組織循環、條件判斷、錯誤處理，以及適合并發執行的呼叫。\n\n### 哪些結果交給模型\n\n工具返回的資料先交給程序，經過篩選、計算或合并，再透過輸出或返回值交給模型；圖片結果會另行附加。程序中的工具呼叫仍會被記錄，也仍受工具權限約束。\n\n### 與標準模式的區別\n\n兩種模式都能編程、批量處理檔案。標準模式直接向模型提供各個工具；PTC 讓模型用程式碼組織工具呼叫。目前 PTC 預設未啟用 workflow 工具。速度和 token 用量取決于具體任務與結果處理方式。',
   'guidePtcUsage': '### 批量檢查設定檔案\n\n> 檢查 configs/ 下所有 JSON 檔案，按照 schema.json 找出缺失字段和不合法的值。每個問題寫成 CSV 中的一行；讀取失敗的檔案也記入報告，繼續檢查其余檔案。保留原檔案。\n\n預期產出：問題匯總和一份 CSV 報告。程序可以對多份檔案執行相同檢查，處理單個檔案的失敗，再匯總結果。\n\n### 匯總錯誤日誌\n\n> 分析 logs/ 下的日誌，按服務和錯誤類型統計次數，列出出現最多的十類錯誤，每類保留一條示例。完整統計另存為 CSV。\n\n預期產出：高頻錯誤摘要和完整統計表。中間資料可以先在程序中聚合，再把匯總交給模型。',
   'guideMinimalIntro': '新建任務時選擇「極簡模式」。做對照測試時，保持模型、權限、任務輸入和工作區起始狀態一致。',
-  'guideMinimalExplanation': '### 保留哪些能力\n\n僅提供一個持久 Shell 工具，并使用固定系統提示指令。內建預設不載入 Skills、計劃、上下文壓縮，也不注入標準執行時上下文。\n\n### 什么時候選\n\n適合作為實驗和對照測試的基線。Agent 仍能透過終端命令讀寫檔案、執行腳本，但缺少管理長任務的內建輔助能力。工具少，不代表對新手更容易。',
+  'guideMinimalExplanation': '### 保留哪些能力\n\n提供持久 Shell 與 read_image 工具，並使用固定系統提示指令。讀取圖片需要支援圖片輸入的模型。上下文壓力達到門檻時，會自動壓縮較早的歷史；Agent 閒置時可輸入 /compact 手動壓縮。內建預設不載入 Skills、計畫，也不注入標準執行時上下文。\n\n### 何時選用\n\n適合作為實驗和對照測試的基線。Agent 仍能透過終端命令讀寫檔案、執行腳本，但缺少管理長任務的部分內建輔助能力。工具少，不代表對新手更容易。',
   'guideMinimalUsage': '### 對比基礎修復表現\n\n> 執行這個項目的測試，找出失敗原因，做最小修復，再執行相關測試并報告結果。\n\n分別用標準模式和極簡模式，從相同的工作區狀態執行這條任務，對比完成情況、工具呼叫和最終修改。極簡模式會透過終端命令完成這些操作。',
   'guideCordisIntro': '新建任務時選擇「創造模式」，說明希望增加什么能力、從哪里使用，以及怎樣驗證效果。',
   'guideCordisExplanation': '### 可以創造什么\n\n創造模式具備標準任務工具，并增加執行時檢查、持久化外掛管理，以及 Cordis 外掛和 Agent 預設的開發指引。可以編寫外掛來新增功能或介面，也可以組合工具和提示指令，建立適合特定任務的模式。\n\n### 外掛與模式的關系\n\n外掛為 DSH 增加能力，例如工具、服務連接或介面入口。模式是一份 Agent 預設，用來選擇任務可用的工具，并約定 Agent 的工作方式。自訂模式中也可以使用自己開發的外掛。\n\n### 怎樣讓成果生效\n\n可以要求 Agent 完成安裝并驗證實際效果。外掛可能即時載入，也可能需要重新啟動，取決于修改內容；新建的模式在建立新任務時選擇。',

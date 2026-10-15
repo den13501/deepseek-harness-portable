@@ -312,6 +312,8 @@ export const zh = {
   'row.input': '输入',
   'row.output': '输出',
   'row.inspect': '查看',
+  'row.imageSize': '{width}x{height}px，{bytes} 字节',
+  'row.imageSizeDownscaled': '{width}x{height}px（由 {originalWidth}x{originalHeight}px 缩小），{bytes} 字节',
   'tool.title.search': '搜索',
   'tool.title.read': '读取',
   'tool.title.bash': '运行命令',
@@ -690,6 +692,8 @@ export const en = {
   'row.input': 'IN',
   'row.output': 'OUT',
   'row.inspect': 'Inspect',
+  'row.imageSize': '{width}x{height}px, {bytes} bytes',
+  'row.imageSizeDownscaled': '{width}x{height}px (downscaled from {originalWidth}x{originalHeight}px), {bytes} bytes',
   'tool.title.search': 'Search',
   'tool.title.read': 'Read',
   'tool.title.bash': 'Bash',
@@ -764,6 +768,8 @@ export const en = {
 
 /** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
 export const zhTW = {
+  'row.imageSize': '{width}x{height}px，{bytes} 位元組',
+  'row.imageSizeDownscaled': '{width}x{height}px（由 {originalWidth}x{originalHeight}px 縮小），{bytes} 位元組',
   'shortcut.newline': '換行',
   'shortcut.complementary': '使用互補的 Queue／Steer 方式',
   'shortcut.slash': '開啟命令選單',

@@ -6,10 +6,38 @@ import { stubConfigForm } from '@deepseek-ai/dsh-client-test-runtime'
 import { LocaleRuntime } from '../src/client/index.ts'
 import type { LocaleSettings } from '../src/locale-settings.ts'
 import { zh, zhTW } from '../src/locales/zh.ts'
+import * as chat from '../../ui-chat/src/client/locale.ts'
+import * as conversation from '../../ui-conversation/src/client/locales.ts'
+import * as plugins from '../../ui-plugin-manager/src/client/locales.ts'
+import * as references from '../../ui-reference/src/client/locales.ts'
+import * as models from '../../ui-settings-models/src/client/locales.ts'
+import * as workspaces from '../../ui-workspace/src/client/locales.ts'
+import * as secrets from '../../ui-secret-mask/src/client/locales.ts'
+import * as inventory from '../../ui-settings-plugin-inventory/src/client/locales.ts'
+import { guideZh, guideZhTW } from '../../ui-agent-preset/src/client/guide-locales.ts'
 
 afterEach(() => { vi.unstubAllGlobals() })
 
+const updatedDictionaries: [string, Record<string, string>, Record<string, string>][] = [
+  ['chat', chat.zh, chat.zhTW],
+  ['conversation', conversation.zh, conversation.zhTW],
+  ['plugins', plugins.zh, plugins.zhTW],
+  ['references', references.zh, references.zhTW],
+  ['models', models.zh, models.zhTW],
+  ['workspaces', workspaces.zh, workspaces.zhTW],
+  ['secrets', secrets.zh, secrets.zhTW],
+  ['inventory', inventory.zh, inventory.zhTW],
+  ['preset guide', guideZh, guideZhTW],
+]
+
 describe('Traditional Chinese (Taiwan)', () => {
+  it.each(updatedDictionaries)('keeps %s keys and interpolation parameters aligned', (_name, source, translated) => {
+    expect(Object.keys(translated).sort()).toEqual(Object.keys(source).sort())
+    for (const [key, value] of Object.entries(source)) {
+      expect(translated[key]?.match(/\{\w+\}/gu)?.sort() ?? [], key).toEqual(value.match(/\{\w+\}/gu)?.sort() ?? [])
+    }
+  })
+
   it.each(['zh-TW', 'zh-Hant', 'zh-Hant-TW', 'zh-HK', 'zh-MO'])('detects %s before the generic Chinese fallback', async (tag) => {
     const ctx = new Context()
     try {

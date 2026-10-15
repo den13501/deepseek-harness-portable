@@ -24,6 +24,8 @@ portable 來源驗證使用上游 `scripts/build.ts --scope typecheck`，先建�
 
 Windows x64、Node 22.22.3、pnpm 11.28.5 的 frozen lockfile 安裝完成。Client UI i18n gate 檢查 1,044 個來源檔通過；portable 政策檢查器 1 項通過；Host／Client 編譯、Typert 與兩個聚合型別檢查共 5 個階段全數通過。
 
-首輪 portable 回歸為 253 項通過、1 項翻譯插值檢查失敗；補齊重啟提示的 `{reason}` 並移除上游刪除的字典 key 後，繁中回歸 16 項通過。四份上游新增測試補齊 `zh-TW` 註冊後，相關 81 項全數通過。此紀錄不是完整來源驗證腳本重跑成功或完整測試集通過的聲明。
+首輪 portable 回歸為 253 項通過、1 項翻譯插值檢查失敗；補齊重啟提示的 `{reason}` 並移除上游刪除的字典 key 後，繁中回歸 16 項通過。四份上游新增測試補齊 `zh-TW` 註冊後，相關 81 項全數通過。
+
+合併提交後重新執行 `node scripts/portable/validate.mjs` 已成功：i18n、14 個測試檔共 255 項回歸，以及 5 個型別檢查階段全部通過；另重跑 portable 政策檢查器 1 項通過。這是 portable 選定來源驗證通過，不代表全儲存庫測試集或打包驗收通過。提交 hooks 的翻譯配對、lint、空白、提供方 metadata 與 vendor manifest 檢查亦通過。
 
 尚未完成新版本 Windows directory build、ZIP、遠端 CI、實際啟動與公司端驗收；既有 Desktop 環境設定予以保留，沒有覆寫。發布仍受上述門檻約束。

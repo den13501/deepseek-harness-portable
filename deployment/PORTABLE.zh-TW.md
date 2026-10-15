@@ -14,7 +14,7 @@ pwsh -NoProfile -File scripts/portable/build.ps1
 
 建置腳本僅在 Desktop 環境檔不存在時建立臨時離線設定，完成後移除；若已有設定便拒絕覆寫，請使用乾淨工作樹。只生成未簽章 directory build，不發布更新 feed。依賴與 runtime 在準備機仍需要下載；「離線」描述成品執行政策，不表示冷啟動編譯不需網路。
 
-GitHub Actions 的 `Portable Windows (manual)` 僅手動觸發，不自動同步官方、不自動發布 Release。固定 Actions SHA 與受限權限；成品供人工驗收。首次託管 runner 編譯仍需確認下載可用性、磁碟峰值與元件工具鏈。
+GitHub Actions 的 `Portable Windows (manual)` 僅手動觸發，不自動同步官方、不自動發布 Release。固定 Actions SHA 與受限權限；成功產出的成品仍須人工驗收。執行狀態以 Actions 的當次結論與日誌為準；來源驗證通過不等於完整編譯／打包成功，也不能用本機成品替代 CI 成功證據。託管 runner 完整編譯仍須驗證下載可用性、磁碟峰值與元件工具鏈。
 
 ## 發行與使用
 

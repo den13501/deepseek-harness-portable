@@ -28,4 +28,16 @@ Windows x64、Node 22.22.3、pnpm 11.28.5 的 frozen lockfile 安裝完成。Cli
 
 合併提交後重新執行 `node scripts/portable/validate.mjs` 已成功：i18n、14 個測試檔共 255 項回歸，以及 5 個型別檢查階段全部通過；另重跑 portable 政策檢查器 1 項通過。這是 portable 選定來源驗證通過，不代表全儲存庫測試集或打包驗收通過。提交 hooks 的翻譯配對、lint、空白、提供方 metadata 與 vendor manifest 檢查亦通過。
 
-尚未完成新版本 Windows directory build、ZIP、遠端 CI、實際啟動與公司端驗收；既有 Desktop 環境設定予以保留，沒有覆寫。發布仍受上述門檻約束。
+上述來源驗證完成時，尚未執行新版本打包；後續本機結果見下一節，不能以本機成功替代遠端 CI 或公司端驗收。
+
+## 2026-10-15 本機測試包
+
+以 `8cd4a68c117563b9c8bf83a781255cb5f2b1724a` 建置 Windows x64 未簽章測試包。重新執行 frozen-lockfile 安裝、i18n、255 項回歸、5 階段型別檢查、政策檢查器及完整編譯 9 階段通過；directory build、封裝後 runtime smoke 與 portable ZIP pipeline 均成功。
+
+第一次建置在 runtime pnpm smoke 逾時，未產出 ZIP；獨立診斷通過後，未修改來源、未放寬逾時或略過 smoke，完整重跑成功。首次逾時根因尚未確定。封裝前後測試包含 pnpm、PTY、原生元件、CLI 離線外掛安裝／移除、Host 啟動與 DOCX／XLSX／PPTX 轉 PDF；固定樣本通過不代表公司文件、字型或模型工具呼叫相容。
+
+測試包名稱為 `DSH-portable-0.2.1-alpha.3-win-x64-8cd4a68c1175.zip`，398,608,329 bytes，SHA-256：`56A5C50F53955339337B630792BD9AA40081AA38490FDE236AD5D6D49CD1AC11`。7-Zip 完整性、7,809 個應用檔案複製比對、7,813 筆包內雜湊及整包雜湊通過。成品六項靜態政策檢查通過，包含離線旗標、無 mandatory policy、無更新 YAML 與固定隱私政策掛鉤。
+
+內嵌 Node `24.21.0`、Python `3.12.14`、pnpm `11.28.5`、LibreOffice Windows x64 engine `0.1.5`。建置時僅本文件之外的 `deployment/PORTABLE.zh-TW.md` 說明修改尚未提交，故成品如實記錄 `dirty: true`；該修改及 Desktop 環境設定建置前後均保持不變。此後的文件提交不是該 ZIP 的建置來源。
+
+使用者回報已在準備機順利完成設定；未另外確認互動 GUI 全流程、模型推論與工具呼叫。包內未預置獨立 Chromium，不能以 Electron 內嵌 Chromium 代替核准的自動化瀏覽器。遠端 CI、公司 Windows LTSC／Strata、網路與部署核准仍未完成。此包不是完整公司部署驗收通過的正式發行版；既有安裝與舊 ZIP 未替換。

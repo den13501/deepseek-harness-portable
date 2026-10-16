@@ -12,7 +12,12 @@ import { afterEach, expect, it, onTestFinished, vi } from 'vitest'
 
 afterEach(() => { vi.unstubAllEnvs() })
 
-it.each(['desktop', 'web'])('limits collection and its shutdown to the Desktop launch: %s', async (profile) => {
+it.each([
+  { profile: 'desktop', offline: '0' },
+  { profile: 'web', offline: '0' },
+  { profile: 'desktop', offline: '1' },
+])('limits collection and its shutdown to the permitted Desktop launch: $profile offline=$offline', async ({ profile, offline }) => {
+  vi.stubEnv('DSH_OFFLINE_MODE', offline)
   const received = Promise.withResolvers<undefined>()
   const server = createServer((req) => { req.resume(); req.once('end', () => { received.resolve(undefined) }) })
   server.listen(0, '127.0.0.1')
@@ -41,8 +46,8 @@ it.each(['desktop', 'web'])('limits collection and its shutdown to the Desktop l
   await ctx.loader.root.update(entries)
   await ctx.loader.await()
   const entry = ctx.loader.resolve('desktop-product-telemetry')
-  expect(entry.disabled).toBe(profile !== 'desktop')
-  if (profile !== 'desktop') {
+  expect(entry.disabled).toBe(profile !== 'desktop' || offline === '1')
+  if (profile !== 'desktop' || offline === '1') {
     expect(ctx.get('productTelemetry')).toBeUndefined()
     expect(ctx.get('productAnalytics')).toBeUndefined()
     return

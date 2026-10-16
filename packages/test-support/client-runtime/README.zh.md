@@ -5,6 +5,8 @@ kind: "package-library"
 
 # @deepseek-ai/dsh-client-test-runtime
 
+組合包自身提供的項目會先由自己的 manifest 解析，再查找依賴；連結組合包仍由真實套件目錄解析依賴。
+
 [English](README.md) | 中文
 
 ## 概述

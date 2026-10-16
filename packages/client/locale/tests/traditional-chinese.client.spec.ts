@@ -14,6 +14,8 @@ import * as models from '../../ui-settings-models/src/client/locales.ts'
 import * as workspaces from '../../ui-workspace/src/client/locales.ts'
 import * as secrets from '../../ui-secret-mask/src/client/locales.ts'
 import * as inventory from '../../ui-settings-plugin-inventory/src/client/locales.ts'
+import * as market from '../../ui-plugin-market/src/client/locales.ts'
+import * as general from '../../ui-settings-general/src/client/locales.ts'
 import { guideZh, guideZhTW } from '../../ui-agent-preset/src/client/guide-locales.ts'
 
 afterEach(() => { vi.unstubAllGlobals() })
@@ -27,6 +29,8 @@ const updatedDictionaries: [string, Record<string, string>, Record<string, strin
   ['workspaces', workspaces.zh, workspaces.zhTW],
   ['secrets', secrets.zh, secrets.zhTW],
   ['inventory', inventory.zh, inventory.zhTW],
+  ['market', market.zh, market.zhTW],
+  ['general', general.zh, general.zhTW],
   ['preset guide', guideZh, guideZhTW],
 ]
 

@@ -18,6 +18,7 @@ const tests = [
   'packages/client/ui-secret-mask/tests/browser-plugin.client.spec.ts',
 ]
 const commands = [
+  ['--test', 'scripts/portable/package.test.mjs', 'scripts/portable/portable-update.test.mjs'],
   ['node_modules/tsx/dist/cli.mjs', 'scripts/verify-client-ui-i18n.ts'],
   ['node_modules/vitest/vitest.mjs', 'run', ...tests, '--maxWorkers=1', '--testTimeout=30000'],
   ['node_modules/tsx/dist/cli.mjs', 'scripts/build.ts', '--scope', 'typecheck'],

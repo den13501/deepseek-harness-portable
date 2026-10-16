@@ -22,6 +22,10 @@ GitHub Actions 的 `Portable Windows (manual)` 僅手動觸發，不自動同步
 
 發行前確認雜湊、ZIP 完整性、授權與元件版本；以非機密資料測試繁中保存、多輪／停止、工具讀寫、Office／PDF、本機模型與重啟。Windows LTSC、端點防護、簽章與網路驗收由部署方獨立核准，禁止為測試停用安全控制。使用後的 data／workspace 不得重新打包分享。
 
+## 保留設定的免安裝更新
+
+發行包包含唯讀預檢、更新與回復入口；使用者應從乾淨新包更新既有固定目錄，而非將資料分散到每個版本目錄。完整使用方式、外部 Skills／MCP 路徑限制、快照隱私與中斷回復見 `scripts/portable/README.zh-TW.md`。更新工具測試納入 portable 來源驗證與手動 Windows workflow，不能以檔案複製成功代替資料相容性驗收。
+
 ## 上游與公開前審查
 
 保留官方 Git 歷史，自己的 repo 使用 origin、官方使用 upstream。先保存修改，再 fetch、審查差異、在更新分支 merge 並回歸測試；不要自動覆蓋帶有衍生補丁的分支。

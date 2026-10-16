@@ -39,7 +39,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Dependency installation failed' }
       - name: Validate source and portable tooling
         run: |
-          node --test scripts/portable/package.test.mjs
+          node --test scripts/portable/package.test.mjs scripts/portable/portable-update.test.mjs
           if ($LASTEXITCODE -ne 0) { throw 'Portable tooling tests failed' }
           node scripts/portable/validate.mjs
           if ($LASTEXITCODE -ne 0) { throw 'Source validation failed' }

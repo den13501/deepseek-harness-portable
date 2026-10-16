@@ -67,12 +67,15 @@ function main() {
   if (process.platform !== 'win32') throw new Error('Windows x64 packaging requires Windows')
   if (existsSync(dest) || existsSync(dest + '.zip')) throw new Error('Refusing to overwrite an existing portable build')
   const report = verifyArtifact(source)
+  if (report.version !== version) throw new Error('Packaged application version differs from the source version')
   mkdirSync(output, { recursive: true })
-  cpSync(source, join(dest, 'app'), { recursive: true, dereference: false })
   const files = inventory(source)
+  cpSync(source, join(dest, 'app'), { recursive: true, dereference: false })
   if (JSON.stringify(files) !== JSON.stringify(inventory(join(dest, 'app')))) throw new Error('Copy inventory mismatch')
   for (const file of files) if (hash(join(source, file)) !== hash(join(dest, 'app', file))) throw new Error('Copy hash mismatch')
-  cpSync(join(root, 'scripts/portable/Start-DSH.cmd'), join(dest, 'Start-DSH.cmd'))
+  for (const file of ['Start-DSH.cmd', 'Check-Update.cmd', 'Update-DSH.cmd', 'Restore-DSH.cmd', 'portable-update.mjs']) {
+    cpSync(join(root, 'scripts/portable', file), join(dest, file))
+  }
   cpSync(join(root, 'scripts/portable/README.zh-TW.md'), join(dest, 'README.zh-TW.md'))
   writeFileSync(join(dest, 'POLICY-CHECK.json'), JSON.stringify(report, null, 2) + '\n')
   const dirty = execFileSync('git', ['status', '--porcelain=v1', '-uall'], { cwd: root }).length > 0

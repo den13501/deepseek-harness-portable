@@ -1,6 +1,12 @@
 @echo off
 setlocal
 set "ROOT=%~dp0"
+if exist "%ROOT%.portable-update.lock" (
+  echo An update or recovery is active or interrupted. Keep DSH closed.
+  echo Use Restore-DSH.cmd from the clean new package with the recorded backup ID.
+  pause
+  exit /b 1
+)
 if not exist "%ROOT%app\DeepSeek Harness.exe" (
   echo Extract the entire ZIP before starting DSH.
   pause

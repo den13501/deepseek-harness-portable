@@ -6,3 +6,8 @@ it.skipIf(process.env.DSH_BROWSER_EXECUTABLE === undefined).each(['launch', 'att
   'uses the pinned Playwright MCP server to %s Chromium and visit a loopback page',
   async mode => verifyMcpBrowser(Provider, 'playwright-mcp', { name: 'browser_navigate', arguments: url => ({ url }) }, mode),
 )
+
+it.skipIf(process.env.DSH_BROWSER_EXECUTABLE === undefined)(
+  'keeps generated files and temporary profiles in explicit directories and cleans up on disposal',
+  async () => verifyMcpBrowser(Provider, 'playwright-mcp', { name: 'browser_navigate', arguments: url => ({ url }) }, 'launch', true),
+)

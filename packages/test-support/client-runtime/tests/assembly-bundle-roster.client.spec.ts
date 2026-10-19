@@ -13,6 +13,11 @@ function profileScope(name: string) {
 }
 
 describe('webApp (the real web profile)', () => {
+  it('resolves a bundle-owned Host row through the bundle manifest itself', () => {
+    const roster = bundleRoster(WEB_PROFILE_BUNDLES, undefined, profileScope('desktop'))
+    expect(roster.rows.map(row => row.name)).toContain('@deepseek-ai/dsh-client-ui-settings-general')
+    expect(roster.rows.map(row => row.name)).not.toContain('@deepseek-ai/dsh-web-app')
+  })
   it('composes dsh-base then dsh-web-app: unique names, inject edges on roster rows or platform seed words', () => {
     expect(WEB_PROFILE_BUNDLES).toEqual(['@deepseek-ai/dsh-base', '@deepseek-ai/dsh-web-app'])
     const names = webApp.rows.map(row => row.name)

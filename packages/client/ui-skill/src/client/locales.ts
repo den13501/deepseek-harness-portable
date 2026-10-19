@@ -29,3 +29,15 @@ export const en = {
   'row.inspect': 'Inspect',
   'menu.userOnly': 'user-only',
 } satisfies Record<SkillKey, string>
+
+/** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
+export const zhTW = {
+  'row.title': '載入技能',
+  'row.running': '正在載入 skill',
+  'row.preparing': '準備載入技能',
+  'row.failed': 'skill 載入失敗',
+  'row.stopped': 'skill 載入已中止',
+  'row.instructions': '說明',
+  'row.inspect': '檢視',
+  'menu.userOnly': '僅使用者',
+} satisfies Record<keyof typeof zh, string>

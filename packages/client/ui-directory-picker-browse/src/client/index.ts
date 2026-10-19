@@ -35,6 +35,21 @@ export function apply(ctx: ClientContext): void {
     // a failed activation must not squat the namespace's other locale.
     const disposers: (() => void)[] = []
     const dictionaries: [locale: string, dict: Record<string, string>][] = [
+      ['zh-TW', {
+        'browser.title': '選擇工作區目錄',
+        'browser.home': '主目錄',
+        'browser.newFolder': '新增資料夾',
+        'browser.folderName': '資料夾名稱',
+        'browser.createIn': '在「{name}」中新增資料夾',
+        'browser.untitledFolder': '未命名資料夾',
+        'browser.create': '建立',
+        'browser.cancel': '取消',
+        'browser.open': '開啟',
+        'browser.editPath': '編輯路徑',
+        'browser.loading': '載入中…',
+        'browser.truncated': '資料夾太多，僅顯示前面部分。',
+        'browser.showHidden': '顯示隱藏檔案',
+      }],
       ['zh', {
         'browser.title': '选择工作区目录',
         'browser.home': '主目录',

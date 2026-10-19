@@ -25,6 +25,7 @@ export {
   setProfileVersionExemption, type ProfileCompatibility,
 } from './profile-compatibility.ts'
 import { prepareProfilePatches } from './compatibility-preflight.ts'
+import { installCompanyPrivacyPolicy } from './company-privacy-policy.ts'
 import { ProfileRuntimeResolution, type RuntimeResolution } from './profile.ts'
 import { ResolutionRestartRequired } from './profile-resolution/resolver.ts'
 export { prepareProfileEntries, prepareProfilePatches } from './compatibility-preflight.ts'
@@ -1227,6 +1228,7 @@ export async function boot(
       void Promise.resolve(next()).catch((error: unknown) => { ctx.logger.error(error) })
     }, { global: true, prepend: true })
     await ctx.plugin(Loader)
+    installCompanyPrivacyPolicy(ctx)
     await prepare?.(ctx)
     stage = 'plugin tree failed to load'
     await mountRootInclude(ctx, absoluteConfigPath, patches, bareModuleBaseUrl, binName)

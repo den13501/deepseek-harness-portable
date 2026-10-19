@@ -8,3 +8,6 @@ export type LabelKey = keyof typeof zh
 
 /** English badge copy. */
 export const en: Record<LabelKey, string> = { 'badge.label': '1017' }
+
+/** Traditional Chinese uses the unchanged model release identifier. */
+export const zhTW: Record<LabelKey, string> = { 'badge.label': '1017' }

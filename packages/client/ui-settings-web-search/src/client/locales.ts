@@ -80,3 +80,34 @@ export const zh: Record<WebSearchSettingsLocaleKey, string> = {
 export function formLabels(t: (key: WebSearchSettingsLocaleKey) => string): SettingsFormLabels {
   return { unavailable: t('unavailable'), readOnly: t('readOnly'), saveFailed: t('saveFailed'), save: t('save'), saving: t('saving') }
 }
+
+/** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
+export const zhTW = {
+  'title': '網頁搜尋',
+  'description': '設定 DeepSeek 的搜尋提供方。',
+  'useSearchApi': '啟用新版網頁搜尋 API',
+  'useSearchApiHint': '預設關閉，搜尋透過 DeepSeek Messages 執行。新版網頁搜尋 API 的功能與計費詳見',
+  'searchGuide': '網頁搜尋與擷取指南',
+  'searchGuideUrl': 'https://api-docs.deepseek.com/zh-cn/guides/search',
+  'apiKey': 'API Key',
+  'apiKeyHint': '不寫入設定檔案。留空表示保持目前金鑰。',
+  'apiKeySet': '已設定金鑰。',
+  'apiKeyUnset': '未設定金鑰；僅使用 DeepSeek 帳號模型的對話可以透過預設介面位址搜尋。',
+  'baseUrl': 'Messages API 基底網址',
+  'baseUrlHint': '填入含 API 前綴的網址，例如 https://api.deepseek.com/anthropic/v1；程式會附加 /messages，留空則恢復預設值。',
+  'searchApiBaseUrl': 'Search / Fetch API 基底網址',
+  'searchApiBaseUrlHint': '填入含 API 前綴的網址，例如 https://api.deepseek.com/v1/tools；程式會附加 /search 或 /fetch，留空則恢復預設值。',
+  'maxUses': '單次請求最多搜尋次數',
+  'maxUsesHint': '輔助模型在一次 Messages 請求內最多可執行的搜尋次數，僅適用於 Messages API。',
+  'count': '每次搜尋結果數',
+  'countHint': '每個查詢傳回的結果筆數，須為 1–50 的整數，預設為 10；不控制搜尋呼叫次數。web_search 保留的來源數不超過其本身的結果上限。',
+  'overridden': '已覆蓋',
+  'reset': '恢復預設',
+  'readOnly': '本部署的設定為唯讀。',
+  'unavailable': '該外掛目前未載入，暫時無法設定。',
+  'save': '儲存',
+  'saving': '儲存中…',
+  'saveFailed': '本部署沒有接受這些值，已保留供你修改。',
+  'invalidNumber': '請填數字；留空表示使用預設值。',
+  'invalidCount': '請填入 1–50 的整數；留空表示使用預設值。',
+} satisfies Record<keyof typeof zh, string>

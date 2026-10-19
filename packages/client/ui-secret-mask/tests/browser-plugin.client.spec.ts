@@ -38,6 +38,9 @@ describe('apply', () => {
       { options: { key: 'secret' }, component: SecretText },
     ])
     expect(ctx.locale.bind(NS)('secret.reveal')).toBe('Show secret')
+    ctx.locale.setLocale('zh-TW')
+    expect(ctx.locale.bind(NS)('secret.reveal')).toBe('顯示金鑰')
+    expect(ctx.locale.bind(NS)('secret.hide')).toBe('隱藏金鑰')
 
     await fiber.dispose()
     expect(ctx.uiConversation.userText.entries()).toHaveLength(0)

@@ -51,3 +51,39 @@ export const zh: Record<CotTranslationKey, string> = {
 export function formLabels(t: (key: CotTranslationKey) => string): SettingsFormLabels {
   return { unavailable: t('unavailable'), readOnly: t('readOnly'), saveFailed: t('saveFailed'), save: t('save'), saving: t('saving') }
 }
+
+/** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
+export const zhTW = {
+  'provider': '翻譯服務',
+  'google': 'Google',
+  'bing': 'Bing',
+  'deepseekAccount': 'DeepSeek Flash · 帳號（付費）',
+  'deepseekOfficial': 'DeepSeek Flash · 官方 API（付費）',
+  'providerUnavailableOption': '{provider} — 不可用',
+  'providerUnavailable': '此服務暫不可用，請設定 DeepSeek 帳號或官方 API 服務，或選擇可用的翻譯服務',
+  'paidNotice': '每個未快取片段都會透過所選帳號或官方 API 憑據單獨發送一次付費的 DeepSeek Flash 請求；重新展開會復用已儲存的譯文，更改服務、語言、原文或請求設定可能發送新的付費請求',
+  'anonymousNotice': 'Bing 和 Google 翻譯無需額外登入或 API key，但匿名介面可能拒絕或限制請求',
+  'targetLanguage': '目標語言',
+  'targetLanguageHint': 'auto 使用介面語言；也可填寫語言程式碼，例如 zh、en、ja',
+  'privacy': '展開的思考內容會發送給所選翻譯服務，可能包含私有程式碼或對話細節。',
+  'translation': '檢視譯文',
+  'original': '檢視原文',
+  'retry': '重試',
+  'failed': '翻譯暫不可用，已顯示原文',
+  'translating': '正在翻譯思考內容',
+  'invalidProvider': '請選擇翻譯服務',
+  'invalidLanguage': '請填寫 auto 或語言程式碼，例如 zh、en、ja',
+  'overridden': '已覆蓋',
+  'reset': '恢復預設',
+  'unavailable': '翻譯設定暫不可用',
+  'readOnly': '本部署的設定為唯讀',
+  'saveFailed': '本部署沒有接受這些值，已保留供你修改',
+  'save': '儲存',
+  'saving': '儲存中…',
+  'copy': '複製',
+  'copied': '已複製',
+  'codeTitle': '程式碼區塊',
+  'wrap': '自動換行',
+  'unwrap': '不換行',
+  'footnotes': '註腳',
+} satisfies Record<keyof typeof zh, string>

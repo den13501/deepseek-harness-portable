@@ -58,3 +58,22 @@ export const en = {
   'time.months': '{n}mo',
   'time.years': '{n}y',
 } satisfies Record<ReferenceKey, string>
+
+/** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
+export const zhTW = {
+  'fileOpen.title': '無法開啟檔案',
+  'fileOpen.failed': '無法開啟「{path}」，請重試或關閉此提示',
+  'fileOpen.close': '關閉',
+  'fileOpen.retry': '重試',
+  'section.files': '檔案與資料夾',
+  'section.subagents': '子代理',
+  'section.sessions': '對話',
+  'candidate.noCwd': '（無工作目錄）',
+  'crumb.root': '工作區',
+  'time.now': '剛剛',
+  'time.minutes': '{n}分鐘',
+  'time.hours': '{n}小時',
+  'time.days': '{n}天',
+  'time.months': '{n}個月',
+  'time.years': '{n}年',
+} satisfies Record<keyof typeof zh, string>

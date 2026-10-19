@@ -1,7 +1,7 @@
 /** Real upstream MCP browser checks against private loopback pages and disposable Chromium. */
 import { spawn } from 'node:child_process'
 import { once } from 'node:events'
-import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
+import { mkdir, mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises'
 import { createServer } from 'node:http'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
@@ -29,6 +29,7 @@ export async function verifyMcpBrowser(
   namespace: string,
   navigate: { name: string; arguments(url: string): Record<string, unknown> },
   mode: 'launch' | 'attach',
+  verifyPortablePaths = false,
 ): Promise<void> {
   const executable = process.env.DSH_BROWSER_EXECUTABLE!
   const root = await mkdtemp(join(tmpdir(), 'dsh-browser-upstream-'))
@@ -48,6 +49,13 @@ export async function verifyMcpBrowser(
     if (address === null || typeof address === 'string') throw new Error('Fixture has no TCP listener')
     const url = `http://127.0.0.1:${address.port}/${namespace}-${mode}`
     let browserConfig: BrowserMcpConfig = { mode: 'launch', headless: true, executablePath: executable }
+    const outputDir = join(root, 'output 中文 & (artifacts)')
+    const tempDir = join(root, 'temp 中文 & (browser)')
+    if (verifyPortablePaths) {
+      await mkdir(outputDir)
+      await mkdir(tempDir)
+      Object.assign(browserConfig, { outputDir, tempDir })
+    }
     if (mode === 'attach') {
       const profile = join(root, 'external-profile')
       external = spawn(executable, ['--headless=new', '--remote-debugging-port=0', `--user-data-dir=${profile}`, '--no-first-run', '--no-default-browser-check', 'about:blank'], { stdio: 'ignore' })
@@ -86,8 +94,15 @@ export async function verifyMcpBrowser(
     expect(result.isError, JSON.stringify(result.content)).toBe(false)
     expect(observed.has(`/${namespace}-${mode}`)).toBe(true)
     expect(result.content.length).toBeGreaterThan(0)
+    if (verifyPortablePaths) {
+      const screenshot = await ctx.tools.execute({ agent: owner.agent, name: `mcp__${namespace}__browser_take_screenshot`, arguments: { filename: join(outputDir, 'provider.png'), type: 'png' }, callId: ToolCallId('screenshot'), signal: new AbortController().signal })
+      expect(screenshot.isError, JSON.stringify(screenshot.content)).toBe(false)
+      expect((await readFile(join(outputDir, 'provider.png'))).subarray(0, 8).toString('hex')).toBe('89504e470d0a1a0a')
+      expect((await readdir(tempDir)).some(name => name.startsWith('playwright'))).toBe(true)
+    }
     await owner.dispose()
     expect(ctx.tools.schemas(owner.agent)).toEqual([])
+    if (verifyPortablePaths) await vi.waitFor(async () => { expect(await readdir(tempDir)).toEqual([]) }, { timeout: 15000 })
     if (browserConfig.mode === 'attach') {
       expect(external?.exitCode).toBeNull()
       const response = await fetch(`${browserConfig.endpoint}/json/list`)

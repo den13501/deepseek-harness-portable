@@ -1,4 +1,5 @@
 import { existsSync } from 'node:fs'
+import { resolve } from 'node:path'
 import { Context } from '@deepseek-ai/cordis'
 import { afterEach, expect, it, vi } from 'vitest'
 import { mountSessionMcp } from '@deepseek-ai/dsh-experimental-browser-use-runtime/mcp'
@@ -35,5 +36,20 @@ it('supports headed launch and attaches without launching a browser or creating 
 
 it('rejects malformed endpoints before mounting any browser resources', () => {
   expect(() => { Provider.apply(new Context(), Provider.Config({ mode: 'attach', endpoint: 'http://localhost:bad/path' })) }).toThrow('browser endpoint')
+  expect(mountSessionMcp).not.toHaveBeenCalled()
+})
+
+it('passes explicit absolute artifact and temporary paths without inheriting MCP overrides', () => {
+  const outputDir = resolve('portable 中文 & (test)', 'output')
+  const tempDir = resolve('portable 中文 & (test)', 'temp')
+  vi.stubEnv('PLAYWRIGHT_MCP_OUTPUT_DIR', 'unrelated-profile')
+  Provider.apply(new Context(), Provider.Config({ mode: 'launch', headless: true, outputDir, tempDir }))
+  const options = vi.mocked(mountSessionMcp).mock.calls[0]![1]
+  expect(options.args.slice(1)).toEqual(['--browser', 'chromium', '--output-dir', outputDir, '--isolated', '--headless'])
+  expect(options.env).toMatchObject({ PLAYWRIGHT_MCP_OUTPUT_DIR: '', TEMP: tempDir, TMP: tempDir, TMPDIR: tempDir })
+})
+
+it.each(['outputDir', 'tempDir'] as const)('rejects relative %s before mounting resources', (field) => {
+  expect(() => { Provider.apply(new Context(), Provider.Config({ mode: 'launch', headless: true, [field]: '../outside' })) }).toThrow('absolute paths')
   expect(mountSessionMcp).not.toHaveBeenCalled()
 })

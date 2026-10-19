@@ -107,3 +107,42 @@ export const zh: Record<SubagentSettingsLocaleKey, string> = {
 export function formLabels(t: (key: SubagentSettingsLocaleKey) => string): SettingsFormLabels {
   return { unavailable: t('unavailable'), readOnly: t('readOnly'), saveFailed: t('saveFailed'), save: t('save'), saving: t('saving') }
 }
+
+/** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
+export const zhTW = {
+  'overridden': '已覆蓋',
+  'reset': '恢復預設',
+  'readOnly': '本部署的設定為唯讀。',
+  'unavailable': '該外掛目前未載入，暫時無法設定。',
+  'save': '儲存',
+  'saving': '儲存中…',
+  'saveFailed': '本部署沒有接受這些值，已保留供你修改。',
+  'subagentTitle': '子代理',
+  'subagentDescription': '設定子代理的遞歸層級、數量和模型。',
+  'subagentLimitsTitle': '執行限制',
+  'subagentMaxDepth': '最大遞歸深度',
+  'subagentDepthHelpLabel': '最大遞歸深度說明',
+  'subagentDepthHelp': '限制 Agent 建立子代理的遞歸層級。',
+  'subagentDepthZero': '停用子代理',
+  'subagentDepthOne': '僅允許主 Agent 建立子代理',
+  'subagentDepthOverride': '如果某個工具單獨設定了最大遞歸深度，以該工具的設定為準。',
+  'subagentMaxActive': '子代理并行數量上限',
+  'subagentCapacityHelpLabel': '子代理并行數量上限說明',
+  'subagentCapacityHelp': '同一主 Agent 下，所有遞歸層級同時存活的子代理總數，主 Agent 不計入。達到上限時，新的啟動請求會被拒絕。',
+  'subagentDepthInvalid': '請輸入不小于 0 的整數。',
+  'subagentCapacityInvalid': '請輸入不小于 1 的整數。',
+  'subagentModelSelectionTitle': '模型選擇',
+  'subagentModelSelectionToggle': '允許 Agent 為子代理選擇模型',
+  'subagentModelSelectionChoose': '開啟後，Agent 可以從下方授權模型中，為每個子代理選擇提供方、模型和推理強度。僅影響新對話。',
+  'subagentModelSelectionAllowed': 'Agent 可選擇的模型',
+  'subagentModelSelectionLoading': '正在載入模型…',
+  'subagentModelSelectionLoadFailed': '無法載入模型。',
+  'subagentModelSelectionRetry': '重試',
+  'subagentModelSelectionPartial': '部分模型提供方暫時無法載入；已儲存的選擇仍可移除。',
+  'subagentModelSelectionUnavailable': '目前不可用',
+  'subagentModelSelectionUnavailableGroup': '已儲存但目前不可用',
+  'subagentModelSelectionEmpty': '目前沒有模型提供方公布模型。',
+  'subagentModelSelectionRequired': '儲存前請至少選擇一個模型。',
+  'subagentModelSelectionConflict': '設定已在其他位置更新。請放棄修改後重試。',
+  'subagentModelSelectionOff': '關閉後，子代理使用設定的預設模型或繼承父 Agent 的模型；已選模型會保留。',
+} satisfies Record<keyof typeof zh, string>

@@ -47,3 +47,8 @@ worktrees/
 .agents/worktrees/
 .typert-*/
 native/system/test/bin/
+
+# Machine-specific deployment notes and installation inventories are not public source.
+/HANDOVER.zh-TW.md
+/deployment/installed-artifact-inventory.json
+/deployment/OFFLINE-DEPLOYMENT.zh-TW.md

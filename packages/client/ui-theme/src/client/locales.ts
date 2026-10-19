@@ -60,3 +60,32 @@ export const en = {
   'fontFamily.placeholder': 'Default',
   'fontSize.more': 'More font settings',
 } satisfies Record<ThemeKey, string>
+
+/** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
+export const zhTW = {
+  'appearance.title': '外觀',
+  'appearance.light': '淺色',
+  'appearance.dark': '深色',
+  'appearance.system': '跟隨系統',
+  'fontSize.text.title': '字型大小大小',
+  'fontSize.text.description': '僅影響對話內容的字型大小',
+  'fontSize.text.increase': '增大字型大小',
+  'fontSize.text.decrease': '減小字型大小',
+  'fontSize.code.title': '程式碼字型大小',
+  'fontSize.code.description': '用於程式碼區塊、行內程式碼與工具輸出',
+  'fontSize.code.increase': '增大程式碼字型大小',
+  'fontSize.code.decrease': '減小程式碼字型大小',
+  'fontSize.terminal.title': '終端字型大小',
+  'fontSize.terminal.description': '用於側欄終端',
+  'fontSize.terminal.increase': '增大終端字型大小',
+  'fontSize.terminal.decrease': '減小終端字型大小',
+  'fontSize.unit': 'px',
+  'fontFamily.text.title': '正文字型',
+  'fontFamily.text.description': '用於介面與對話正文。多個字型用逗號分隔，留空使用預設字型',
+  'fontFamily.code.title': '程式碼字型',
+  'fontFamily.code.description': '用於程式碼區塊、行內程式碼與工具輸出。多個字型用逗號分隔，留空使用預設字型',
+  'fontFamily.terminal.title': '終端字型',
+  'fontFamily.terminal.description': '用於側欄終端。多個字型用逗號分隔，留空使用預設字型',
+  'fontFamily.placeholder': '預設',
+  'fontSize.more': '更多字型設定',
+} satisfies Record<keyof typeof zh, string>

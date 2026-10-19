@@ -48,3 +48,19 @@ export const zh: Record<AgentLoopSettingsLocaleKey, string> = {
 export function formLabels(t: (key: AgentLoopSettingsLocaleKey) => string): SettingsFormLabels {
   return { unavailable: t('unavailable'), readOnly: t('readOnly'), saveFailed: t('saveFailed'), save: t('save'), saving: t('saving') }
 }
+
+/** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
+export const zhTW = {
+  'title': 'Agent 循環',
+  'description': '控制 Agent 派發工具呼叫的方式。',
+  'maxParallel': '并行工具呼叫數',
+  'maxParallelHint': '同一步內最多同時執行多少個可并行的呼叫。',
+  'overridden': '已覆蓋',
+  'reset': '恢復預設',
+  'readOnly': '本部署的設定為唯讀。',
+  'unavailable': '該外掛目前未載入，暫時無法設定。',
+  'save': '儲存',
+  'saving': '儲存中…',
+  'saveFailed': '本部署沒有接受這些值，已保留供你修改。',
+  'invalidNumber': '請填數字；留空表示使用預設值。',
+} satisfies Record<keyof typeof zh, string>

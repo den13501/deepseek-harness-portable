@@ -20,3 +20,12 @@ export const en = {
   'toggle.collapse': 'Collapse sidebar',
   'panels.label': 'Global panels',
 } satisfies Record<SidebarKey, string>
+
+/** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
+export const zhTW = {
+  'session.new': '新對話',
+  'session.new.label': '新建對話',
+  'toggle.open': '開啟側邊欄',
+  'toggle.collapse': '收起側邊欄',
+  'panels.label': '全局面板',
+} satisfies Record<keyof typeof zh, string>

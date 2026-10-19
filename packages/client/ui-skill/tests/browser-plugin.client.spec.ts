@@ -161,6 +161,16 @@ describe('apply', () => {
           'row.inspect': 'Inspect',
           'menu.userOnly': 'user-only',
         },
+        'zh-TW': {
+          'row.title': '載入技能',
+          'row.running': '正在載入 skill',
+          'row.preparing': '準備載入技能',
+          'row.failed': 'skill 載入失敗',
+          'row.stopped': 'skill 載入已中止',
+          'row.instructions': '說明',
+          'row.inspect': '檢視',
+          'menu.userOnly': '僅使用者',
+        },
       },
     }])
   })

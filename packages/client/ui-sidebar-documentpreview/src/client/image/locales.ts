@@ -29,3 +29,18 @@ declare module '@deepseek-ai/dsh-client-ui-slots' {
     sidebarImage: ImagePreviewKey
   }
 }
+
+/** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
+export const zhTW = {
+  'zoomControls': '縮放控件',
+  'zoomMenu': '選擇縮放比例',
+  'zoomOut': '縮小',
+  'zoomIn': '放大',
+  'zoomFitWidth': '適應寬度',
+  'zoomValue': '{percent}%',
+  'title': '圖片',
+  'preview': '圖片預覽：{name}',
+  'loading': '文件渲染中...',
+  'failed': '無法顯示這張圖片',
+  'unsupported': '圖片預覽需要完整檔案內容',
+} satisfies Record<keyof typeof zh, string>

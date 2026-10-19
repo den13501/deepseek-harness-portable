@@ -44,6 +44,8 @@ kind: "package-reference"
 | `executablePath` | 上游发现 | 启动使用的 Chromium 可执行文件 |
 | `endpoint` | attach 时必填 | 已有浏览器调试端点 |
 | `toolCallTimeoutMs` | MCP 客户端默认值 | 单次调用超时，单位为毫秒 |
+| `outputDir` | 上游默认值 | 自动生成文件的绝对目录；显式指定的相对文件名使用 Session 工作目录 |
+| `tempDir` | 继承操作系统环境 | MCP 服务与浏览器的绝对临时目录；调用方负责创建目录及管理残留文件 |
 
 [配置目录](../../../docs/config-catalog.zh.md#deepseek-aidsh-experimental-browser-use-playwright-mcp)列出接受的字段。浏览器模式由 profile 或 preset 选择。子进程会清空继承的 `PLAYWRIGHT_MCP_*` 选项，避免其替换该配置。
 

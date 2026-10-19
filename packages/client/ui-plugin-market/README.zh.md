@@ -5,6 +5,8 @@ kind: "package-reference"
 
 # @deepseek-ai/dsh-client-ui-plugin-market
 
+免安裝衍生版另提供繁體中文（台灣）字典；選擇 `zh-TW` 不會翻譯索引內容，也不會變更信任的索引來源。
+
 [English](README.md) | 中文
 
 ## 概述

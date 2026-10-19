@@ -25,6 +25,8 @@ declare module '@deepseek-ai/cordis' {
     'exit'(signal: NodeJS.Signals): Promise<void>
     'loader/config-update'(): void
     'loader/entry-init'(entry: Entry): void
+    /** Deployment policy may additionally disable an entry; returning false never overrides configured disablement. @mode waterfall */
+    'loader/entry-disabled'(entry: Entry, next: () => boolean): boolean
     'loader/partial-dispose'(entry: Entry, legacy: Partial<EntryOptions>, active: boolean): void
     /**
      * Volatile config values were committed into the running fiber without a remount; dispatched to the owning fiber only.

@@ -1,0 +1,57 @@
+name: Portable Windows (manual)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: portable-windows-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.repository == 'den13501/deepseek-harness-portable'
+    runs-on: windows-2022
+    timeout-minutes: 180
+    defaults:
+      run:
+        shell: pwsh
+    env:
+      DSH_TELEMETRY_DISABLED: '1'
+      DSH_TELEMETRY_MODE: DISABLED
+      DSH_OFFLINE_MODE: '1'
+    steps:
+      - name: Enable long paths
+        run: git config --global core.longpaths true
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+      - name: Install locked dependencies
+        run: |
+          pnpm install --frozen-lockfile
+          if ($LASTEXITCODE -ne 0) { throw 'Dependency installation failed' }
+      - name: Validate source and portable tooling
+        run: |
+          node --test scripts/portable/package.test.mjs scripts/portable/portable-update.test.mjs
+          if ($LASTEXITCODE -ne 0) { throw 'Portable tooling tests failed' }
+          node scripts/portable/validate.mjs
+          if ($LASTEXITCODE -ne 0) { throw 'Source validation failed' }
+      - name: Build and verify clean portable ZIP
+        run: ./scripts/portable/build.ps1
+      - name: Retain verified ZIP and checksum
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: portable-win-x64-${{ github.sha }}
+          path: |
+            .artifacts/portable/*.zip
+            .artifacts/portable/*.zip.sha256
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 7

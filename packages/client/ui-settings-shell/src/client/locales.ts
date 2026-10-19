@@ -53,3 +53,21 @@ export const zh: Record<ShellSettingsLocaleKey, string> = {
 export function formLabels(t: (key: ShellSettingsLocaleKey) => string): SettingsFormLabels {
   return { unavailable: t('unavailable'), readOnly: t('readOnly'), saveFailed: t('saveFailed'), save: t('save'), saving: t('saving') }
 }
+
+/** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
+export const zhTW = {
+  'title': '終端',
+  'description': '限制每條命令最多能跑多久、最多輸出多少內容。',
+  'timeoutMs': '命令超時（毫秒）',
+  'timeoutMsHint': '單條命令允許執行多久，超時即終止。',
+  'maxOutputBytes': '單流輸出上限（字節）',
+  'maxOutputBytesHint': '超出部分會轉存到臨時檔案，而不是被丟棄。',
+  'overridden': '已覆蓋',
+  'reset': '恢復預設',
+  'readOnly': '本部署的設定為唯讀。',
+  'unavailable': '該外掛目前未載入，暫時無法設定。',
+  'save': '儲存',
+  'saving': '儲存中…',
+  'saveFailed': '本部署沒有接受這些值，已保留供你修改。',
+  'invalidNumber': '請填數字；留空表示使用預設值。',
+} satisfies Record<keyof typeof zh, string>

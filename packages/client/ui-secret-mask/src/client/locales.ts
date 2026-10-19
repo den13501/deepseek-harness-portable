@@ -26,3 +26,9 @@ export const en = {
   'secret.reveal': 'Show secret',
   'secret.hide': 'Hide secret',
 } satisfies Record<SecretMaskKey, string>
+
+/** Traditional Chinese (Taiwan), checked against the credential control keys. */
+export const zhTW = {
+  'secret.reveal': '顯示金鑰',
+  'secret.hide': '隱藏金鑰',
+} satisfies Record<SecretMaskKey, string>

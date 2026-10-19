@@ -73,6 +73,18 @@ describe('document language', () => {
     expect(langOf()).toBe('zh-CN')
   })
 
+  it('states Taiwan Traditional Chinese after adopting a stored choice', async () => {
+    const { ctx, locale } = await bench('zh-TW')
+    try {
+      expect(locale.getSnapshot().active).toBe('zh-TW')
+      expect(langOf()).toBe('zh-TW')
+      locale.setLocale('zh')
+      expect(langOf()).toBe('zh-CN')
+      locale.setLocale('zh-TW')
+      expect(langOf()).toBe('zh-TW')
+    } finally { await ctx.fiber.dispose() }
+  })
+
   it('follows a locale switch in both directions with BCP 47 tags', async () => {
     const { locale } = await bench()
     expect(langOf()).toBe('zh-CN')

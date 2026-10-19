@@ -9,6 +9,8 @@ English | [中文](README.zh.md)
 
 ## Summary
 
+The portable derivative registers Traditional Chinese (Taiwan) alongside the English and Simplified Chinese dictionaries; choosing `zh-TW` does not translate index content or change trusted index sources.
+
 Discover is the second tab of the **Plugins** page, after **Installed**. It lists the bundles that plugin market indexes offer; users manage index sources, switch between markets, search, filter by category and label, sort, open an entry's page, and install an entry after confirming it. The Host [`pluginMarket`](../../boot/plugin-market/README.md) service fetches and validates indexes; this package only presents them.
 
 ## Table of Contents

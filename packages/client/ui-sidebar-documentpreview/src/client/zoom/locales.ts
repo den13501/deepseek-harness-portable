@@ -20,3 +20,13 @@ export const zoomEn = {
 
 /** Shared zoom dictionary keys. */
 export type ZoomLocaleKey = keyof typeof zoomZh
+
+/** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
+export const zoomZhTW = {
+  'zoomControls': '縮放控件',
+  'zoomMenu': '選擇縮放比例',
+  'zoomOut': '縮小',
+  'zoomIn': '放大',
+  'zoomFitWidth': '適應寬度',
+  'zoomValue': '{percent}%',
+} satisfies Record<keyof typeof zoomZh, string>

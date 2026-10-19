@@ -67,3 +67,33 @@ declare module '@deepseek-ai/dsh-client-ui-slots' {
     sidebarBrowser: SidebarBrowserKey
   }
 }
+
+/** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
+export const zhTW = {
+  'type.label': '瀏覽器',
+  'guide.title': '瀏覽器',
+  'guide.description': '瀏覽網頁',
+  'shortcut.noSession': '請先開啟一個對話',
+  'address.placeholder': '輸入 HTTP(S) 位址',
+  'address.changed': 'URL 已變化',
+  'back': '後退',
+  'forward': '前進',
+  'reload': '重新整理',
+  'go': '前往',
+  'external': '在系統瀏覽器中開啟',
+  'sandbox.disable': '關閉沙箱限制',
+  'sandbox.enable': '恢復沙箱限制',
+  'sandbox.warning': '沙箱限制已關閉；頁面可以導航頂層應用程式，并使用下載、模態對話框與輸入鎖定。',
+  'start': '輸入 HTTP(S) 位址開始瀏覽',
+  'loading': '正在開啟…',
+  'restore.previous': '上次開啟',
+  'restore.action': '恢復頁面',
+  'error.empty': '請輸入位址。',
+  'error.invalid': '這個位址無效或過長。',
+  'error.protocol': '只支援 HTTP 和 HTTPS 位址；本機檔案請使用文件預覽。',
+  'error.credentials': '位址不能包含使用者名或密碼。',
+  'error.application-origin': '不能在嵌入瀏覽器中開啟 DSH 應用程式自身。',
+  'load.failed': '頁面載入失敗；請重新整理重試或在系統瀏覽器中開啟。',
+  'load.failed.detail': '頁面載入失敗 ({code}): {description}',
+  'address.unknown': '頁面已跳轉；目前載體無法讀取新的 URL。',
+} satisfies Record<keyof typeof zh, string>

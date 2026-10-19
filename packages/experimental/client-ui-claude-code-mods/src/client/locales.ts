@@ -21,3 +21,11 @@ export const en = {
   'press.failed': 'The button failed: {message}',
   'press.stale': 'That button belonged to an earlier drawing; the band has refreshed',
 } satisfies Record<ModsBandKey, string>
+
+/** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
+export const zhTW = {
+  'band': 'Claude Code 模組',
+  'pressing': '正在處理…',
+  'press.failed': '按鈕操作失敗：{message}',
+  'press.stale': '該按鈕屬于更早的繪制，面板已重新整理',
+} satisfies Record<keyof typeof zh, string>

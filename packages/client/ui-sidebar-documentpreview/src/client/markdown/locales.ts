@@ -23,3 +23,11 @@ declare module '@deepseek-ai/dsh-client-ui-slots' {
     documentMarkdown: MarkdownPreviewKey
   }
 }
+
+/** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
+export const zhTW = {
+  'viewer.label': 'Markdown',
+  'code.copy': '複製',
+  'code.copied': '已複製',
+  'footnotes': '註腳',
+} satisfies Record<keyof typeof zh, string>

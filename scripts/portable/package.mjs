@@ -82,15 +82,17 @@ async function main() {
   const browserRoot = join(dest, 'app', 'browser')
   const assets = process.env.DSH_PORTABLE_BROWSER_ASSETS
   const extension = process.env.DSH_PORTABLE_BROWSER_EXTENSION
-  if (!assets || !extension) throw new Error('Pinned browser assets and extension payload are required')
-  const assetManifest = verifyBrowserAssets(assets)
-  const extensionManifest = verifyBrowserExtension(extension)
-  const playwright = extensionManifest.packages.find(pkg => pkg.name === 'playwright-core')?.version
-  if (playwright !== assetManifest.playwrightVersion) throw new Error('Browser asset and extension Playwright versions differ')
-  cpSync(assets, join(browserRoot, 'assets'), { recursive: true, dereference: false })
-  cpSync(extension, join(browserRoot, 'extension'), { recursive: true, dereference: false })
-  verifyBrowserAssets(join(browserRoot, 'assets'))
-  verifyBrowserExtension(join(browserRoot, 'extension'))
+  if (Boolean(assets) !== Boolean(extension)) throw new Error('Browser assets and extension payload must be supplied together')
+  if (assets && extension) {
+    const assetManifest = verifyBrowserAssets(assets)
+    const extensionManifest = verifyBrowserExtension(extension)
+    const playwright = extensionManifest.packages.find(pkg => pkg.name === 'playwright-core')?.version
+    if (playwright !== assetManifest.playwrightVersion) throw new Error('Browser asset and extension Playwright versions differ')
+    cpSync(assets, join(browserRoot, 'assets'), { recursive: true, dereference: false })
+    cpSync(extension, join(browserRoot, 'extension'), { recursive: true, dereference: false })
+    verifyBrowserAssets(join(browserRoot, 'assets'))
+    verifyBrowserExtension(join(browserRoot, 'extension'))
+  }
   for (const file of ['Start-DSH.cmd', 'Check-Update.cmd', 'Update-DSH.cmd', 'Restore-DSH.cmd', 'Enable-Browser.cmd', 'Disable-Browser.cmd', 'portable-update.mjs', 'browser-enable.mjs', 'browser-runtime.mjs', 'browser-extension.mjs', 'browser-assets.mjs']) {
     cpSync(join(root, 'scripts/portable', file), join(dest, file))
   }

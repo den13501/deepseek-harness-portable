@@ -7,5 +7,6 @@ if errorlevel 1 goto done
 :done
 set "RESULT=%ERRORLEVEL%"
 echo.
+if defined DSH_PORTABLE_NO_PAUSE exit /b %RESULT%
 pause
 exit /b %RESULT%

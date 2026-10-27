@@ -7,11 +7,13 @@ import { verifyBrowserAssets } from './browser-assets.mjs'
 import { verifyBrowserExtension } from './browser-extension.mjs'
 
 const root = fileURLToPath(new URL('../..', import.meta.url))
-const source = join(root, 'apps/desktop/.desktop-build/targets/win-x64/unsigned-artifacts/win-unpacked')
+const source = process.env.DSH_PORTABLE_APP_SOURCE
+  ? resolve(process.env.DSH_PORTABLE_APP_SOURCE)
+  : join(root, 'apps/desktop/.desktop-build/targets/win-x64/unsigned-artifacts/win-unpacked')
 const output = join(root, '.artifacts/portable')
 const commit = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim()
 const version = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8')).version
-const portableRevision = 1
+const portableRevision = 2
 const name = `DSH-portable-${version}-p${portableRevision}-win-x64-${commit.slice(0, 12)}`
 const dest = join(output, name)
 const hash = file => new Promise((resolveHash, reject) => {
@@ -104,6 +106,10 @@ async function main() {
   for (const file of inventory(dest)) rows.push([file.replaceAll('\\', '/'), String(statSync(join(dest, file)).size), await hash(join(dest, file))].map(value => `"${value.replaceAll('"', '""')}"`).join(','))
   writeFileSync(join(dest, 'SHA256SUMS.csv'), '\uFEFF' + rows.join('\r\n') + '\r\n')
   if (existsSync(join(dest, 'data')) || existsSync(join(dest, 'workspace'))) throw new Error('User data in clean package')
+  if (process.env.DSH_PORTABLE_SKIP_ZIP === '1') {
+    console.log(`Portable directory verified: ${name}`)
+    return
+  }
   const zip = dest + '.zip'
   execFileSync('7z', ['a', '-tzip', '-mx=3', zip, name], { cwd: output, stdio: 'inherit' })
   execFileSync('7z', ['t', zip], { stdio: 'inherit' })

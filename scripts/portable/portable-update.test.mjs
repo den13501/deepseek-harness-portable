@@ -299,7 +299,7 @@ test('Windows CMD entrypoints use the bundled Node at arbitrary paths for check,
   const run = (name, args, input) => {
     const result = spawnSync(process.env.ComSpec || 'cmd.exe', ['/d', '/s', '/c', `""${join(source, name)}" --target "${target}" ${args}"`], {
       cwd: root, input, encoding: 'utf8', timeout: 60000, windowsVerbatimArguments: true,
-      env: { ...process.env, ELECTRON_RUN_AS_NODE: '1' },
+      env: { ...process.env, ELECTRON_RUN_AS_NODE: '1', DSH_PORTABLE_NO_PAUSE: '1' },
     })
     assert.ifError(result.error)
     assert.equal(result.status, 0, result.stdout + result.stderr)

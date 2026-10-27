@@ -13,7 +13,7 @@ const source = process.env.DSH_PORTABLE_APP_SOURCE
 const output = join(root, '.artifacts/portable')
 const commit = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim()
 const version = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8')).version
-const portableRevision = 2
+const portableRevision = 1
 const name = `DSH-portable-${version}-p${portableRevision}-win-x64-${commit.slice(0, 12)}`
 const dest = join(output, name)
 const hash = file => new Promise((resolveHash, reject) => {

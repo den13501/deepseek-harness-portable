@@ -264,6 +264,28 @@ test('same upstream release accepts only a higher portable revision and preserve
   assert.throws(() => checkUpdate(source, target), /Only a newer release/)
 })
 
+for (const revision of [1, 2]) {
+  test(`rc.2+portable.${revision} with browser enabled upgrades to rc.3 and reports the required re-enable`, t => {
+    const { source, target } = fixture(t, '0.2.1-rc.3', '0.2.1-rc.2', 1, revision)
+    put(target, 'data/browser/enable.json', JSON.stringify({ schemaVersion: 2, deployment: 'files', desktopVersion: '0.2.1-rc.2' }))
+    put(target, 'data/browser/extension/BROWSER-EXTENSION.json', '{"schemaVersion":1}')
+    const plan = checkUpdate(source, target)
+    assert.equal(plan.from, `0.2.1-rc.2+portable.${revision}`)
+    assert.equal(plan.to, '0.2.1-rc.3+portable.1')
+    assert.match(plan.notices[0], /Enable-Browser\.cmd/)
+    const result = applyUpdate(source, target)
+    assert.match(result.browser, /Enable-Browser\.cmd/)
+    assert.equal(readFileSync(join(target, 'data/browser/extension/BROWSER-EXTENSION.json'), 'utf8'), '{"schemaVersion":1}')
+    assert.equal(restoreUpdate(target, result.backupId).restoredVersion, `0.2.1-rc.2+portable.${revision}`)
+  })
+}
+
+test('an update without an older browser enablement reports no re-enable', t => {
+  const { source, target } = fixture(t, '0.2.1-rc.3', '0.2.1-rc.2', 1, 2)
+  assert.ok(checkUpdate(source, target).notices.every(notice => !notice.includes('Enable-Browser.cmd')))
+  assert.equal(applyUpdate(source, target).browser, undefined)
+})
+
 test('rc.2 rejects reapplication, later candidates and stable releases without creating a backup', t => {
   const { source, target } = fixture(t, '0.2.1-rc.2')
   for (const version of ['0.2.1-rc.2', '0.2.1-rc.10', '0.2.1', '0.2.2']) {

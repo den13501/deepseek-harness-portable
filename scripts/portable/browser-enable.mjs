@@ -43,6 +43,48 @@ export function verifyPortableRuntime(root) {
   return { desktopVersion: manifest.desktopVersion }
 }
 
+/**
+ * Retire a browser enablement recorded for an older desktop release, before a new payload replaces it.
+ * Every owned file is verified first, so a modified profile or payload refuses without changes.
+ * @param root - Portable root whose program was already updated.
+ * @returns The retired desktop version, or undefined when no older enablement exists.
+ */
+export function retireStaleBrowserExtension(root) {
+  const { desktopVersion } = verifyPortableRuntime(root)
+  const paths = portablePaths(root)
+  if (!existsSync(paths.receipt)) return undefined
+  const receipt = readJson(paths.receipt)
+  if (receipt.desktopVersion === desktopVersion) return undefined
+  if (receipt.schemaVersion !== 2 || receipt.deployment !== 'files' || typeof receipt.desktopVersion !== 'string') {
+    fail('Browser enablement from an older release has an unsupported receipt; run Disable-Browser.cmd from that release first')
+  }
+  let deployed
+  try { deployed = existsSync(paths.payload) ? verifyBrowserExtension(paths.payload) : undefined }
+  catch (error) { fail(`Deployed browser payload no longer matches its ${receipt.desktopVersion} receipt; refusing to retire it: ${error.message}`) }
+  if (JSON.stringify(deployed) !== JSON.stringify(receipt.payload)) {
+    fail(`Deployed browser payload no longer matches its ${receipt.desktopVersion} receipt; refusing to retire it`)
+  }
+  const profileManifest = existsSync(join(paths.profile, 'package.json')) ? readJson(join(paths.profile, 'package.json')) : {}
+  for (const [name, version] of Object.entries(receipt.dependencies ?? {})) {
+    const current = profileManifest.dependencies?.[name]
+    if (current !== undefined && current !== version) fail(`Profile dependency ${name}@${current} was changed after browser enablement`)
+  }
+  for (const pkg of receipt.payload.packages) {
+    const installed = join(paths.profile, 'node_modules', ...pkg.name.split('/'))
+    const stat = lstatSyncSafe(installed)
+    if (stat === undefined) continue
+    if (stat.isSymbolicLink() || !stat.isDirectory()
+      || JSON.stringify(fileInventory(installed)) !== JSON.stringify(fileInventory(join(paths.payload, 'node_modules', ...pkg.name.split('/'))))) {
+      fail(`Profile package ${pkg.name} was changed after browser enablement; refusing to remove it`)
+    }
+  }
+  disableBrowserExtension(root)
+  const retired = join(dirname(paths.payload), `.extension-retired-${randomUUID()}`)
+  renameSync(paths.payload, retired)
+  rmSync(retired, { recursive: true })
+  return receipt.desktopVersion
+}
+
 /** Copy a verified payload into portable data; an identical existing deployment is reused, others refuse. */
 export function deployBrowserExtension(root, payloadDirectory) {
   const { desktopVersion } = verifyPortableRuntime(root)
@@ -57,6 +99,8 @@ export function deployBrowserExtension(root, payloadDirectory) {
       fail(`Host requirement ${name} version ${version} does not match packaged desktop ${desktopVersion}`)
     }
   }
+  // Versions are checked first, so a mismatched payload leaves an older enablement untouched.
+  retireStaleBrowserExtension(root)
   const { payload } = portablePaths(root)
   if (existsSync(payload)) {
     const deployed = verifyBrowserExtension(payload)
@@ -220,6 +264,10 @@ export function enableBrowserExtension(root, runtime) {
     fail(`Desktop profile does not exist yet at ${paths.profile}; start DSH once, then enable`)
   }
   const manifest = verifyBrowserExtension(paths.payload)
+  const { desktopVersion } = verifyPortableRuntime(root)
+  if (manifest.packages.some(pkg => pkg.name.startsWith('@deepseek-ai/dsh-') && pkg.version !== desktopVersion)) {
+    fail(`Deployed browser payload does not match packaged desktop ${desktopVersion}; run Enable-Browser.cmd from this directory to deploy the bundled payload first`)
+  }
   const config = runtime?.providerConfig
   if (config?.mode !== 'launch') fail('Runtime resolution must provide a launch providerConfig')
   const block = renderBlock(config)

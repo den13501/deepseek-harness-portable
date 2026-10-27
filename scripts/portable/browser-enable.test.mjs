@@ -1,15 +1,16 @@
 import assert from 'node:assert/strict'
-import { existsSync, lstatSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { existsSync, lstatSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { test } from 'node:test'
 import { prepareBrowserExtension } from './browser-extension.mjs'
 import { deployBrowserExtension, disableBrowserExtension, enableBrowserExtension, verifyPortableRuntime } from './browser-enable.mjs'
 
-const VERSION = '0.2.1-rc.2'
+const CURRENT = '0.2.1-rc.3'
+const PREVIOUS = '0.2.1-rc.2'
 const readJson = file => JSON.parse(readFileSync(file, 'utf8').replace(/^\uFEFF/, ''))
 
-function fixture(t, cordisVersion = '4.0.5') {
+function fixture(t, cordisVersion = '4.0.5', VERSION = CURRENT) {
   const root = mkdtempSync(join(tmpdir(), 'browser enable 中文 & '))
   t.after(() => rmSync(root, { recursive: true, force: true }))
   const entry = join(root, 'source', 'node_modules', '@deepseek-ai', 'dsh-experimental-browser-use-playwright-mcp')
@@ -42,8 +43,21 @@ function fixture(t, cordisVersion = '4.0.5') {
     },
   })
   prepareBrowserExtension(entry, dest, { '@deepseek-ai/cordis': cordisVersion })
-  return { root, entry, dest, profile, userLayer, runtime }
+  return { root, entry, dest, profile, userLayer, runtime, runtimeJson, VERSION }
 }
+const VERSION = CURRENT
+
+/** An older release with the browser enabled, whose program was then updated to `next` with a matching payload. */
+function upgraded(t) {
+  const old = fixture(t, '4.0.5', PREVIOUS)
+  deployBrowserExtension(old.root, old.dest)
+  enableBrowserExtension(old.root, old.runtime())
+  const next = fixture(t, '4.0.5', CURRENT)
+  writeFileSync(old.runtimeJson, JSON.stringify({ desktopVersion: CURRENT, platform: 'win32', arch: 'x64' }))
+  return { ...old, nextPayload: next.dest }
+}
+const browserDir = root => join(root, 'data', 'browser')
+const leftovers = root => readdirSync(browserDir(root)).filter(name => name.startsWith('.extension-'))
 
 function deployed(t) {
   const x = fixture(t)
@@ -117,4 +131,57 @@ test('enable refuses a missing profile, foreign node_modules entries, and confli
   manifest.dependencies = { '@deepseek-ai/dsh-experimental-browser-use-playwright-mcp': '0.0.1' }
   writeFileSync(manifestFile, JSON.stringify(manifest))
   assert.throws(() => enableBrowserExtension(x.root, x.runtime()), /already depends/)
+})
+
+test('upgrade: deploying a newer payload retires the older enablement, then enable succeeds without leftovers', t => {
+  const x = upgraded(t)
+  const manifestFile = join(x.profile, 'package.json')
+  const installed = join(x.profile, 'node_modules', '@deepseek-ai', 'dsh-experimental-browser-use-playwright-mcp')
+  assert.equal(readJson(join(browserDir(x.root), 'enable.json')).desktopVersion, PREVIOUS)
+  assert.throws(() => enableBrowserExtension(x.root, x.runtime()), /does not match|already depends|differs/, 'enable alone keeps refusing the stale profile')
+  deployBrowserExtension(x.root, x.nextPayload)
+  assert.equal(existsSync(join(browserDir(x.root), 'enable.json')), false, 'old receipt retired')
+  assert.equal(readJson(manifestFile).dependencies, undefined, 'old dependency rows removed')
+  enableBrowserExtension(x.root, x.runtime())
+  const receipt = readJson(join(browserDir(x.root), 'enable.json'))
+  assert.equal(receipt.desktopVersion, CURRENT)
+  assert.equal(readJson(manifestFile).dependencies['@deepseek-ai/dsh-experimental-browser-use-playwright-mcp'], CURRENT)
+  assert.equal(readJson(join(installed, 'package.json')).version, CURRENT)
+  const patch = readFileSync(join(x.profile, 'cordis.patch.yml'), 'utf8')
+  assert.equal(patch.match(/# dsh-portable-browser begin/g).length, 1)
+  assert.ok(patch.includes(x.userLayer))
+  assert.deepEqual(leftovers(x.root), [])
+  deployBrowserExtension(x.root, x.nextPayload)
+  assert.equal(readJson(join(browserDir(x.root), 'enable.json')).desktopVersion, CURRENT, 'same-release redeploy keeps the enablement')
+})
+
+test('upgrade: modified owned packages, dependency rows or payload refuse before any change', t => {
+  for (const tamper of [
+    x => writeFileSync(join(x.profile, 'node_modules', '@deepseek-ai', 'dsh-experimental-browser-use-runtime', 'lib', 'index.js'), 'edited\n'),
+    x => {
+      const file = join(x.profile, 'package.json')
+      const manifest = readJson(file)
+      manifest.dependencies['@deepseek-ai/dsh-experimental-browser-use-runtime'] = '9.9.9'
+      writeFileSync(file, JSON.stringify(manifest))
+    },
+    x => writeFileSync(join(browserDir(x.root), 'extension', 'node_modules', '@deepseek-ai', 'dsh-experimental-browser-use-runtime', 'lib', 'index.js'), 'edited\n'),
+  ]) {
+    const x = upgraded(t)
+    tamper(x)
+    const before = ['package.json', 'cordis.patch.yml'].map(name => readFileSync(join(x.profile, name), 'utf8'))
+    const receipt = readFileSync(join(browserDir(x.root), 'enable.json'), 'utf8')
+    assert.throws(() => deployBrowserExtension(x.root, x.nextPayload), /changed after browser enablement|no longer matches/)
+    assert.deepEqual(['package.json', 'cordis.patch.yml'].map(name => readFileSync(join(x.profile, name), 'utf8')), before)
+    assert.equal(readFileSync(join(browserDir(x.root), 'enable.json'), 'utf8'), receipt)
+    assert.deepEqual(leftovers(x.root), [])
+  }
+})
+
+test('upgrade: a payload for the wrong release changes nothing', t => {
+  const x = upgraded(t)
+  const receipt = readFileSync(join(browserDir(x.root), 'enable.json'), 'utf8')
+  const stale = fixture(t, '4.0.5', PREVIOUS)
+  assert.throws(() => deployBrowserExtension(x.root, stale.dest), /does not match packaged desktop/)
+  assert.equal(readFileSync(join(browserDir(x.root), 'enable.json'), 'utf8'), receipt)
+  assert.ok(existsSync(join(x.profile, 'node_modules', '@deepseek-ai', 'dsh-experimental-browser-use-playwright-mcp')))
 })

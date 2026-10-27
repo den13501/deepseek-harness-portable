@@ -234,6 +234,13 @@ function restoreFiles(target, backup, journal, includeData) {
   return attempt
 }
 
+const browserReenableNotice = 'Browser was enabled for an older release. Run Enable-Browser.cmd in this directory once before Start-DSH.cmd; it retires the old browser packages first.'
+/** Whether the target's browser receipt names a desktop release other than the one being applied. */
+function browserReenable(target, version) {
+  const receipt = join(target, 'data/browser/enable.json')
+  return existsSync(receipt) && json(receipt).desktopVersion !== version
+}
+
 /**
  * Validate an extracted new release and a stopped, older portable without writing either.
  * @param source - Clean extracted release directory.
@@ -245,7 +252,8 @@ export function checkUpdate(source, target) {
   return {
     from: plan.current.label, to: plan.next.label, requiredBytes: plan.requiredBytes,
     target: plan.target, preserved: ['data', 'workspace', 'other unmanaged root entries'],
-    notices: ['External Skills, MCP commands, and workspace paths are not moved or rewritten.',
+    notices: [...browserReenable(plan.target, plan.next.version) ? [browserReenableNotice] : [],
+      'External Skills, MCP commands, and workspace paths are not moved or rewritten.',
       'No plugins or MCP dependencies are downloaded. Compatibility still requires a post-upgrade check.',
       'Browser remains opt-in. Existing browser state is preserved only when it contains no links.',
       'Backups contain credentials and chats. Keep them private; never redistribute the used portable.'],
@@ -295,7 +303,8 @@ export function applyUpdate(source, target) {
     verifySnapshot(plan.target, plan.data)
     journal.state = 'applied'; save(join(backup, 'transaction.json'), journal)
     safeToUnlock = true
-    return { backupId: id, from: plan.current.label, to: plan.next.label, target: plan.target }
+    return { backupId: id, from: plan.current.label, to: plan.next.label, target: plan.target,
+      ...browserReenable(plan.target, plan.next.version) ? { browser: browserReenableNotice } : {} }
   } catch (error) {
     if (journal && !safeToUnlock) {
       try {
@@ -361,8 +370,11 @@ async function main() {
       console.log(JSON.stringify(checkUpdate(source, target), null, 2))
       if (action === 'check') return
       if (await input.question('Type UPDATE to confirm: ') !== 'UPDATE') fail('Update cancelled; no changes made')
-      console.log(JSON.stringify(applyUpdate(source, target), null, 2))
-      console.log('Update complete. Launch Start-DSH.cmd from the EXISTING portable directory. The clean source package is unchanged.')
+      const result = applyUpdate(source, target)
+      console.log(JSON.stringify(result, null, 2))
+      console.log(result.browser
+        ? 'Update complete. Run Enable-Browser.cmd in the EXISTING portable directory, then launch its Start-DSH.cmd. The clean source package is unchanged.'
+        : 'Update complete. Launch Start-DSH.cmd from the EXISTING portable directory. The clean source package is unchanged.')
     }
   } finally { input.close() }
 }

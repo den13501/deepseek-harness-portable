@@ -17,6 +17,7 @@ ZIP.sha256 驗證整包；SHA256SUMS.csv 記錄包內其他檔案的相對路徑
 3. 從乾淨新包執行 Check-Update.cmd，輸入舊包的完整目錄。預檢不修改新舊包；來源必須比目標版本新，且檔案清單、雜湊、離線政策與 runtime 版本必須一致。
 4. 從同一乾淨新包執行 Update-DSH.cmd，輸入舊包目錄，確認資訊後輸入 UPDATE。工具先在舊包 portable-backups 建立並驗證程式與完整 data 快照，再整批替換程式；顯示完成後記下 backupId。
 5. 繼續使用原來舊包位置的 Start-DSH.cmd。data 與 workspace 路徑未變。browser 不會因更新而自動啟用；需要時關閉 DSH，從使用目錄執行 Enable-Browser.cmd。停用則執行 Disable-Browser.cmd。重啟後仍須確認模型、外掛相容性與實際工具呼叫。
+6. 舊包若已啟用 browser，預檢與更新結果會提示重新啟用。此時先在使用目錄執行一次 Enable-Browser.cmd，再執行 Start-DSH.cmd。Enable 會先驗證並移除舊版 browser 套件、profile 依賴與設定區塊，再部署新版套件；若舊套件、依賴或 payload 曾被手動修改，會在任何變更前停止。
 
 這是本機、離線、需確認的更新，不是背景下載或官方自動更新。只支援本衍生包的 app、data、workspace 結構與預期啟動器；不支援直接更新一般安裝版或猜測其他資料根目錄。根目錄的自訂檔案不刪除；新版管理的啟動器、說明、版本與雜湊檔會更新。來源若已含 data、workspace 或其他額外檔案會拒絕。資料內的符號連結／junction 會拒絕，不能靜默略過。
 

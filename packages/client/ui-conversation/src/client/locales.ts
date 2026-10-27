@@ -843,6 +843,8 @@ export const zhTW = {
   'hero.preview': '預覽版',
   'hero.chooseWorkspace': '選擇工作區',
   'session.hierarchy': '對話層級',
+  'session.moreViews': '更多對話檢視',
+  'session.moreViewsCurrent': '更多對話檢視 · {name}',
   'todo.title': '任務',
   'todo.progress.done': '{done} 已完成',
   'todo.progress.active': '{active} 進行中',

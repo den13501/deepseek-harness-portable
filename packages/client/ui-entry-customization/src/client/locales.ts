@@ -15,3 +15,12 @@ export const zh: Record<keyof typeof en, string> = {
   'createPrompt.conversation': '创建一个 DSH 会话视图插件。',
   'createPrompt.rightbar': '创建一个带右侧栏入口的 DSH 插件。',
 }
+
+/** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
+export const zhTW = {
+  install: '瀏覽更多外掛',
+  create: '建立你的外掛',
+  'createPrompt.sidebar': '建立一個帶左側欄入口的 DSH 外掛。',
+  'createPrompt.conversation': '建立一個 DSH 對話檢視外掛。',
+  'createPrompt.rightbar': '建立一個帶右側欄入口的 DSH 外掛。',
+} satisfies Record<keyof typeof en, string>

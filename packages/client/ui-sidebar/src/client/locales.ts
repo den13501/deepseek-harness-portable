@@ -30,4 +30,5 @@ export const zhTW = {
   'toggle.open': '開啟側邊欄',
   'toggle.collapse': '收起側邊欄',
   'panels.label': '全局面板',
+  'panels.more': '更多',
 } satisfies Record<keyof typeof zh, string>

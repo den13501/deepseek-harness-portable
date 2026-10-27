@@ -122,5 +122,6 @@ export const zhTW = {
   'dock.drop.top': '上分欄',
   'dock.drop.bottom': '下分欄',
   'tab.guide.title': '開始',
+  'tab.guide.more': '更多工具',
   'tab.unavailable': '這類內容還沒有可用的檢視方式。',
 } satisfies Record<keyof typeof zh, string>

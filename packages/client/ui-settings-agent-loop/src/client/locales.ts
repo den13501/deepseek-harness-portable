@@ -53,8 +53,8 @@ export function formLabels(t: (key: AgentLoopSettingsLocaleKey) => string): Sett
 export const zhTW = {
   'title': 'Agent 循環',
   'description': '控制 Agent 派發工具呼叫的方式。',
-  'maxParallel': '并行工具呼叫數',
-  'maxParallelHint': '同一步內最多同時執行多少個可并行的呼叫。',
+  'maxParallel': '並行工具呼叫數',
+  'maxParallelHint': '同一步內最多同時執行多少個可並行的呼叫。',
   'overridden': '已覆蓋',
   'reset': '恢復預設',
   'readOnly': '本部署的設定為唯讀。',

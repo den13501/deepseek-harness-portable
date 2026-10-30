@@ -83,7 +83,7 @@ export const zhTW = {
   'external': '在系統瀏覽器中開啟',
   'sandbox.disable': '關閉沙箱限制',
   'sandbox.enable': '恢復沙箱限制',
-  'sandbox.warning': '沙箱限制已關閉；頁面可以導航頂層應用程式，并使用下載、模態對話框與輸入鎖定。',
+  'sandbox.warning': '沙箱限制已關閉；頁面可以導航頂層應用程式，並使用下載、模態對話框與輸入鎖定。',
   'start': '輸入 HTTP(S) 位址開始瀏覽',
   'loading': '正在開啟…',
   'restore.previous': '上次開啟',

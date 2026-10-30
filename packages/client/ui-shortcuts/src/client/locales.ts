@@ -100,7 +100,7 @@ export const zhTW = {
   'write-failed': '儲存失敗。原快捷鍵和目前草稿已保留，請重試。',
   'not-ready': '快捷鍵尚未準備好，請稍後重試。',
   'read': '無法讀取 {location}。請檢查訪問權限後{reload}。',
-  'invalid': '{location} 的快捷鍵設定內容損壞。請先備份并修復該設定，然後{reload}。',
+  'invalid': '{location} 的快捷鍵設定內容損壞。請先備份並修復該設定，然後{reload}。',
   'future': '{location} 的快捷鍵設定由更新版本建立。請升級 Harness 後重試。',
   'web-document': '目前網站本機儲存中的 dsh.keybindings.v1',
   'desktop-document': 'userData/keybindings.json',

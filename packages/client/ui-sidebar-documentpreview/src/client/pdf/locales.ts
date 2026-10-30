@@ -49,10 +49,10 @@ export const zhTW = {
   'title': 'PDF',
   'pageImage': 'PDF 第 {page} 頁',
   'loading': '文件渲染中...',
-  'rendering': '正在繪制頁面…',
+  'rendering': '正在繪製頁面…',
   'failed': '無法顯示 PDF：{message}',
   'password': '此 PDF 需要密碼，暫不支援預覽',
-  'workerFailed': 'PDF 渲染程序無法繼續，請重試',
+  'workerFailed': 'PDF 渲染處理程序無法繼續，請重試',
   'unsupported': 'PDF 預覽需要完整檔案內容',
   'retry': '重試',
 } satisfies Record<keyof typeof zh, string>

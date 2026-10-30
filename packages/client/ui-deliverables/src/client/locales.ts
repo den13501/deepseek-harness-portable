@@ -143,7 +143,7 @@ export const zhTW = {
   'presented.directoryOpened': '已請求開啟所在資料夾',
   'presented.revealed': '已請求在檔案管理器中顯示',
   'presented.revealing': '正在檔案管理器中顯示…',
-  'presented.unavailable': '此主機沒有可用的桌面，無法使用外部程序開啟檔案或資料夾；檔案仍可在側邊欄預覽',
+  'presented.unavailable': '此主機沒有可用的桌面，無法使用外部程式開啟檔案或資料夾；檔案仍可在側邊欄預覽',
   'presented.retry': '重試',
   'presented.hostError': '無法讀取主機桌面資訊',
   'presented.preview': '在側邊欄預覽',

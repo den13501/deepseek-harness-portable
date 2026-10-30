@@ -137,6 +137,6 @@ export const zhTW = {
   'sidebar.chat': '聊天',
   'readonly.oneShot.title': '一次性子代理記錄',
   'readonly.title': '此子代理暫時唯讀',
-  'readonly.oneShot.body': '一次性任務不支援後續消息，可在這里檢視完整執行記錄。',
-  'readonly.body': '父對話目前不在線，重新開啟父對話後即可繼續發送消息。',
+  'readonly.oneShot.body': '一次性任務不支援後續訊息，可在這裡檢視完整執行記錄。',
+  'readonly.body': '父對話目前不在線，重新開啟父對話後即可繼續發送訊息。',
 } satisfies Record<keyof typeof zh, string>

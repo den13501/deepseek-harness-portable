@@ -119,7 +119,7 @@ export const zhTW = {
   'search': '搜尋快捷鍵',
   'close': '關閉快捷鍵',
   'application': '應用程式操作',
-  'input': '消息輸入',
+  'input': '訊息輸入',
   'menus': '選單與彈層',
   'approval': '審批區域',
   'unbound': '暫無快捷鍵',

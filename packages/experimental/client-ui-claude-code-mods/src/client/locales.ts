@@ -27,5 +27,5 @@ export const zhTW = {
   'band': 'Claude Code 模組',
   'pressing': '正在處理…',
   'press.failed': '按鈕操作失敗：{message}',
-  'press.stale': '該按鈕屬于更早的繪制，面板已重新整理',
+  'press.stale': '該按鈕屬於更早的繪製，面板已重新整理',
 } satisfies Record<keyof typeof zh, string>

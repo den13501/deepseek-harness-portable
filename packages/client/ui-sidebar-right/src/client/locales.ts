@@ -116,7 +116,7 @@ export const zhTW = {
   'dock.addTab': '新標簽頁',
   'dock.dockFloat': '收回到側邊欄',
   'dock.closeFloat': '關閉',
-  'dock.drop.center': '移到這里',
+  'dock.drop.center': '移到這裡',
   'dock.drop.left': '左分欄',
   'dock.drop.right': '右分欄',
   'dock.drop.top': '上分欄',

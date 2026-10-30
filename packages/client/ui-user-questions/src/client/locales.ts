@@ -82,7 +82,7 @@ export const zhTW = {
   'status.sent': '回答已發送；面板未能關閉。',
   'wait.takeTime': '慢慢回答',
   'wait.countdown': '{seconds} 秒後繼續工作',
-  'wait.paused': '已暫停 · 剩余 {seconds} 秒',
+  'wait.paused': '已暫停 · 剩餘 {seconds} 秒',
   'wait.held': '會一直等你回答',
   'wait.continued': '已繼續工作，仍可回答',
   'review.status': '已回答',

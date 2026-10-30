@@ -124,7 +124,7 @@ export const en = {
 
 /** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
 export const zhTW = {
-  'row.defineTitle': '注冊 Cordis 外掛',
+  'row.defineTitle': '註冊 Cordis 外掛',
   'a11y.preparing': '準備呼叫 Cordis 工具',
   'row.runTitle': '執行 Cordis 外掛',
   'row.updateTitle': '更新 Cordis 外掛',

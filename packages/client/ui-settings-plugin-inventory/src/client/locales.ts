@@ -123,5 +123,5 @@ export const zhTW = {
   'loadingPhase': '載入中',
   'active': '執行中',
   'failed': '啟動失敗',
-  'unloading': '卸載中',
+  'unloading': '解除安裝中',
 } satisfies Record<keyof typeof zh, string>

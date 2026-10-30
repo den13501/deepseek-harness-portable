@@ -62,7 +62,7 @@ export const zhTW = {
   'readonly': '此頁面目前唯讀。',
   'control': '接管輸入',
   'closed': '終端已關閉。',
-  'exited': '程序已結束（{code}）',
+  'exited': '處理程序已結束（{code}）',
   'failed': '終端錯誤：{message}',
   'rename': '終端名稱',
   'unavailable': '不可用',

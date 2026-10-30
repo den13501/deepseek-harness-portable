@@ -191,7 +191,7 @@ export const zhTW = {
   incompatible: '此版本與目前的 DSH {runtime} 不相容，要求 DSH {range}',
   noCompatibleVersion: '沒有與目前 DSH {runtime} 相容的版本',
   exempted: '此版本與目前的 DSH 不相容，但您已為它設定相容性豁免',
-  backToList: '探索', factSource: '來源', factPackage: '套件', factRegistry: '套件登錄庫', factRepository: '儲存庫',
+  backToList: '探索', factSource: '來源', factPackage: '套件', factRegistry: '套件註冊庫', factRepository: '儲存庫',
   factCommit: '提交', factDirectory: '目錄', factPublished: '發布時間', factAuthor: '作者', factHomepage: '首頁',
   factSourceCode: '原始碼', factCategory: '分類', factLabels: '標籤', factMarket: '外掛市集',
   versionsTitle: '版本', versionsLabel: '{name} 的版本', versionDefault: '建議', versionInstalled: '目前已安裝',

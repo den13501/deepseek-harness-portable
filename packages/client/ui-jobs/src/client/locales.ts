@@ -134,6 +134,6 @@ export const zhTW = {
   'terminal.noOutput': '（無輸出）',
   'terminal.collapse': '收起',
   'terminal.collapseAria': '收起輸出',
-  'terminal.expand': '展開其余 {n} 行',
+  'terminal.expand': '展開其餘 {n} 行',
   'terminal.expandAria': '展開被折疊的 {n} 行輸出',
 } satisfies Record<keyof typeof zh, string>

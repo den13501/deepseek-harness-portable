@@ -17,7 +17,6 @@ import * as inventory from '../../ui-settings-plugin-inventory/src/client/locale
 import * as market from '../../ui-plugin-market/src/client/locales.ts'
 import * as general from '../../ui-settings-general/src/client/locales.ts'
 import * as webSearch from '../../ui-settings-web-search/src/client/locales.ts'
-import * as modelLabel from '../../ui-deepseek-model-label-1017/src/client/locales.ts'
 import { guideZh, guideZhTW } from '../../ui-agent-preset/src/client/guide-locales.ts'
 
 afterEach(() => { vi.unstubAllGlobals() })
@@ -34,7 +33,6 @@ const updatedDictionaries: [string, Record<string, string>, Record<string, strin
   ['market', market.zh, market.zhTW],
   ['general', general.zh, general.zhTW],
   ['web search', webSearch.zh, webSearch.zhTW],
-  ['model release label', modelLabel.zh, modelLabel.zhTW],
   ['preset guide', guideZh, guideZhTW],
 ]
 

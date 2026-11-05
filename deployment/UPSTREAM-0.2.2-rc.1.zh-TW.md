@@ -82,11 +82,21 @@
 - `app.asar` 字串抽查 15 項預期全部符合：新增繁中用字存在、舊用字（`并願意繼續`、`取決于`、`注冊` 等）皆 0 處、日文與俄文存在、`ui-deepseek-model-label-1017` 不在包內。這是字串層級抽查。
 - 瀏覽器擴充已用 rc.1 來源重新準備（`browser-assets\extension-rc1-0.2.2-20261105`，222 個檔案，DSH 套件皆 `0.2.2-rc.1`），瀏覽器本體沿用 `sealed-rc2-win-x64`（Playwright `1.63.0-alpha-2026-08-31`、chromium-1243）。包內有 `app\browser\assets\chromium-1243\chrome-win64\chrome.exe`；`package.mjs` 在 Playwright 版本與擴充不一致時會中止，管線通過即表示兩者一致。
 
+## 隔離演練
+
+紀錄：`deepseek-harness-tools\logs\rc1-0.2.2-20261105\rehearsal.json`，腳本結束碼 0。演練在 `rehearsals\rc1-0.2.2-20261105` 以**合成資料**進行，**未啟動應用程式**，家用目錄（`BUILD-INFO` 仍為 `0.2.1-rc.5`，修改時間 11/3）沒有被碰。
+
+- 起點為 rc.5 p1 的 ZIP（解壓到含中文與 `&`、括號的路徑），在其上啟用瀏覽器。
+- 預檢與更新結果都提示需重新執行 `Enable-Browser.cmd`；更新後 7 個合成檔案（含假憑證、skill、session、使用者 patch）雜湊全部不變，瀏覽器狀態維持 rc.5 直到重新啟用。
+- 實際執行 `Enable-Browser.cmd`：六個依賴列的名稱不變（`dsh-browser-use`、`playwright-mcp`、`browser-use-runtime`、`@playwright/mcp`、`playwright`、`playwright-core`），DSH 套件皆為 `0.2.2-rc.1`，使用者 patch 保留，無殘留的舊擴充目錄；再次 Enable 不改變任何檔案。
+- `Restore` 回到 rc.5 p1：程式、profile 與瀏覽器狀態還原，更新後新增的資料保存在 displaced 目錄，不被合併。
+- **範圍**：這驗證的是更新、啟用、還原流程對檔案的處理。它**沒有**驗證 0.2.2 的程式能讀取 rc.5 留下的真實 Session 與設定，因為應用程式沒有啟動，資料也是合成的。
+
 ## 仍未驗證
 
 - 應用程式實際啟動、Host 內瀏覽器工具呼叫、離線冷啟動、授權、公司環境（LTSC、Strata、Proxy、AD、網路稽核）。
-- 隔離演練（從 rc.5 更新到 0.2.2-rc.1、`Enable-Browser.cmd`、`Restore`）。
-- 家用目錄升級與 Session 儲存格式變動的影響。
-- Web Fetch 預設不限制目標位址（公司版 `base/cordis.patch.yml` 預設掛載 `web-fetch-http` 與 `tool-web`，`fetch: true`）。外掛更新與自訂外掛索引是否預設啟用。**需要決定是否固定關閉。**
+- 0.2.2 讀取 rc.5 真實 Session 與設定的行為（上游改動了 Session 儲存的相容讀寫）。
+- Web Fetch 預設不限制目標位址（公司版 `base/cordis.patch.yml` 預設掛載 `web-fetch-http` 與 `tool-web`，`fetch: true`）。**維運決定（2026-11-05，使用者）：採寬鬆原則，不加限制，維持上游預設。** 此包會在家用與公司兩處使用；模型因此可以抓取本機與內網位址，若公司網路稽核要求限制，需另行加入 `tools/pre-execute` 政策或關閉 `tool-web` 的 `fetch`。這項決定沒有經過公司 IT 核准。
+- 外掛更新與自訂外掛索引是否預設啟用，**尚未查清楚**；此決定不涵蓋它們。
 - Desktop 11 項（`pwsh` 相關）與 app-boot 4 項（符號連結）在 rc.5 基準上的比對。
 - 推送與 CI。

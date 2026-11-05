@@ -20,7 +20,7 @@ const SESSION = 'owner-session' as SessionId
 
 // The action reads its copy through the locale seat the browser composition provides.
 const locale = new LocaleRuntime(new Context())
-locale.register(NS, { zh, en })
+locale.register(NS, { zh, en, 'zh-TW': en })
 locale.setLocale('zh')
 const t = locale.bind(NS)
 

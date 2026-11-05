@@ -11,7 +11,7 @@ import {
 // The page's copy comes from the client locale seat, the same one the owner's dialogs use, so the
 // reader's chosen language decides it. Bind it the way the served page's client tree does.
 const locale = new LocaleRuntime(new Context())
-locale.register(NS, { zh, en })
+locale.register(NS, { zh, en, 'zh-TW': en })
 locale.setLocale('zh')
 const t = locale.bind(NS)
 

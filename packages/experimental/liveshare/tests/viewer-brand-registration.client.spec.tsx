@@ -37,7 +37,7 @@ async function bench() {
   const runtime = await SlotTestRuntime.create()
   onTestFinished(() => runtime.dispose())
   const locale = new LocaleRuntime(runtime.ctx)
-  locale.register(NS, { en, zh })
+  locale.register(NS, { en, zh, 'zh-TW': en })
   locale.setLocale('zh')
   runtime.ctx.provide('locale', locale)
   runtime.slots.installLocale(locale)

@@ -31,7 +31,7 @@ async function bench() {
   const locale = new LocaleRuntime(ctx)
   locale.setLocale('zh')
   ctx.provide('locale', locale)
-  locale.register(NS, { zh, en })
+  locale.register(NS, { zh, en, 'zh-TW': en })
   await ctx.plugin({ inject: [...inject], apply }).await()
   const entry = slots.entriesOfSlot('sidebar.session.row.leading')[0]!
   const View = entry.component as (props: Record<string, unknown>) => ReactNode

@@ -138,6 +138,7 @@ export const zhTW = {
   'hostRelease.unknown': '無法辨識',
   'hostRelease.reload': '重新整理以載入新版本',
   'hostRelease.later': '稍後再說',
+  'desktop.update.fullscreenTimeout': '無法結束全螢幕，請先結束全螢幕後再重試更新',
 } satisfies Record<keyof typeof zh, string>
 
 /** Japanese copy, checked against the English keys. */

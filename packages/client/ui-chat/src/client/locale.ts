@@ -597,6 +597,10 @@ export const zhTW = {
   'json.truncated': '… 已截斷，共 {total} 字元',
   'clock.md': '{m}月{d}日',
   'clock.ymd': '{y}年{m}月{d}日',
+  'settings.foldedReplies.title': '收合後顯示的回覆',
+  'settings.foldedReplies.description': '工作步驟收合後，保留哪些助手回覆',
+  'settings.foldedReplies.all': '全部回覆',
+  'settings.foldedReplies.final': '僅最終回答',
 } satisfies Record<keyof typeof zh, string>
 
 /** Japanese copy, checked against the English keys. */

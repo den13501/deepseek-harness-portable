@@ -6,7 +6,7 @@ import type { SessionId } from '@deepseek-ai/dsh-session/types'
 import type {} from '../index.ts'
 import type { DocumentPreviewDefinition } from '../document/registry.ts'
 import { retainDocumentTabs } from '../document/tab-lifetime.ts'
-import { createZoomStore, type ZoomStore, type ZoomInjected } from '../zoom/store.ts'
+import { createZoomStore, type ZoomStore } from '../zoom/store.ts'
 import { ImageBody, type ImageBodyInjected } from './ImageBody.tsx'
 import { en, ja, es, fr, de, ru, pt, zh, zhTW } from './locales.ts'
 

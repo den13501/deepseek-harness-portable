@@ -41,7 +41,7 @@ function registerBody(ctx: Context): void {
     openDetails: (packageName) => { ctx.pluginNavigation.openBundle(packageName) },
     resolveText: text => ctx.locale.resolveText(text),
   }
-  ctx.effect(() => ctx.locale.register('pluginRecommendations', { en, zh, ja, es, fr, de, ru, pt }), 'plugin-recommendations: locale')
+  ctx.effect(() => ctx.locale.register('pluginRecommendations', { en, zh, 'zh-TW': en, ja, es, fr, de, ru, pt }), 'plugin-recommendations: locale')
   ctx.effect(() => ctx.actionCards.register({
     action: 'enable_official_plugin', locale: 'pluginRecommendations',
     Body: props => createElement(PluginCardBody, { ...props, ...services }),

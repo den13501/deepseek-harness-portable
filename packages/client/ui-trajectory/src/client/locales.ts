@@ -617,6 +617,13 @@ export const zhTW = {
   'layout.toolsRemovedCount': '移除 {count} 個',
   'layout.systemPromptAndToolsUpdated': '系統提示指令和工具已更新',
   'layout.compactionInterrupted': '上下文壓縮在完成前被中斷。',
+  'toolbar.subCalls': '子呼叫',
+  'toolbar.expandSubCalls': '展開所有子呼叫',
+  'toolbar.collapseSubCalls': '收合所有子呼叫',
+  'record.rawResult': '原始結果',
+  'record.renderedResult': '轉譯結果',
+  'record.rawResultUnavailable': '原始結果僅適用於即時工具呼叫',
+  'request.collapsedTool': '子呼叫',
 } satisfies Record<keyof typeof zh, string>
 
 /** Japanese copy, checked against the English keys. */

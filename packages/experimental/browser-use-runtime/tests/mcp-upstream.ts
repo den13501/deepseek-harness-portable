@@ -97,7 +97,7 @@ export async function verifyMcpBrowser(
     expect(observed.has(`/${namespace}-${mode}`)).toBe(true)
     expect(result.content.length).toBeGreaterThan(0)
     if (verifyPortablePaths) {
-      const screenshot = await ctx.tools.execute({ agent: owner.agent, name: `mcp__${namespace}__browser_take_screenshot`, arguments: { filename: join(outputDir, 'provider.png'), type: 'png' }, callId: ToolCallId('screenshot'), signal: new AbortController().signal })
+      const screenshot = await executeToolFixture(ctx, { agent: owner.agent, name: `mcp__${namespace}__browser_take_screenshot`, arguments: { filename: join(outputDir, 'provider.png'), type: 'png' }, callId: ToolCallId('screenshot'), signal: new AbortController().signal })
       expect(screenshot.isError, JSON.stringify(screenshot.content)).toBe(false)
       expect((await readFile(join(outputDir, 'provider.png'))).subarray(0, 8).toString('hex')).toBe('89504e470d0a1a0a')
       expect((await readdir(tempDir)).some(name => name.startsWith('playwright'))).toBe(true)

@@ -62,7 +62,7 @@ interface SessionStores {
 }
 
 function registerUi(ctx: Context): void {
-  ctx.effect(() => ctx.locale.register(NS, { zh, en, ja, es, fr, de, ru, pt }), 'forge-panel: dictionaries')
+  ctx.effect(() => ctx.locale.register(NS, { zh, en, 'zh-TW': en, ja, es, fr, de, ru, pt }), 'forge-panel: dictionaries')
   const t = ctx.locale.bind(NS)
   const notices = createNoticeSource()
   const stores = new Map<SessionId, SessionStores>()

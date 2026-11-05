@@ -90,6 +90,10 @@ export const zhTW = {
   'error.outsideWorkspace': '這個目錄在工作區之外，側欄不會讀取它。',
   'error.notDirectory': '這不是一個目錄。',
   'error.unavailable': '讀取失敗：{message}',
+  'entry.noViewer': '沒有可以開啟此檔案的檢視器。',
+  'navigator.show': '顯示檔案樹',
+  'navigator.hide': '隱藏檔案樹',
+  'navigator.resize': '調整檔案樹寬度',
 } satisfies Record<keyof typeof zh, string>
 
 /** Japanese copy, checked against the English keys. */

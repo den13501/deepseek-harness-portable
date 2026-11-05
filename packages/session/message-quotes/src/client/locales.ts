@@ -16,6 +16,11 @@ export const en: Record<MessageQuotesKey, string> = {
   'quote.add': 'Quote text',
 }
 
+/** Traditional Chinese (Taiwan) dictionary. */
+export const zhTW = {
+  'quote.add': '引用文字',
+} satisfies Record<MessageQuotesKey, string>
+
 /** Japanese dictionary. */
 export const ja = {
   'quote.add': 'テキストを引用',

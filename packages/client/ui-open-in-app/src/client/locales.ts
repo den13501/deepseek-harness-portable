@@ -155,6 +155,19 @@ export const zhTW = {
   'app.explorer': '檔案資源管理器',
   'app.filemanager': '檔案管理器',
   'app.terminal': '終端',
+  'menu.openInSidebar': '在側邊欄開啟',
+  'menu.openInFloat': '在浮窗中開啟',
+  'menu.finder': '在 Finder 中顯示',
+  'menu.reveal': '在資料夾中顯示',
+  'menu.defaultApp': '使用預設應用程式開啟',
+  'menu.external': '在外部瀏覽器開啟',
+  'menu.copyLink': '複製連結位址',
+  'menu.copyPath': '複製檔案路徑',
+  'menu.copyDirectoryPath': '複製資料夾路徑',
+  'menu.copied': '已複製',
+  'menu.copyFailed': '無法複製，請檢查內容是否可用後重試',
+  'path.opened': '已在其他裝置開啟',
+  'path.revealed': '已在其他裝置顯示檔案位置',
 } satisfies Record<keyof typeof zh, string>
 
 /** Japanese copy, checked against the English keys. */

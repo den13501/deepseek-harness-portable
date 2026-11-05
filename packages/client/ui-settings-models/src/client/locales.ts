@@ -421,6 +421,9 @@ export const zhTW = {
   'onboardingSave': '儲存並繼續',
   'onboardingSaving': '儲存中…',
   'keyRequired': '請輸入 API 金鑰後繼續。',
+  'reorderModel': '調整模型順序',
+  'reorderModelHelp': '拖曳排序，或使用上下方向鍵調整順序。',
+  'fetchKeepOne': '請至少保留一個勾選的模型。',
 } satisfies Record<keyof typeof zh, string>
 
 /** Japanese copy, checked against the English keys. */

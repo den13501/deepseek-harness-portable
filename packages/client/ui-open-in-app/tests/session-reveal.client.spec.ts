@@ -21,7 +21,7 @@ it.each([
   onTestFinished(() => ctx.fiber.dispose())
   const locale = new LocaleRuntime(ctx)
   ctx.provide('locale', locale)
-  locale.register(NS, { en, zh }); locale.setLocale('en')
+  locale.register(NS, { en, zh, 'zh-TW': en }); locale.setLocale('en')
   const registry = new MenuRegistry(vi.fn())
   onTestFinished(() => { registry.dispose() })
   ctx.provide('contextMenus', { register: registry.register.bind(registry) } as never)

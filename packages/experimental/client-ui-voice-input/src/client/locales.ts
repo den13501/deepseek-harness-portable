@@ -326,6 +326,11 @@ export const zhTW = {
   'unavailable': '目前瀏覽器不支援錄音，請使用支援麥克風的瀏覽器。',
   'permission': '麥克風權限未開啟，請在瀏覽器和系統設定中允許訪問。',
   'tooLarge': '錄音超過服務限制，請縮短錄音後重試。',
+  'es': '西班牙語',
+  'fr': '法語',
+  'de': '德語',
+  'ru': '俄語',
+  'pt': '葡萄牙語',
 } satisfies Record<keyof typeof zh, string>
 
 /** Japanese copy, checked against the English keys. */

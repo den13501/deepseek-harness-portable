@@ -2,6 +2,7 @@
 export const dictionaries = {
   zh: { failed: '操作失败，请重试' },
   en: { failed: 'Could not complete the action. Try again.' },
+  'zh-TW': { failed: '操作失敗，請重試' },
   ja: { failed: '操作に失敗しました。再試行してください。' },
   es: { failed: 'No se pudo completar la acción. Inténtelo de nuevo.' },
   fr: { failed: 'Impossible de terminer l’action. Réessayez.' },

@@ -55,7 +55,6 @@ export const zhTW = {
   'preview.loading': '正在讀取計劃…',
   'preview.failed': '無法讀取計劃',
   'preview.invalidAddress': '計劃位址無效',
-  'preview.historyUnavailable': '無法讀取對話歷史',
   'preview.notFound': '未找到這份計劃',
   'preview.unavailable': '計劃預覽不可用',
   'preview.expired': '臨時計劃預覽已失效，請從仍在等待審批的卡片重新開啟。',

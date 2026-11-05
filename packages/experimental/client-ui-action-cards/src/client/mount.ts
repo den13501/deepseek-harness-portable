@@ -44,7 +44,7 @@ export async function mountActionCards(ctx: Context, contribution: TypertRemoteC
 }
 
 function registerUi(ctx: Context, registry: ActionCardRegistry): void {
-  ctx.effect(() => ctx.locale.register('actionCards', { en, zh, ja, es, fr, de, ru, pt }), 'action-cards: locale')
+  ctx.effect(() => ctx.locale.register('actionCards', { en, zh, 'zh-TW': en, ja, es, fr, de, ru, pt }), 'action-cards: locale')
   ctx.slots.inject('conversation.chat.turnTail', () => ctx.slots.register({
     name: 'conversation.chat.turnTail', id: '@deepseek-ai/dsh-client-ui-action-cards', locale: 'actionCards',
     inject: (sessionId: SessionId): TailInjected => ({

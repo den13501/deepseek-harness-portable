@@ -35,6 +35,8 @@ export const zhTW = {
   'toggle.collapse': '收起側邊欄',
   'panels.label': '全局面板',
   'panels.more': '更多',
+  'navigation.label': '導覽',
+  'version.copied': '已複製版本號',
 } satisfies Record<keyof typeof zh, string>
 
 /** Japanese copy, checked against the English keys. */

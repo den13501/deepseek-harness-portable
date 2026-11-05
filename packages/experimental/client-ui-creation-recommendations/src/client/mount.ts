@@ -20,7 +20,7 @@ export const inject = ['locale', 'actionCards']
  */
 export function apply(ctx: Context): void {
   const infoDismissed = createCreationInfoStore()
-  ctx.effect(() => ctx.locale.register('creationRecommendations', { en, zh, ja, es, fr, de, ru, pt }), 'creation-recommendations: locale')
+  ctx.effect(() => ctx.locale.register('creationRecommendations', { en, zh, 'zh-TW': en, ja, es, fr, de, ru, pt }), 'creation-recommendations: locale')
   ctx.effect(() => ctx.actionCards.register({
     action: 'create_personalized_page', locale: 'creationRecommendations',
     Body: props => createElement(PageCardBody, { ...props, infoDismissed }),

@@ -215,6 +215,15 @@ export const zhTW = {
   versionsTitle: '版本', versionsLabel: '{name} 的版本', versionDefault: '建議', versionInstalled: '目前已安裝',
   versionIncompatible: '不相容', versionExempted: '已豁免', versionPrerelease: '預覽版',
   confirmTitle: '安裝「{name}」？', installTrust: '外掛會在本機以您的權限執行，請確認來源可信',
+  'detailTitle': '詳細介紹',
+  'detailLoading': '正在讀取詳細介紹',
+  'detailTooLarge': '詳細介紹或其所在的儲存庫超過大小限制，未載入',
+  'detailNetwork': '無法連線至詳細介紹的來源',
+  'detailDenied': '無法存取詳細介紹所在的儲存庫，請檢查 Git 憑證',
+  'detailGitUnavailable': '詳細介紹所在的儲存庫需要以 Git 讀取，但無法執行 Git。請安裝 Git 後重試',
+  'detailInvalid': '外掛宣告的詳細介紹檔案無效',
+  'detailFailed': '無法讀取詳細介紹',
+  'footnotes': '註腳',
 } satisfies Record<PluginMarketLocaleKey, string>
 
 /** Japanese copy, checked against the English keys. */

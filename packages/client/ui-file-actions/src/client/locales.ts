@@ -35,6 +35,22 @@ export const en = {
   'path.revealError': 'Could not show the file location. Try again.',
 } satisfies Record<FileActionKey, string>
 
+/** Traditional Chinese (Taiwan) file-action labels. */
+export const zhTW = {
+  'menu.finder': '在 Finder 中顯示',
+  'menu.reveal': '在資料夾中顯示',
+  'menu.saveAs': '另存新檔…',
+  'menu.copied': '已複製',
+  'menu.copyImage': '複製圖片',
+  'menu.download': '下載',
+  'menu.saveFailed': '無法儲存檔案，請檢查來源檔案和目的位置後重試',
+  'menu.copyFailed': '無法複製，請檢查內容是否可用後重試',
+  'menu.saved': '已儲存',
+  'menu.downloadStarted': '已開始下載',
+  'menu.downloaded': '下載完成',
+  'path.revealError': '無法顯示檔案位置，請重試',
+} satisfies Record<FileActionKey, string>
+
 /** ja file-action labels. */
 export const ja = {
   'menu.finder': 'Finder に表示',

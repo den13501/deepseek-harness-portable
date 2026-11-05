@@ -88,8 +88,6 @@ export const zhTW = {
   'review.status': '已回答',
   'review.skipped': '這道問題當時被跳過。',
   'reply.label': '回答先前等待中的問題',
-  'reply.open': '展開問題詳情',
-  'reply.close': '收起問題詳情',
   'reply.answerLabel': '回答：',
   'reply.skipped': '已跳過',
   'nav.prev': '上一題',
@@ -106,6 +104,8 @@ export const zhTW = {
   'plan.approve': '同意執行',
   'plan.decline': '拒絕',
   'plan.discuss': '要求修改',
+  'text.expand': '展開',
+  'text.collapse': '收合',
 } satisfies Record<keyof typeof zh, string>
 
 /** Japanese copy, checked against the English keys. */

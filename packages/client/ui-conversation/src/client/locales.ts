@@ -1162,6 +1162,15 @@ export const zhTW = {
   'terminal.expandRest': '… 其餘 {n} 行',
   'terminal.sendInput': '（發送輸入）',
   'terminal.session': '終端 {sessionId}',
+  'quote.remove': '移除引用',
+  'input.sending': '正在傳送訊息',
+  'tool.title.viewSchedule': '檢視自動化任務',
+  'tool.title.editSchedule': '編輯自動化任務',
+  'detail.schedule.active': '已開啟',
+  'detail.schedule.paused': '已暫停',
+  'detail.schedule.ended': '已結束',
+  'detail.schedule.custom': '自訂',
+  'tool.title.applyPatch': '套用修補',
 } satisfies Record<keyof typeof zh, string>
 
 /** Japanese copy, checked against the English keys. */

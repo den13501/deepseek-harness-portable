@@ -66,7 +66,7 @@ export function apply(ctx: Context): void {
   // One page request per Session binding; Chat/Trajectory may still own the
   // Session's in-flight page, which loadOlder observes through loadingOlder.
   const pages = new WeakMap<SessionBinding, Promise<LoadOlderResult>>()
-  ctx.effect(() => ctx.locale.register(NS, { zh, en, ja, de, es, fr, pt, ru }), 'client-ui-stats: dictionaries')
+  ctx.effect(() => ctx.locale.register(NS, { zh, en, 'zh-TW': en, ja, de, es, fr, pt, ru }), 'client-ui-stats: dictionaries')
   // Registration-time text (the tab label) reads through the bound translate as
   // a thunk, so it follows the active locale without re-registration.
   const t = ctx.locale.bind(NS)

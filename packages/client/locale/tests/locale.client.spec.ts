@@ -40,7 +40,7 @@ describe('LocaleRuntime', () => {
   it('checks additional dictionaries against the declared namespace and requires both baseline locales', () => {
     const { svc } = make()
     svc.addLanguage({ id: 'ja', label: '日本語', fallback: 'en' })
-    const dispose = svc.register('settings.locale', { zh, en, ja, fr: ja })
+    const dispose = svc.register('settings.locale', { zh, en, 'zh-TW': en, ja, fr: ja })
     svc.setLocale('ja')
     expect(svc.bind('settings.locale')('language.title')).toBe('言語')
     dispose()

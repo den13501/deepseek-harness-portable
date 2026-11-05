@@ -65,7 +65,7 @@ function isViewerPage(): boolean {
  */
 export async function apply(ctx: ClientContext): Promise<() => Promise<void>> {
   // The viewer plugins are children of this face, so this one registration outlives every one of them.
-  ctx.effect(() => ctx.locale.register(NS, { zh, en, ja, es, fr, de, ru, pt }), 'liveshare: browser dictionaries')
+  ctx.effect(() => ctx.locale.register(NS, { zh, en, 'zh-TW': en, ja, es, fr, de, ru, pt }), 'liveshare: browser dictionaries')
   // The shared Session's attributed messages reach both pages through the same durable source, so
   // one registration supplies Chat's origin seat on either face. Declaration-aware injection makes
   // this independent of whether Chat's user renderer is already registered.

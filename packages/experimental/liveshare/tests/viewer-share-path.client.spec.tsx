@@ -45,7 +45,7 @@ async function boot() {
   const locale = new LocaleRuntime(rt.ctx)
   rt.ctx.provide('locale', locale)
   // The Liveshare client face registers the dictionaries this child plugin renders with.
-  locale.register(NS, { zh, en })
+  locale.register(NS, { zh, en, 'zh-TW': en })
   rt.slots.installLocale(locale)
   await act(async () => { locale.setLocale('zh') })
   await rt.declare({ rightbar: { kind: 'single', scope: 'root' } })

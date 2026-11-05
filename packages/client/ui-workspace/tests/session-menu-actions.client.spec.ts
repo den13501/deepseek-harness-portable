@@ -16,7 +16,7 @@ function bench() {
   ctx.provide('contextMenus', { register: registry.register.bind(registry) } as never)
   const locale = new LocaleRuntime(ctx)
   ctx.provide('locale', locale)
-  locale.register('workspace', { en, zh }); locale.setLocale('en')
+  locale.register('workspace', { en, zh, 'zh-TW': en }); locale.setLocale('en')
   const list = createSnapshotStore<WorkspaceSnapshot>({
     items: [], pinnedSessionIds: [], archivedSessionIds: [], state: 'idle', phase: 'ready', error: null,
   })

@@ -194,6 +194,12 @@ export const frequencyZhTW = {
   'relative.now': '現在到期',
   'relative.future': '{value}{unit}後',
   'relative.overdue': '已逾期 {value}{unit}',
+  'frequency.hostMonthly': '每月 {days} 日 {time}，不足該日則為月底',
+  'frequency.hostDailyInterval': '每 {interval} 天 {time}',
+  'frequency.hostWeeklyInterval': '每 {interval} 週的週{weekdays} {time}',
+  'frequency.hostMonthlyInterval': '每 {interval} 個月的 {days} 日 {time}，不足該日則為月底',
+  'frequency.hostZone': '{rule}（{timeZone}）',
+  'frequency.hostCustom': '自訂',
 } satisfies Record<keyof typeof frequencyZh, string>
 
 /** Japanese copy, checked against the English keys. */

@@ -124,6 +124,12 @@ export const zhTW = {
   'relative.overdue': '已逾期 {value}{unit}',
   'mark.aria': '{count} 個自動化任務',
   'hover.more': '另有 {count} 個任務',
+  'frequency.hostMonthly': '每月 {days} 日 {time}，不足該日則為月底',
+  'frequency.hostDailyInterval': '每 {interval} 天 {time}',
+  'frequency.hostWeeklyInterval': '每 {interval} 週的週{weekdays} {time}',
+  'frequency.hostMonthlyInterval': '每 {interval} 個月的 {days} 日 {time}，不足該日則為月底',
+  'frequency.hostZone': '{rule}（{timeZone}）',
+  'frequency.hostCustom': '自訂',
 } satisfies Record<keyof typeof zh, string>
 
 /** Japanese copy, checked against the English keys. */

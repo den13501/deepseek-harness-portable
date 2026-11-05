@@ -71,7 +71,7 @@ export function provideViewerConnection(ctx: Context): SnapshotStore<ConnectionS
 export function provideViewerLocale(ctx: Context, language: 'zh' | 'en' = 'zh'): LocaleRuntime {
   const locale = new LocaleRuntime(ctx)
   ctx.provide('locale', locale)
-  locale.register(NS, { zh, en })
+  locale.register(NS, { zh, en, 'zh-TW': en })
   locale.setLocale(language)
   return locale
 }

@@ -130,6 +130,9 @@ export const zhTW = {
   'tab.guide.title': '開始',
   'tab.guide.more': '更多工具',
   'tab.unavailable': '這類內容還沒有可用的檢視方式。',
+  'menu.close': '關閉',
+  'menu.closeOthers': '關閉其他分頁',
+  'menu.closeRight': '關閉右側分頁',
 } satisfies Record<keyof typeof zh, string>
 
 /** Japanese copy, checked against the English keys. */

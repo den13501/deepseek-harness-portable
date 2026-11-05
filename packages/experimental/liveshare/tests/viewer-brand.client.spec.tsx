@@ -15,7 +15,7 @@ interface ViewerTargetWindow {
 
 // The brand row reads its copy through the locale seat the served page's client tree provides.
 const locale = new LocaleRuntime(new Context())
-locale.register(NS, { zh, en })
+locale.register(NS, { zh, en, 'zh-TW': en })
 locale.setLocale('zh')
 const t = locale.bind(NS)
 

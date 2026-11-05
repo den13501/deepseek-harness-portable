@@ -52,6 +52,10 @@ export const zhTW = {
   'dialog.errorTitle': 'Session 匯出失敗',
   'dialog.close': '關閉',
   'dialog.commandFailed': '無法啟動 Session 匯出。',
+  'menu.copyMarkdown': '將對話複製為 Markdown',
+  'toast.copied': '對話已複製為 Markdown',
+  'toast.preparationFailed': '無法讀取對話以進行複製，請重試',
+  'toast.clipboardFailed': '無法寫入剪貼簿，請檢查剪貼簿權限後重試',
 } satisfies Record<keyof typeof zh, string>
 
 /** Japanese copy, checked against the English keys. */

@@ -32,6 +32,8 @@ export const zhTW = {
   'escalation': '工具 {toolName} 請求越權執行',
   'reject': '拒絕',
   'allowOnce': '允許一次',
+  'allow': '允許',
+  'allowAlways': '一律允許',
 } satisfies Record<keyof typeof zh, string>
 
 /** Japanese copy, checked against the English keys. */

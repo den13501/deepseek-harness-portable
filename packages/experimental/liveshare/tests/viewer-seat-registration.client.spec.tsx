@@ -58,7 +58,7 @@ async function bench(options: { readonly catalogReadable?: boolean } = {}) {
   onTestFinished(() => runtime.dispose())
   let catalogReads = 0
   const locale = new LocaleRuntime(runtime.ctx)
-  locale.register(NS, { en, zh })
+  locale.register(NS, { en, zh, 'zh-TW': en })
   locale.setLocale('zh')
   runtime.ctx.provide('locale', locale)
   runtime.slots.installLocale(locale)

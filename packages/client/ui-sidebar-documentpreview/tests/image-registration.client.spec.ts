@@ -8,7 +8,7 @@ import { ImageBody } from '../src/client/image/ImageBody.tsx'
 import { apply, BINARY_IMAGE_EXTENSIONS, IMAGE_BODY_ID, IMAGE_EXTENSIONS, imageBodyDefinition } from '../src/client/image/index.ts'
 import { en, ja, zh, zhTW, es, fr, de, ru, pt } from '../src/client/image/locales.ts'
 import type { ImageBodyInjected } from '../src/client/image/ImageBody.tsx'
-import type { ZoomInjected, ZoomStore } from '../src/client/zoom/store.ts'
+import type { ZoomStore } from '../src/client/zoom/store.ts'
 
 let dispose: (() => Promise<void>) | undefined
 afterEach(async () => { await dispose?.(); dispose = undefined })

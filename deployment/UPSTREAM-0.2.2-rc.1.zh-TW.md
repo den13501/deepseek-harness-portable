@@ -48,4 +48,24 @@
 | portable 工具測試 | 第一次執行（DSH 尚未啟動）24 項、0 失敗；第二次因家用目錄 DSH 正在執行而 22 項失敗（`Close all DSH windows`），**未在 DSH 關閉後重跑** |
 
 - `scripts/portable/validate.mjs` 沒有完整一次跑完：第一次因 `locale.spec.ts` 鍵序失敗（已修正），第二次因上述 DSH 行程失敗。完整指令需在 DSH 關閉後重跑。
-- **未驗證**：`app-boot` 全部測試（含符號連結 `EPERM` 與 `linked-resolution-matrix` 逾時）、受影響套件的分組測試、建置、成品、瀏覽器擴充、隔離演練、CI。
+### 受影響套件分組測試（每組 10 分鐘上限）
+
+| 分組 | 第一次結果 | 處理後 |
+|---|---|---|
+| ui-chat、ui-conversation、ui-tool | 通過 | — |
+| ui-misc（locale、設定、檔案動作、引用、匯出等） | 通過 | — |
+| llm、web-app、mcp、listing guard | 通過 | — |
+| ui-sidebar 系列 | 2 項失敗 | `ui-sidebar-files` 期望值漏了 zh-TW，已修正；授權打包測試需經 `pnpm` 啟動才有 `npm_execpath`，改用 pnpm 後通過 |
+| ui-plugins-schedule | 1 項失敗 | `ui-schedule` 的 `zhTW` 匯出要以 `zh-TW` 語系 id 註冊，已修正 |
+| apps/desktop | 12 項失敗 | 1 項為 `macos-signature` 期望值漏了 `zh_TW`，已修正；其餘 11 項見下 |
+| app-boot（整組） | 10 分鐘逾時，無結果 | 見下 |
+
+- 上述三個測試修正與授權打包測試已重跑：4 個檔案、60 項通過。這三個遺漏屬於執行期比對語系集合，型別檢查抓不到。
+- **desktop 其餘 11 項未通過**：`upload-with-credentials` 10 項與 `windows-token-identity` 1 項。本機沒有安裝 `pwsh`（`Get-Command pwsh` 找不到），後者的錯誤是 `spawnSync pwsh ENOENT`，前者的錯誤是結束碼型別不符，與找不到程式一致。rc.5 的 `upload-with-credentials` 也呼叫 `pwsh`。**沒有在 rc.5 基準上重跑比對**，也沒有裝 `pwsh` 重跑，因此這是推論。
+- **app-boot 3 個檔案單獨重跑**：366 項中 361 通過、4 失敗、1 跳過。失敗的是 `profile-resolution` 1 項、`package-meta` 2 項、`compatibility-preflight` 1 項，標題都與符號連結有關。實測本帳號以 Node 建立符號連結會得到 `EPERM`。失敗訊息本身未被記錄下來（vitest 輸出沒有失敗詳情段落），所以「失敗原因是 `EPERM`」是由標題與實測推得，不是逐項讀到的。同樣**沒有在 rc.5 基準上比對**。
+- **`linked-resolution-matrix.spec.ts` 沒有結果**：整組逾時被終止時它沒有回報，單獨重跑的三個檔案也不含它。
+- 整組 app-boot 逾時的原因未查明。
+
+### 未驗證
+
+建置、成品、瀏覽器擴充、隔離演練、CI；portable 工具測試在 DSH 關閉後的完整重跑；`app-boot` 其餘檔案在 rc.5 基準上的比對。

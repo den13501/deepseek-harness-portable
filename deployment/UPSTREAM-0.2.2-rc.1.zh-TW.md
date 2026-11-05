@@ -66,6 +66,27 @@
 - **`linked-resolution-matrix.spec.ts` 沒有結果**：整組逾時被終止時它沒有回報，單獨重跑的三個檔案也不含它。
 - 整組 app-boot 逾時的原因未查明。
 
-### 未驗證
+### DSH 關閉後的重跑
 
-建置、成品、瀏覽器擴充、隔離演練、CI；portable 工具測試在 DSH 關閉後的完整重跑；`app-boot` 其餘檔案在 rc.5 基準上的比對。
+- `scripts/portable/validate.mjs` **完整通過**，結束碼 0：portable 工具測試 45 項、`verify-client-ui-i18n` 1,254 個檔案、14 檔回歸 376 項、5 個型別 gate。
+
+## 建置與成品
+
+成品的建置來源是提交 `1037e02a1e`（本節之前的最後一個提交）。本節文字在成品建置之後才提交，因此分支 HEAD 會比 `BUILD-INFO` 記錄的 commit 多一個只改文件的提交；兩者程式碼相同。
+
+- `pnpm run build`：10 個 gate 全部通過，結束碼 0，建置後工作樹乾淨。
+- 離線 Windows directory build（`DSH_DESKTOP_OFFLINE_BUILD=1`，`--unsigned --dir`）與 portable 打包：管線結束碼 0；打包後 `.env.windows` 雜湊未變、原始碼未被修改。包內 smoke 通過：離線外掛安裝與移除、DOCX／XLSX／PPTX 轉 PDF、skill CLI 探索。
+- 成品（本機，未簽章）：`.artifacts\portable\DSH-portable-0.2.2-rc.1-p1-win-x64-1037e02a1e83.zip`，622,190,995 bytes，SHA-256 `570BA108512BD7796807C61E5FF02B66D7AFB7F90668C4CEDCD204CFBB258665`，與 `.sha256` 一致。`BUILD-INFO` 為 `0.2.2-rc.1`、revision 1、commit `1037e02a1e83f0f79a93b5e10be2242621e75ac9`、`dirty: false`。
+- 靜態政策六項通過：offline、無 mandatory policy、無 `app-update.yml`、五個政策模組、Loader 掛鉤、boot 掛鉤。這是靜態檢查，不是網路沙箱。
+- 7-Zip `t` 回報 `Everything is Ok`（963 個資料夾、8,343 個檔案）。清單 8,342 筆以 Node 逐筆核對：大小與雜湊全部相符，無清單外檔案、無缺漏，沒有 `app-update.yml`、`data`、`workspace`。209 個路徑達 260 字元，與 rc.5 相同。
+- `app.asar` 字串抽查 15 項預期全部符合：新增繁中用字存在、舊用字（`并願意繼續`、`取決于`、`注冊` 等）皆 0 處、日文與俄文存在、`ui-deepseek-model-label-1017` 不在包內。這是字串層級抽查。
+- 瀏覽器擴充已用 rc.1 來源重新準備（`browser-assets\extension-rc1-0.2.2-20261105`，222 個檔案，DSH 套件皆 `0.2.2-rc.1`），瀏覽器本體沿用 `sealed-rc2-win-x64`（Playwright `1.63.0-alpha-2026-08-31`、chromium-1243）。包內有 `app\browser\assets\chromium-1243\chrome-win64\chrome.exe`；`package.mjs` 在 Playwright 版本與擴充不一致時會中止，管線通過即表示兩者一致。
+
+## 仍未驗證
+
+- 應用程式實際啟動、Host 內瀏覽器工具呼叫、離線冷啟動、授權、公司環境（LTSC、Strata、Proxy、AD、網路稽核）。
+- 隔離演練（從 rc.5 更新到 0.2.2-rc.1、`Enable-Browser.cmd`、`Restore`）。
+- 家用目錄升級與 Session 儲存格式變動的影響。
+- Web Fetch 預設不限制目標位址（公司版 `base/cordis.patch.yml` 預設掛載 `web-fetch-http` 與 `tool-web`，`fetch: true`）。外掛更新與自訂外掛索引是否預設啟用。**需要決定是否固定關閉。**
+- Desktop 11 項（`pwsh` 相關）與 app-boot 4 項（符號連結）在 rc.5 基準上的比對。
+- 推送與 CI。

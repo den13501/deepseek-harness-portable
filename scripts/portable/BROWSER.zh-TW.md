@@ -46,6 +46,7 @@ workspace 套件依 `files` 清單複製；已安裝在 pnpm store、未保留 `
 - 修兩個 enable glue 缺陷後完成真機驗證：(1) CLI 誤以 `desktopVersion` 充當 Playwright 版本 pin，改為自部署 payload manifest 取 `playwright-core` 版本（封存資產版本不符仍由 `resolveBrowserRuntime` 拒絕）；(2) Host 的 overlay 解析器要求單一 YAML 文件，既有 `[]`（flow 空列表）後附加 block entries 會以 `YAMLException: end of the stream or a document separator is expected` 使 Host 啟動失敗——enable 現於保留註解時移除空 `[]` token，disable 則在僅剩註解時還原 `[]`。
 - 實測循環：enable 寫入 6 個 profile dependencies、6 個 junction、標記區塊（launch＋絕對路徑）與收據；帶此狀態啟動 Host，視窗正常（先前缺陷版曾出現 `DeepSeek Harness is unavailable` 錯誤視窗與 crash log，修復後無新 crash）；關閉後 disable 完整還原（patch 回 `[]` 預設形、deps 清空、junction 歸零、收據移除），再啟動亦正常。`resolveBrowserRuntime` 實際輸出 `mode: launch` 與絕對 `executablePath`／`outputDir`／`tempDir`，與 glue 假設一致。
 - 仍未驗證：Host 內實際呼叫 browser 工具的端到端對話、MCP 子程序於 Host 環境的啟動證據；授權、updater 整合、離線與搬移後重啟用仍列待辦。
+- 2026-11-05（0.2.2-rc.1）：`browser-enable.mjs` 寫入的標記區塊兩個列改為帶明確 `id`（`portable-browser-use`、`portable-browser-use-playwright-mcp`）。0.2.2 起，沒有 `id` 的兩列在設定頁會出現 `service "browserUse" has been registered at <BrowserUseRegistry>` 並使 `dsh-browser-use` 列沒有啟動；使用者在家用目錄手動補上兩個 `id` 後警告消失（使用者回報）。因為 `Enable-Browser.cmd` 每次整段改寫標記區塊，手動補的 `id` 會被抹掉，所以改在產生區塊的地方補。`browser-enable.test.mjs` 新增兩項斷言檢查區塊含這兩個 `id`，6 項測試通過。**根因只由「加 `id` 後警告消失」推得，沒有讀 Loader 的重複偵測程式碼逐步證實。**已啟用瀏覽器的既有目錄需重新執行 `Enable-Browser.cmd` 才會得到帶 `id` 的區塊。
 
 - 獨立的可選擴充部署與啟用入口，依包位置解析 executablePath，不覆寫使用者既有 profile；預設採隔離 launch，不附加個人瀏覽器。
 - 將元件納入受 updater 管理的 app 範圍、封裝清單與授權；驗證 Electron Host 啟動 MCP 的 Node 模式與環境，而非只測獨立 Node。

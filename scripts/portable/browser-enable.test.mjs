@@ -93,6 +93,10 @@ test('enables additively, is idempotent, updates the block on re-enable, and dis
   const first = readFileSync(patchFile, 'utf8')
   assert.match(first, /# dsh-portable-browser begin/)
   assert.match(first, /dsh-experimental-browser-use-playwright-mcp/)
+  // 0.2.2 registers both rows under ids inferred from their names unless an id is stated, and the Loader then
+  // reports a duplicate browserUse service; each managed row must carry its own explicit id.
+  assert.match(first, /- id: 'portable-browser-use'\n\s+name: '@deepseek-ai\/dsh-browser-use'/)
+  assert.match(first, /- id: 'portable-browser-use-playwright-mcp'\n\s+name: '@deepseek-ai\/dsh-experimental-browser-use-playwright-mcp'/)
   assert.ok(first.includes(x.userLayer))
   enableBrowserExtension(x.root, x.runtime())
   assert.equal(readFileSync(patchFile, 'utf8'), first)

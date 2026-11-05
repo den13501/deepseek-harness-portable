@@ -11,6 +11,10 @@ const endMarker = '# dsh-portable-browser end'
 const receiptName = 'enable.json'
 const entryName = '@deepseek-ai/dsh-experimental-browser-use-playwright-mcp'
 const browserUseName = '@deepseek-ai/dsh-browser-use'
+// Explicit row ids: without them 0.2.2 reports the browserUse service as registered twice and skips the
+// registry row. Ids belong to the managed block, so every Enable rewrites them with the rest of it.
+const browserUseId = 'portable-browser-use'
+const entryId = 'portable-browser-use-playwright-mcp'
 const quote = value => `'${String(value).replaceAll('\'', '\'\'')}'`
 const fail = message => { throw new Error(message) }
 function inside(root, path) {
@@ -144,8 +148,10 @@ function renderBlock(providerConfig) {
   return [
     beginMarker,
     '- insert:',
-    `    - name: ${quote(browserUseName)}`,
-    `    - name: ${quote(entryName)}`,
+    `    - id: ${quote(browserUseId)}`,
+    `      name: ${quote(browserUseName)}`,
+    `    - id: ${quote(entryId)}`,
+    `      name: ${quote(entryName)}`,
     '      config:',
     '        mode: launch',
     '        headless: true',

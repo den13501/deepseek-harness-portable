@@ -126,7 +126,6 @@ export const zhTW = {
   'tokens.total': '{value} tok',
   'loading.label': '正在載入子代理…',
   'load.error': '無法載入子代理',
-  'catalog.migrationRequired': '需要遷移',
   'retry': '重試',
   'mode.external': '外部任務',
   'mode.oneShot': '一次性',
@@ -150,8 +149,14 @@ export const zhTW = {
   'readonly.oneShot.title': '一次性子代理記錄',
   'readonly.title': '此子代理暫時唯讀',
   'readonly.oneShot.body': '一次性任務不支援後續訊息，可在這裡檢視完整執行記錄。',
-  'readonly.body': '父對話目前不在線，重新開啟父對話後即可繼續發送訊息。',
   'open.floatWindow': '在浮窗中開啟',
+  'section.title': '子代理',
+  'section.empty': '尚無子代理',
+  'progress.completed': '{count} 已完成',
+  'progress.active': '{count} 進行中',
+  'progress.inactive': '{count} 未執行',
+  'progress.external': '{count} 外部任務',
+  'load.idle': '尚未載入子代理',
 } satisfies Record<keyof typeof zh, string>
 
 /** Japanese copy, checked against the English keys. */

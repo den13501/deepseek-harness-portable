@@ -170,6 +170,7 @@ export const zhTW = {
   'menu.copyFailed': '無法複製，請檢查內容是否可用後重試',
   'path.opened': '已在其他裝置開啟',
   'path.revealed': '已在其他裝置顯示檔案位置',
+  'menu.openIn': '在應用程式中開啟',
 } satisfies Record<keyof typeof zh, string>
 
 /** Japanese copy, checked against the English keys. */

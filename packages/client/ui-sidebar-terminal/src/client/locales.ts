@@ -81,6 +81,11 @@ export const zhTW = {
   'attachmentEnded': '終端連接已結束，請重新連接。',
   'invalidOutput': '終端畫面傳輸異常，請重新連接。',
   'terminalLimit': '終端數量已達上限，請關閉不用的終端後重試。已結束的終端也計入數量。',
+  'badge.agent': 'Agent',
+  'badge.agentHint': '由 Agent 開啟。你一輸入就由你接管，Agent 之後只能讀取。',
+  'badge.sandbox': '沙箱',
+  'badge.readOnlyHint': '指令在 Agent 的唯讀沙箱裡執行，包括你在這裡輸入的指令。',
+  'badge.workspaceWriteHint': '指令在 Agent 的工作區沙箱裡執行，包括你在這裡輸入的指令。',
 } satisfies Record<keyof typeof zh, string>
 
 /** Japanese copy, checked against the English keys. */

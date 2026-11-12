@@ -228,6 +228,8 @@ export const zhTW = {
   'detailInvalid': '外掛宣告的詳細介紹檔案無效',
   'detailFailed': '無法讀取詳細介紹',
   'footnotes': '註腳',
+  'update': '更新',
+  'updateTitle': '將 {name} 更新到 {version}',
 } satisfies Record<PluginMarketLocaleKey, string>
 
 /** Japanese copy, checked against the English keys. */

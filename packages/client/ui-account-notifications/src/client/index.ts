@@ -7,7 +7,7 @@ import type { AccountUiState } from '@deepseek-ai/dsh-client-ui-settings-account
 import { Config, NOTIFICATIONS_CONFIG_GLOBAL } from '../config.ts'
 import { AccountNotifications, type AccountNotificationsInjected } from './AccountNotifications.tsx'
 import { createNotificationController, type AccountNotice } from './notification-controller.ts'
-import { en, zh, ja, es, fr, de, ru, pt } from './locales.ts'
+import { en, zh, zhTW, ja, es, fr, de, ru, pt } from './locales.ts'
 export type { AccountNotificationsInjected, AccountNotificationsProps } from './AccountNotifications.tsx'
 
 /** Services used for notification lifecycle and presentation. */
@@ -17,7 +17,7 @@ export const inject = ['slots', 'locale', 'remote', 'remote.account', 'accountUi
 export function apply(ctx: Context): void {
   const page = globalThis as Partial<Record<typeof NOTIFICATIONS_CONFIG_GLOBAL, unknown>>
   const config = Config(page[NOTIFICATIONS_CONFIG_GLOBAL] ?? {})
-  ctx.effect(() => ctx.locale.register('account.notifications', { en, zh, ja, es, fr, de, ru, pt }), 'notifications: dictionaries')
+  ctx.effect(() => ctx.locale.register('account.notifications', { en, zh, 'zh-TW': zhTW, ja, es, fr, de, ru, pt }), 'notifications: dictionaries')
   let snapshot: readonly AccountNotice[] = []
   const listeners = new Set<() => void>()
   const controller = createNotificationController({

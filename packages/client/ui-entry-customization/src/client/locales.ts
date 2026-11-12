@@ -27,6 +27,8 @@ export const zhTW = {
   'createPrompt.sidebar': '建立一個帶左側欄入口的 DSH 外掛。',
   'createPrompt.conversation': '建立一個 DSH 對話檢視外掛。',
   'createPrompt.rightbar': '建立一個帶右側欄入口的 DSH 外掛。',
+  'pinTooltip': '固定到左側欄',
+  'pin': '將 {name} 固定到側邊欄',
 } satisfies Record<keyof typeof en, string>
 
 /** Japanese copy, checked against the English keys. */

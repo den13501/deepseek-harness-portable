@@ -92,8 +92,6 @@ export type JobKey = keyof typeof zh
 
 /** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
 export const zhTW = {
-  'count.live.one': '{count} 個後臺任務執行中',
-  'count.live.other': '{count} 個後臺任務執行中',
   'count.idle.one': '{count} 個後臺任務',
   'count.idle.other': '{count} 個後臺任務',
   'list.aria': '後臺任務',

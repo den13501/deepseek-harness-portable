@@ -232,3 +232,32 @@ export const pt = {
   closing: 'O serviço está sendo recarregado. Tente novamente em instantes.',
   transport: 'Não foi possível confirmar o resultado. Atualize e tente novamente.',
 } satisfies Record<RecommendationKey, string>
+
+/** Traditional Chinese (Taiwan) copy, drafted from the Chinese dictionary; keys match it exactly. */
+export const zhTW: Record<keyof typeof zh, string> = {
+  heading: '推薦外掛',
+  official: '官方',
+  detailsFor: '檢視詳情：{title}',
+  'version-error': '外掛與目前 DSH 版本不相容，請更新 DSH 後重試。',
+  'management-error': '無法啟用外掛，請開啟詳情檢查錯誤後重試。',
+  enable: '啟用',
+  dismiss: '暫不需要',
+  working: '正在處理…',
+  scope: '啟用後可在所有對話中使用',
+  enabled: '已啟用',
+  'already-enabled': '已在外掛頁開啟，可檢視詳情瞭解執行狀態',
+  dismissed: '已忽略',
+  replaced: '已替換',
+  'restart-required': '已儲存，重啟 DSH 後生效',
+  failed: '啟用失敗。可重試或在外掛頁檢查。',
+  retry: '重試啟用',
+  unconfirmed: '無法確認外掛是否已啟用，可重試確認。',
+  'lookup-failed': '無法讀取外掛資訊，請重試。',
+  retryLookup: '重試',
+  unavailable: '這個外掛目前無法啟用，請在外掛頁檢查。',
+  unknown: '找不到這條推薦，請重新開啟對話。',
+  'access-denied': '沒有修改此設定的權限。',
+  'not-live-root': '請在原對話中操作這條推薦。',
+  closing: '服務正在過載，請稍後重試。',
+  transport: '無法確認操作結果，請重新整理後重試。',
+}

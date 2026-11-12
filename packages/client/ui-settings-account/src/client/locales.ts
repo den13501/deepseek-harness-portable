@@ -165,7 +165,6 @@ export const zhTW = {
   'quotaTitle': '目前無可用餘額',
   'quotaDescription': '沒有可用額度時，DeepSeek Harness 無法開始新的任務，是否前往儲值？或者可以稍後前往 設定 → 帳號與餘額 進行儲值。',
   'quotaTopUp': '去儲值',
-  'bonusNoticeTitle': '贈金已到賬',
 } satisfies Record<keyof typeof zh, string>
 
 /** Japanese copy, checked against the English keys. */

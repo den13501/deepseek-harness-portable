@@ -867,7 +867,7 @@ export const zhTW = {
   'updateRunning': '正在更新',
   'updateStepChecking': '檢查 {version}',
   'updateStepRemoving': '停止並移除 {version}',
-  'updateStepInstalling': '從 {registry} 安裝 {version}',
+  'updateStepInstalling': '從 {source} 安裝 {version}',
   'updateStepRestoring': '重新安裝 {version}',
   'updateDone': '已更新至 {version}',
   'updateDoneDetail': '新版本已開始執行。',
@@ -895,6 +895,8 @@ export const zhTW = {
   'detailInvalid': '外掛宣告的詳細介紹檔案無效',
   'detailFailed': '無法讀取詳細介紹',
   'detailFootnotes': '註腳',
+  'statusNotRunning': '未執行',
+  'reasonUnexpectedPackage': '外掛來源安裝了與要求不同的套件或版本，已復原這次安裝。請向外掛發布者或外掛索引維護者回報此問題。',
 } satisfies Record<keyof typeof zh, string>
 
 /** Japanese copy, checked against the English keys. */

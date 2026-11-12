@@ -131,7 +131,7 @@ describe('OfficeRow', () => {
     const runtime = await SlotTestRuntime.create()
     onTestFinished(() => runtime.dispose())
     const locale = new LocaleRuntime(runtime.ctx)
-    locale.register('conversation', { en, zh })
+    locale.register('conversation', { en, zh, 'zh-TW': en })
     runtime.ctx.provide('locale', locale)
     runtime.slots.installLocale(locale)
     const fiber = await runtime.mount(officeToolview)

@@ -14,7 +14,7 @@ function bench(apps: readonly string[] | null = ['finder', 'cursor'], cwd: strin
   onTestFinished(() => ctx.fiber.dispose())
   const locale = new LocaleRuntime(ctx)
   ctx.provide('locale', locale)
-  locale.register(NS, { en, zh }); locale.setLocale('en')
+  locale.register(NS, { en, zh, 'zh-TW': en }); locale.setLocale('en')
   const failed = vi.fn(), report = vi.fn()
   const registry = new MenuRegistry(failed)
   onTestFinished(() => { registry.dispose() })

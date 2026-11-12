@@ -80,3 +80,21 @@ export const pt: Record<ActionCardKey, string> = {
   'row.title': 'Cartão de ação', 'row.preparing': 'Preparando um cartão', 'row.running': 'Propondo',
   'row.ok': 'Proposto', 'row.error': 'Não exibido', 'row.stopped': 'Interrompido', 'row.inspect': 'Inspecionar chamada',
 }
+
+/** Traditional Chinese (Taiwan) copy, drafted from the Chinese dictionary; keys match it exactly. */
+export const zhTW: Record<keyof typeof zh, string> = {
+  expandBrief: '展開',
+  collapseBrief: '收起',
+  dismiss: '暫不需要',
+  dismissed: '已忽略',
+  replaced: '已替換',
+  unavailable: '暫時無法執行，請到外掛頁面檢視',
+  transport: '暫時無法確認結果，請重新連線並檢視卡片狀態後再重試',
+  'row.title': '操作卡片',
+  'row.preparing': '正在準備卡片',
+  'row.running': '正在提議',
+  'row.ok': '已提議',
+  'row.error': '未顯示',
+  'row.stopped': '已中斷',
+  'row.inspect': '檢視呼叫',
+}

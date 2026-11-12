@@ -2,6 +2,8 @@
 export const en = { close: 'Close' }
 /** Chinese notification controls. */
 export const zh = { close: '关闭' }
+/** Traditional Chinese (Taiwan) notification controls. */
+export const zhTW = { close: '關閉' }
 /** Japanese notification controls. */
 export const ja = { close: '閉じる' }
 /** Spanish notification controls. */

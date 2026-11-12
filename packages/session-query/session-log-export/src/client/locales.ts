@@ -42,7 +42,6 @@ export type SessionLogDownloadKey = keyof typeof zh
 
 /** Traditional Chinese (Taiwan), checked against the existing dictionary keys. */
 export const zhTW = {
-  'header.more': '更多操作',
   'menu.download': '下載 Session 日誌',
   'menu.feedback': '回饋',
   'dialog.preparingTitle': '正在匯出 Session',
@@ -56,6 +55,7 @@ export const zhTW = {
   'toast.copied': '對話已複製為 Markdown',
   'toast.preparationFailed': '無法讀取對話以進行複製，請重試',
   'toast.clipboardFailed': '無法寫入剪貼簿，請檢查剪貼簿權限後重試',
+  'dialog.session': 'Session：{sessionId}',
 } satisfies Record<keyof typeof zh, string>
 
 /** Japanese copy, checked against the English keys. */

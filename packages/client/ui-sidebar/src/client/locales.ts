@@ -41,6 +41,8 @@ export const zhTW = {
   'panels.more': '更多',
   'navigation.label': '導覽',
   'version.copied': '已複製版本號',
+  'panels.unpinTooltip': '從左側欄取消固定',
+  'panels.unpin': '從側邊欄取消固定 {name}',
 } satisfies Record<keyof typeof zh, string>
 
 /** Japanese copy, checked against the English keys. */

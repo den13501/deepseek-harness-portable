@@ -625,6 +625,18 @@ export const zhTW = {
   'settings.foldedReplies.description': '工作步驟收合後，保留哪些助手回覆',
   'settings.foldedReplies.all': '全部回覆',
   'settings.foldedReplies.final': '僅最終回答',
+  'message.stepProcess.done.context': '已注入上下文',
+  'message.trigger.subagent.completed': '子代理已完成任務',
+  'message.trigger.subagent.aborted': '子代理任務已停止',
+  'message.trigger.subagent.error': '子代理執行失敗',
+  'message.trigger.subagent.maxTokens': '子代理已達 token 上限',
+  'message.trigger.subagent.refusal': '子代理拒絕執行',
+  'message.trigger.subagent.unknown': '子代理異常結束',
+  'chat.loadingOlder': '正在載入',
+  'chat.processingOlder': '正在處理',
+  'chat.retryOlder': '重新載入',
+  'chat.historyStart': '已到對話開頭',
+  'message.continuation.requested': '已要求繼續生成',
 } satisfies Record<keyof typeof zh, string>
 
 /** Japanese copy, checked against the English keys. */

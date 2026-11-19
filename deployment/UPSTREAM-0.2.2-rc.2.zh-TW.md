@@ -7,7 +7,7 @@
 - 環境有三個：**開發主機**（本文件的建置與驗證都在這台，其測試目錄已於 2026-11-12 更新到 rc.2）、**家裡電腦**（0.2.1，未更新）、**公司辦公電腦**（0.2.1-rc.5，未更新）。先前文件把開發主機的測試目錄稱為「家用目錄」，指的就是開發主機，不是家裡電腦。
 - 家裡與公司辦公電腦**直接更新到 rc.2，不經過 rc.1**：Session 格式版本在 0.2.1-alpha.4 到 0.2.2-rc.2 的 9 個 tag 都是 4，更新工具只要求新版比舊版新，不要求逐版升級。這是依原始碼與工具的判斷，**沒有在真實的 0.2.1 資料上驗證 rc.2 能讀取**。
 - rc.5 的 ZIP 已刪除，所以沒有做 rc.5 → rc.2 的隔離演練；公司端的跨版更新沒有事先演練過。
-- 本文件記錄來源合併、來源層級驗證與成品檢查。**尚未推送，沒有 CI 結果。**
+- 本文件記錄來源合併、來源層級驗證與成品檢查。分支已推送，手動 `Portable Windows (manual)` 在 `9589f102a2` 上通過，見「CI 結果」。
 
 ## 保留的政策
 
@@ -112,4 +112,31 @@
 - 離線冷啟動、授權、重啟後設定保存、多輪與取消、Office／PDF 工具、公司環境（LTSC、Strata、Proxy、AD、網路稽核）。
 - 外接 SearXNG／擷取 MCP 的實際運作；更新通道設定頁在離線包內的實際行為。
 - 983 鍵實驗性外掛繁中的人工校對。
-- 推送與 CI。
+- 純 push 或 pull request 的上游 CI（`ci.yml` 等）：未執行，見「CI 結果」。
+
+## CI 結果
+
+- 分支 `portable/sync-0.2.2-rc.2` 已推送到 `origin`，本機與遠端同為 `9589f102a2`。
+- 手動 run `Portable Windows (manual)` #43368786615（2026-11-13，`workflow_dispatch`，`windows-2022`）在 `9589f102a2` 上**成功**，約 10 分鐘。依步驟紀錄：
+  - 安裝鎖定依賴、portable 工具測試與 `scripts/portable/validate.mjs`：通過（約 4 分鐘）。
+  - `scripts/portable/build.ps1`：通過（約 5 分鐘）。日誌顯示 Office 往返轉換、CLI 離線外掛安裝與移除、DOCX／XLSX／PPTX 轉 PDF 通過，7-Zip 建立與測試皆為 `Everything is Ok`。
+  - 成品 `DSH-portable-0.2.2-rc.2-p1-win-x64-9589f102a2d4.zip`（約 415 MB），Actions 保存期限到 2026-11-20 05:07 UTC。
+- 證據等級：這只證明來源驗證與建置打包在託管 runner 上通過。它不能取代上方本機成品（`259ea2dc35`，631 MB）的驗收。CI 包比本機包小的原因，以及 CI 約 10 分鐘、本機約 1 小時 55 分的差距，**都沒有查證**。
+- 上游的 `ci.yml` 只在 `pull_request` 觸發，本分支沒有開 pull request，所以沒有執行過。
+- **免費額度**：GitHub Actions 免費額度接近用完。之後的 run 若因額度不足失敗或排不進佇列，**視為已知環境限制，不當作程式碼回歸**；改以本機 `validate.mjs` 與 `pnpm run build` 作為證據，並在文件註明該次沒有 CI 結果。
+- 4 個固定 SHA 的 Action（`checkout`、`pnpm/action-setup`、`setup-node`、`upload-artifact`）以 Node 20 為目標，目前被強制改用 Node 24 執行，GitHub 已標示棄用。尚未更新。
+
+## 上游 rc.3 到 rc.5 評估（2026-11-19，讀提交、diff 與升級指南，未建置、未測試）
+
+- 上游在 `dsh-v0.2.2-rc.2` 之後發了 rc.3（11/13）、rc.4（11/17）、rc.5（11/18），共 19 個提交、580 個檔案。Session 格式仍為 4，`SESSION_QUERY_SQLITE_SCHEMA_VERSION` 為 8、`STORAGE_SQLITE_SCHEMA_VERSION` 為 1，三者與 rc.2 相同；`vendor/` 沒有變更。
+- 與本衍生版同時修改的檔案有 10 個（`docs/config-catalog*`、`ui-directory-picker-browse`、`ui-settings-web-search`、`ui-sidebar`、`ui-workspace` 的 `index.ts` 或字典、兩個瀏覽器實驗性套件的 `package.json`、`pnpm-lock.yaml` 等）。
+- **決定：暫不跟進，等上游正式版 0.2.2。** 沒有找到會影響離線、隱私或繁中政策的安全修補。內容為（不逐項標註屬於哪個 rc，升級指南的版本資料夾與合併日期未對齊，未釐清）：
+  - DeepSeek 拒答錯誤碼改為 `CONTENT_REFUSED`；中間加入又移除的 `safety_check` 請求欄位，在 rc.5 已不送出（測試檢查不含該欄位）。
+  - 新增實驗性套件 `deepseek-chat-import`（選用 bundle，原始碼沒有 `fetch(` 或寫死網址，未實測）。
+  - `liveshare` 的 tunnel worker 修正（實驗性外掛，不在公司版 bundle）。
+  - Desktop 安裝程式重啟視窗鎖住安裝目錄的修正；我們的免安裝包不走安裝程式，預計用不到。
+  - CI 的 bubblewrap 快取與下載驗證。
+  - **搜尋預設改變**，見下。
+- **跟進時的風險：搜尋預設。** rc.5 的基礎組合不再設定 `searchProvider`。使用 DeepSeek 模型路由（`deepseek-official`、`deepseek-account`）時改走 Messages 搜尋，其他路由與非模型請求仍走 `deepseek-search-api`。上游升級指南說明，Messages 搜尋端點不跟隨模型提供方的基礎地址，指向閘道的部署會把 `DEEPSEEK_API_KEY` 送往官方端點。跟進時必須決定公司版是否在 `@deepseek-ai/dsh-web` 的 `config` 固定 `searchProvider`，並確認不會出現非預期的外連。我們的外接搜尋走 MCP，不受此變更改善。
+- 跟進時需為「網頁搜索提供方」設定頁新增的「自動選擇」補 `zh-TW`。
+- 跟進流程沿用本次：從目前分支建立 `portable/sync-0.2.2-rc.5`、合併、補 `zh-TW`、執行 `validate.mjs` 與 `pnpm run build`。

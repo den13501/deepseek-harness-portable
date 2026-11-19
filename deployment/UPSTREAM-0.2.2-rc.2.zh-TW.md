@@ -143,7 +143,10 @@
 
 - 上游在 `dsh-v0.2.2-rc.2` 之後發了 rc.3（11/13）、rc.4（11/17）、rc.5（11/18），共 19 個提交、580 個檔案。Session 格式仍為 4，`SESSION_QUERY_SQLITE_SCHEMA_VERSION` 為 8、`STORAGE_SQLITE_SCHEMA_VERSION` 為 1，三者與 rc.2 相同；`vendor/` 沒有變更。
 - 與本衍生版同時修改的檔案有 10 個（`docs/config-catalog*`、`ui-directory-picker-browse`、`ui-settings-web-search`、`ui-sidebar`、`ui-workspace` 的 `index.ts` 或字典、兩個瀏覽器實驗性套件的 `package.json`、`pnpm-lock.yaml` 等）。
-- **決定：暫不跟進，等上游正式版 0.2.2。** 沒有找到會影響離線、隱私或繁中政策的安全修補。內容為（不逐項標註屬於哪個 rc，升級指南的版本資料夾與合併日期未對齊，未釐清）：
+- **決定：暫不跟進，也不等上游正式版。** 沒有找到會影響離線、隱私或繁中政策的安全修補。
+- **版本命名依據（2026-11-19 查本機 42 個 tag）**：全部是 `dsh-v*`，從 `0.1.0-rc.7`（2026-08-17）到 `0.2.2-rc.5`（2026-11-18）**沒有任何不帶 `-alpha` 或 `-rc` 的 tag**。多數版本線的最後一個 tag 是 `-rc.N`（0.1.0 為 rc.8、0.1.1 為 rc.2、0.1.2 為 rc.1、0.1.5 為 rc.3、0.1.7 為 rc.2、0.2.0 為 rc.2、0.2.1 為 rc.5）；例外是 0.1.3 與 0.1.6，最後一個 tag 是 `-alpha.2`，沒有轉成 rc。新版本線通常先發 `-alpha.N` 再轉 `-rc.N`，因此不等待正式版，也不能假設每條版本線都會有 rc。沒有查上游的發行腳本或政策，無法判斷這是刻意命名還是尚未發行。
+- **跟進條件**：出現安全修補，或 Session 格式、SQLite schema 版本變動，或 `vendor/` 更新，或需要新版的功能，或上游換到下一條版本線（例如 `0.2.3-alpha.N`）。同步目標選該版本線最後一個 rc；沒有 rc 的版本線選最後一個 alpha 前，先確認內容再決定。不選中途的 alpha 或 rc。
+- rc.3 到 rc.5 的內容為（不逐項標註屬於哪個 rc，升級指南的版本資料夾與合併日期未對齊，未釐清）：
   - DeepSeek 拒答錯誤碼改為 `CONTENT_REFUSED`；中間加入又移除的 `safety_check` 請求欄位，在 rc.5 已不送出（測試檢查不含該欄位）。
   - 新增實驗性套件 `deepseek-chat-import`（選用 bundle，原始碼沒有 `fetch(` 或寫死網址，未實測）。
   - `liveshare` 的 tunnel worker 修正（實驗性外掛，不在公司版 bundle）。

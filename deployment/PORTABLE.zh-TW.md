@@ -14,7 +14,7 @@ pwsh -NoProfile -File scripts/portable/build.ps1
 
 建置腳本僅在 Desktop 環境檔不存在時建立臨時離線設定，完成後移除；若已有設定便拒絕覆寫，請使用乾淨工作樹。只生成未簽章 directory build，不發布更新 feed。依賴與 runtime 在準備機仍需要下載；「離線」描述成品執行政策，不表示冷啟動編譯不需網路。
 
-GitHub Actions 的 `Portable Windows (manual)` 僅手動觸發，不自動同步官方、不自動發布 Release。固定 Actions SHA 與受限權限；成功產出的成品仍須人工驗收。執行狀態以 Actions 的當次結論與日誌為準；來源驗證通過不等於完整編譯／打包成功，也不能用本機成品替代 CI 成功證據。託管 runner 完整編譯仍須驗證下載可用性、磁碟峰值與元件工具鏈。
+本衍生版目前沒有雲端建置：GitHub Actions 的 `Portable Windows (manual)` 已於 2026-11-19 移除，成品以本機建置為準。日後若要雲端建置，改用自建 Windows runner 並重新規劃；先決定工具鏈（Node 24、pnpm、Visual Studio C++ 工具、7-Zip、`pwsh`、Git long paths）、磁碟峰值、網路隔離與授權。歷史執行紀錄見 `UPSTREAM-0.2.2-rc.2.zh-TW.md` 的「CI 結果」。
 
 ## 發行與使用
 
@@ -24,7 +24,7 @@ GitHub Actions 的 `Portable Windows (manual)` 僅手動觸發，不自動同步
 
 ## 保留設定的免安裝更新
 
-發行包包含唯讀預檢、更新與回復入口；使用者應從乾淨新包更新既有固定目錄，而非將資料分散到每個版本目錄。完整使用方式、外部 Skills／MCP 路徑限制、快照隱私與中斷回復見 `scripts/portable/README.zh-TW.md`。更新工具測試納入 portable 來源驗證與手動 Windows workflow，不能以檔案複製成功代替資料相容性驗收。
+發行包包含唯讀預檢、更新與回復入口；使用者應從乾淨新包更新既有固定目錄，而非將資料分散到每個版本目錄。完整使用方式、外部 Skills／MCP 路徑限制、快照隱私與中斷回復見 `scripts/portable/README.zh-TW.md`。更新工具測試納入 portable 來源驗證（`scripts/portable/validate.mjs`），不能以檔案複製成功代替資料相容性驗收。
 
 ## 上游與公開前審查
 

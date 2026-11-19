@@ -116,6 +116,8 @@
 
 ## CI 結果
 
+> 2026-11-19 更新：`Portable Windows (manual)` workflow 已移除，成品以本機建置為準，CI 成品不保留（11/20 過期）。以下是移除前的歷史紀錄，之後沒有新的 CI 結果。
+
 - 分支 `portable/sync-0.2.2-rc.2` 已推送到 `origin`，本機與遠端同為 `9589f102a2`。
 - 手動 run `Portable Windows (manual)` #43368786615（2026-11-13，`workflow_dispatch`，`windows-2022`）在 `9589f102a2` 上**成功**，約 10 分鐘。依步驟紀錄：
   - 安裝鎖定依賴、portable 工具測試與 `scripts/portable/validate.mjs`：通過（約 4 分鐘）。
@@ -123,8 +125,8 @@
   - 成品 `DSH-portable-0.2.2-rc.2-p1-win-x64-9589f102a2d4.zip`（約 415 MB），Actions 保存期限到 2026-11-20 05:07 UTC。
 - 證據等級：這只證明來源驗證與建置打包在託管 runner 上通過。它不能取代上方本機成品（`259ea2dc35`，631 MB）的驗收。CI 包比本機包小的原因，以及 CI 約 10 分鐘、本機約 1 小時 55 分的差距，**都沒有查證**。
 - 上游的 `ci.yml` 只在 `pull_request` 觸發，本分支沒有開 pull request，所以沒有執行過。
-- **免費額度**：GitHub Actions 免費額度接近用完。之後的 run 若因額度不足失敗或排不進佇列，**視為已知環境限制，不當作程式碼回歸**；改以本機 `validate.mjs` 與 `pnpm run build` 作為證據，並在文件註明該次沒有 CI 結果。
-- 4 個固定 SHA 的 Action（`checkout`、`pnpm/action-setup`、`setup-node`、`upload-artifact`）以 Node 20 為目標，目前被強制改用 Node 24 執行，GitHub 已標示棄用。尚未更新。
+- **移除原因**：GitHub Actions 免費額度接近用完，且成品一向以本機建置為準。日後若重新啟用雲端建置，額度不足造成的失敗視為已知環境限制，不當作程式碼回歸；證據改用本機 `validate.mjs` 與 `pnpm run build`。
+- 已移除的 workflow 固定的 4 個 Action（`checkout`、`pnpm/action-setup`、`setup-node`、`upload-artifact`）以 Node 20 為目標，當時被強制改用 Node 24 執行，GitHub 已標示棄用。重建 workflow 時要用新版本。
 
 ## 上游 rc.3 到 rc.5 評估（2026-11-19，讀提交、diff 與升級指南，未建置、未測試）
 
